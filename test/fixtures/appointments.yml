@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paid: 
+  fee: 9.99
+  start_time: 2014-10-17 23:40:41
+  end_time: 2014-10-17 23:40:41
+  user_id: 
+
+two:
+  paid: 
+  fee: 9.99
+  start_time: 2014-10-17 23:40:41
+  end_time: 2014-10-17 23:40:41
+  user_id: 
