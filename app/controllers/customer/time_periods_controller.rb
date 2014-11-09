@@ -69,6 +69,6 @@ class Customer::TimePeriodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_period_params
-      params[:time_period]
+      params.require(:time_period).permit(:name, :start_time, :end_time)
     end
 end

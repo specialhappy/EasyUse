@@ -69,6 +69,6 @@ class Customer::BLevelTagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def b_level_tag_params
-      params[:b_level_tag]
+      params.require(:b_level_tag).permit(:name, :description)
     end
 end

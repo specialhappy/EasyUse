@@ -69,6 +69,6 @@ class Customer::AppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appointment_params
-      params[:appointment]
+      params.require(:appointment).permit(:start_time, :end_time, :price_paid, :fee, :submit_time, :status)
     end
 end
