@@ -8,6 +8,9 @@ class CreateInstruments < ActiveRecord::Migration
       t.text :description
       t.string :status
 
+      t.belongs_to :user
+      t.belongs_to :institution
+      
       t.timestamps
     end
   end

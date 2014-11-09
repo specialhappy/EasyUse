@@ -8,6 +8,9 @@ class CreateAppointments < ActiveRecord::Migration
       t.datetime :submit_time
       t.string :status
 
+      t.belongs_to :user
+      t.belongs_to :group
+      t.belongs_to :instrument
       t.timestamps
     end
   end

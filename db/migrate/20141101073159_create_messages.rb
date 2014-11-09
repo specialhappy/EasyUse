@@ -5,6 +5,7 @@ class CreateMessages < ActiveRecord::Migration
       t.text :content
       t.datetime :send_time
 
+      t.belongs_to :user
       t.timestamps
     end
   end

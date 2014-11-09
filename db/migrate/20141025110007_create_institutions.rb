@@ -5,6 +5,7 @@ class CreateInstitutions < ActiveRecord::Migration
       t.text :description
       t.string :url
 
+      t.belongs_to :regionCenter
       t.timestamps
     end
   end

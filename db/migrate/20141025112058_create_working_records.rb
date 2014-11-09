@@ -5,6 +5,7 @@ class CreateWorkingRecords < ActiveRecord::Migration
       t.datetime :end_time
       t.text :content
 
+      t.belongs_to :operation_log
       t.timestamps
     end
   end
