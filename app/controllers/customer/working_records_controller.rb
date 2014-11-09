@@ -69,6 +69,6 @@ class Customer::WorkingRecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def working_record_params
-      params[:working_record]
+      params.require(:working_record).permit(:start_time, :end_time, :content)
     end
 end

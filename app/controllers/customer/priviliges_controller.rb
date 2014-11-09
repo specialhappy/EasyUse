@@ -69,6 +69,6 @@ class Customer::PriviligesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def privilige_params
-      params[:privilige]
+     params.require(:privilige).permit(:name, :description)
     end
 end

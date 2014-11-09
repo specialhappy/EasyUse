@@ -69,6 +69,6 @@ class Customer::RegionCentersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def region_center_params
-      params[:region_center]
+      params.require(:region_center).permit(:name, :description, :url)
     end
 end

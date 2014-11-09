@@ -1,1 +1,1 @@
-json.extract! @privilige, :id, :created_at, :updated_at
+json.extract! @privilige, :id, :name, :description, :created_at, :updated_at
