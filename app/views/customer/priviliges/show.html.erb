@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @privilige.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @privilige.description %>
+</p>
+
+<%= link_to 'Edit', edit_privilige_path(@privilige) %> |
+<%= link_to 'Back', priviliges_path %>

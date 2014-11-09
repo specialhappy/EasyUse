@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @operation_log.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @operation_log.end_time %>
+</p>
+
+<%= link_to 'Edit', edit_operation_log_path(@operation_log) %> |
+<%= link_to 'Back', operation_logs_path %>

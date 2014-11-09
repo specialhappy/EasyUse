@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @instrument.name %>
+</p>
+
+<p>
+  <strong>Model:</strong>
+  <%= @instrument.model %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @instrument.price %>
+</p>
+
+<p>
+  <strong>Img url:</strong>
+  <%= @instrument.img_url %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @instrument.description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @instrument.status %>
+</p>
+
+<%= link_to 'Edit', edit_instrument_path(@instrument) %> |
+<%= link_to 'Back', instruments_path %>

@@ -1,0 +1,27 @@
+<h1>Listing operation_logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @operation_logs.each do |operation_log| %>
+      <tr>
+        <td><%= operation_log.start_time %></td>
+        <td><%= operation_log.end_time %></td>
+        <td><%= link_to 'Show', operation_log %></td>
+        <td><%= link_to 'Edit', edit_operation_log_path(operation_log) %></td>
+        <td><%= link_to 'Destroy', operation_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Operation log', new_operation_log_path %>

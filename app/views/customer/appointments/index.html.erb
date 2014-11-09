@@ -1,0 +1,35 @@
+<h1>Listing appointments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Price paid</th>
+      <th>Fee</th>
+      <th>Submit time</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.start_time %></td>
+        <td><%= appointment.end_time %></td>
+        <td><%= appointment.price_paid %></td>
+        <td><%= appointment.fee %></td>
+        <td><%= appointment.submit_time %></td>
+        <td><%= appointment.status %></td>
+        <td><%= link_to 'Show', appointment %></td>
+        <td><%= link_to 'Edit', edit_appointment_path(appointment) %></td>
+        <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Appointment', new_appointment_path %>
