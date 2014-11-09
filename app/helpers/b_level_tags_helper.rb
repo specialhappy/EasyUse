@@ -1,0 +1,2 @@
+module BLevelTagsHelper
+end

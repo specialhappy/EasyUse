@@ -1,3 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :appointments, as: :order
+  belongs_to :institution
+  has_many :instruments
+  has_many :appointments
+  has_and_belongs_to_many :groups
 end

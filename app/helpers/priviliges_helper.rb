@@ -1,0 +1,2 @@
+module PriviligesHelper
+end

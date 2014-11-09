@@ -18,7 +18,7 @@ class InstrumentsControllerTest < ActionController::TestCase
 
   test "should create instrument" do
     assert_difference('Instrument.count') do
-      post :create, instrument: { availibility: @instrument.availibility, description: @instrument.description, img_url: @instrument.img_url, model: @instrument.model, name: @instrument.name, price: @instrument.price, status: @instrument.status }
+      post :create, instrument: {  }
     end
 
     assert_redirected_to instrument_path(assigns(:instrument))
@@ -35,7 +35,7 @@ class InstrumentsControllerTest < ActionController::TestCase
   end
 
   test "should update instrument" do
-    patch :update, id: @instrument, instrument: { availibility: @instrument.availibility, description: @instrument.description, img_url: @instrument.img_url, model: @instrument.model, name: @instrument.name, price: @instrument.price, status: @instrument.status }
+    patch :update, id: @instrument, instrument: {  }
     assert_redirected_to instrument_path(assigns(:instrument))
   end
 
