@@ -3,6 +3,9 @@
 <table>
   <thead>
     <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Content</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -10,6 +13,9 @@
   <tbody>
     <% @working_records.each do |working_record| %>
       <tr>
+        <td><%= working_record.start_time %></td>
+        <td><%= working_record.end_time %></td>
+        <td><%= working_record.content %></td>
         <td><%= link_to 'Show', working_record %></td>
         <td><%= link_to 'Edit', edit_working_record_path(working_record) %></td>
         <td><%= link_to 'Destroy', working_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>

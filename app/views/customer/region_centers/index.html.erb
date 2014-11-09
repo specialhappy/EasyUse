@@ -3,6 +3,9 @@
 <table>
   <thead>
     <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Url</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -10,6 +13,9 @@
   <tbody>
     <% @region_centers.each do |region_center| %>
       <tr>
+        <td><%= region_center.name %></td>
+        <td><%= region_center.description %></td>
+        <td><%= region_center.url %></td>
         <td><%= link_to 'Show', region_center %></td>
         <td><%= link_to 'Edit', edit_region_center_path(region_center) %></td>
         <td><%= link_to 'Destroy', region_center, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -69,6 +69,6 @@ class Customer::OperationLogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def operation_log_params
-      params[:operation_log]
+            params.require(:operation_log).permit(:start_time, :end_time)
     end
 end

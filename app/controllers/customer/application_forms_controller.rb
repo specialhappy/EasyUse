@@ -69,6 +69,6 @@ class Customer::ApplicationFormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_form_params
-      params[:application_form]
+     params.require(:application_form).permit(:experiment_description)
     end
 end

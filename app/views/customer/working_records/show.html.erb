@@ -1,4 +1,19 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>Start time:</strong>
+  <%= @working_record.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @working_record.end_time %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @working_record.content %>
+</p>
+
 <%= link_to 'Edit', edit_working_record_path(@working_record) %> |
 <%= link_to 'Back', working_records_path %>
