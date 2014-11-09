@@ -26,17 +26,7 @@ Rails.application.routes.draw do
 
     resources :application_forms
 
-    resources :appointments do
-      collection do
-        get 'appointment_manage'
-        get 'list_manage'
-        post 'create_manage'
-        post 'destroy_manage'
-      end
-      member do
-        post 'update_manage'
-      end
-    end
+    resources :appointments
 
     resources :instruments
 
