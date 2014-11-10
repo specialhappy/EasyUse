@@ -1,64 +1,66 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  # GET /users
-  # GET /users.json
+  layout 'adminlayout'
+  protect_from_forgery :only => :index
+  # GET /admin/users
+  # GET /admin/users.json
   def index
-    @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  def show
+  #GET /admin/users/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    users=User.order("id").limit(limit).offset(start)
+    count=User.count :all
+   render :text =>get_json(count,users.to_json)
   end
-
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users
+  
+    # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        @user = User.new(:name => params[:name].to_s,:card_number => params[:card_number].to_s,:password => params[:password].to_s,:sex => params[:sex].to_s,:id_number => params[:id_number].to_s,:phone => params[:phone].to_s,:picture => params[:picture].to_s,:email => params[:email],:address => params[:address],:status => params[:status],:institution_id => params[:institution_id])
+    info = @user.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/users/1/modify
+  def modify
+    begin
+ user = User.find(params[:id])
+      user.name = params[:name].to_s
+      user.card_number = params[:card_number].to_s
+      user.password = params[:password].to_s
+      user.sex = params[:sex].to_s
+      user.id_number = params[:id_number].to_s
+      user.phone = params[:phone].to_s
+      user.picture = params[:picture].to_s
+      user.email = params[:email].to_s
+      user.address = params[:address].to_s
+      user.status = params[:status].to_s
+      user.institution_id = params[:institution_id].to_s
+        info = user.save ? 'success' : '更新失败'
+      rescue ActiveRecord::RecordNotFound
+        logger.error '更新不存在的数据'
+        info = '不存在的数据'
+      rescue Exception => e
+        logger.error e.to_s
+        info = "更新异常"
       end
-    end
+      render :text => get_result(info)
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+# POST /admin/users/delete
+ def delete
+    begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      User.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
     end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :text => get_result(info)
   end
 
   private

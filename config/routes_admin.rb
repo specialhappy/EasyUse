@@ -4,9 +4,25 @@ Rails.application.routes.draw do
 
     get 'manage/index'
 
-    resources :region_centers
+    resources :region_centers do
+      collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
-    resources :institutions
+    resources :institutions do
+      collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
     resources :time_periods
 
@@ -14,13 +30,29 @@ Rails.application.routes.draw do
 
     resources :b_level_tags
 
-    resources :groups
+    resources :groups do
+      collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
     resources :priviliges
 
     resources :roles
 
-    resources :users
+    resources :users do
+      collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
     resources :working_records
 
@@ -29,18 +61,18 @@ Rails.application.routes.draw do
     resources :application_forms
 
     resources :appointments do
-            collection do
-      get 'list'
+      collection do
+        get 'list'
         post 'delete'
       end
       member do
         post 'modify'
       end
     end
-    
- resources :instruments do
+
+    resources :instruments do
       collection do
-      get 'list'
+        get 'list'
         post 'delete'
       end
       member do

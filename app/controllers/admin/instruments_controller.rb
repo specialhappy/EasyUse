@@ -60,28 +60,6 @@ class Admin::InstrumentsController < ApplicationController
     render :text => get_result(info)
   end
   
-  # GET /instruments/1
-  # GET /instruments/1.json
-  def show
-  end
-
-  # GET /instruments/new
-  def new
-  end
-
-  # GET /instruments/1/edit
-  def edit
-  end
-    
-  # PATCH/PUT /instruments/1
-  # PATCH/PUT /instruments/1.json
- def update  
-    end
-
-  # DELETE /instruments/1
-  # DELETE /instruments/1.json
-  def destroy
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
