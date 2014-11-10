@@ -1,6 +1,6 @@
 class Customer::ALevelTagsController < ApplicationController
   before_action :set_a_level_tag, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /a_level_tags
   # GET /a_level_tags.json
   def index

@@ -9,22 +9,26 @@ Ext.onReady(function() {
 			name : 'id',
 			type : 'int',
 		}, {
-			name : 'name',
+			name : 'start_time',
+			type : 'datetime'
 		}, {
-			name : 'model',
+			name : 'end_time',
+			type : 'datetime'
 		}, {
-			name : 'price',
+			name : 'price_paid',
+		}, {
+			name : 'fee',
 			type : 'decimal'
 		}, {
-			name : 'img_url',
+			name : 'submit_time',
 		}, {
-			name : 'status',
+			name : 'status'
 		}, {
-			name : 'description',
+			name : 'instrument_id',
+		}, {
+			name : 'group_id',
 		}, {
 			name : 'user_id',
-		}, {
-			name : 'institution_id',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -33,7 +37,7 @@ Ext.onReady(function() {
 		autoLoad : true,
 		proxy : {
 			type : 'ajax',
-			url : '/admin/instruments/list',
+			url : '/admin/appointments/list',
 			reader : {
 				type : 'json',
 				root : 'root',
@@ -63,38 +67,42 @@ Ext.onReady(function() {
 	});
 
     var sm = new Ext.selection.CheckboxModel(); 
-    var columns = [  
-        Ext.create('Ext.grid.RowNumberer'),
-        {
+    var columns = [
+    	Ext.create('Ext.grid.RowNumberer'),
+    	{
 			header : 'id',
 			dataIndex : 'id',
 			hidden:true
 		}, {
-			header : '仪器名称',
-			dataIndex : 'name'
-		}, {
-			header : '型号',
-			dataIndex : 'model'
-		}, {
-			header : '仪器价格',
-			dataIndex : 'price'
-		}, {
-			header : '图片',
-			dataIndex : 'img_url',
-			hidden : true
-		}, {
-			header : '状态',
-			dataIndex : 'status'
-		}, {
-			header : '仪器描述',
-			dataIndex : 'description',
-			hidden : true
-		}, {
-			header : '管理人',
+			header : '预约人',
 			dataIndex : 'user_id'
 		}, {
-			header : '单位名称',
-			dataIndex : 'institution_id'
+			header : '预约仪器',
+			dataIndex : 'instrument_id'
+		}, {
+			header : '预约开始时间',
+			dataIndex : 'start_time',
+			renderer: Ext.util.Format.dateRenderer('Y-m-d')
+		}, {
+			header : '预约结束时间',
+			dataIndex : 'end_time',
+			renderer: Ext.util.Format.dateRenderer('Y-m-d')
+		}, {
+			header : '费用',
+			dataIndex : 'fee'
+		}, {
+			header : '使用群组',
+			dataIndex : 'group_id'
+		}, {
+			header : '支付状态',
+			dataIndex : 'price_paid'
+		}, {
+			header : '预约提交时间',
+			dataIndex : 'submit_time',
+			renderer: Ext.util.Format.dateRenderer('Y-m-d')
+		}, {
+			header : '审核状态',
+			dataIndex : 'status'
 		}];
 		
 	var listView = Ext.create('Ext.grid.Panel', {
@@ -117,6 +125,8 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
+
+    
 	
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
@@ -185,48 +195,34 @@ Ext.onReady(function() {
 			allowBlank : true
 		},
 		items : [{
-    		bodyStyle:'background:#dfe9f5',
-    		width:145,
-            autoHeight:true,
-            bodyPadding: '5px',
-            html:'<img src="../images/photo.png'+'" width="130" height="160">'
-    	},{
-            xtype: 'filefield',
-            width:200,
-            emptyText: '请选择上传图片',
-            fieldLabel: '请上传图片',
-            name: 'photoImg',
-            buttonText: '浏览  ',
-            labelAlign:'left'
-        },  {
-        	fieldLabel: '照片路径',
-        	name: 'img_url',
-        	hidden : true
-        },{
-			fieldLabel : '仪器名称',
-			name : 'name',
-			msgTarget : 'side',
+			fieldLabel : '预约开始时间',
+			xtype : 'datefield',
+			name : 'start_time',
 		}, {
-			fieldLabel : '型号',
-			name : 'model',
+			fieldLabel : '预约结束时间',
+			xtype : 'datefield',
+			name : 'end_time',
 		}, {
-			fieldLabel : '仪器价格',
-			name : 'price',
-		}, {
-			fieldLabel : '状态',
+			fieldLabel : '审核状态',
 			name : 'status',
 		}, {
-			xtype : 'combo',
-			fieldLabel : '管理人',
+			fieldLabel : '支付状态',
+			name : 'price_paid',
+		}, {
+			fieldLabel : '费用',
+			name : 'fee',
+		}, {
+			fieldLabel : '预约提交时间',
+			name : 'submit_time',
+		}, {
+			fieldLabel : '预约人',
 			name : 'user_id',
 		}, {
-			xtype : 'combo',
-			fieldLabel : '单位名称',
-			name : 'institution_id',
+			fieldLabel : '预约仪器',
+			name : 'instrument_id',
 		}, {
-			fieldLabel : '仪器描述',
-			name : 'description',
-			xtype : 'textarea',
+			fieldLabel : '预约群组',
+			name : 'group_id',
 		}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/
@@ -280,7 +276,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/instruments',
+					url : '/admin/appointments',
 					method : 'POST',
 					success : function(result,response) {
 						if (response.result.info == 'success') {
@@ -299,7 +295,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/instruments/'+id+'/modify',
+					url : '/admin/appointments/'+id+'/modify',
 					method : 'POST',										
 					success: function(result,response) {
 						if (response.result.info == 'success') {
@@ -334,7 +330,7 @@ Ext.onReady(function() {
     		msg:'正在删除信息，请稍等...'
     	});
     	Ext.Ajax.request({
-    		url:'/admin/instruments/delete',
+    		url:'/admin/appointments/delete',
     		params:{id:keys},
     		method:'POST',
     		success:function(response,options){

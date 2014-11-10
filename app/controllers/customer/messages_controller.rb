@@ -1,6 +1,6 @@
 class Customer:: MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /messages
   # GET /messages.json
   def index

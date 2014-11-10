@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EasyUse</title>
+  <%= stylesheet_link_tag "css/bootstrap.min.css" %>
+  <%= stylesheet_link_tag "css/style.css" %>
+
+  <%= javascript_include_tag "js/bootstrap.min.js" %>
+  <%= javascript_include_tag "js/jquery-2.1.1.min.js" %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

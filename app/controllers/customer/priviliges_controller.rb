@@ -1,6 +1,6 @@
 class Customer::PriviligesController < ApplicationController
   before_action :set_privilige, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /priviliges
   # GET /priviliges.json
   def index

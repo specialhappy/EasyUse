@@ -1,6 +1,6 @@
 class Customer::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /groups
   # GET /groups.json
   def index
