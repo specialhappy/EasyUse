@@ -9,6 +9,11 @@ class WelcomeController < ApplicationController
   def login
 
   end
+  
+  def logout
+    reset_session
+    redirect_to welcome_index_url
+  end
 
   def validates
     login=params[:login]
