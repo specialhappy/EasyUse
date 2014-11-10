@@ -62,22 +62,10 @@ Ext.onReady(function() {
 		}]
 	});
 
-   
-	var listView = Ext.create('Ext.grid.Panel', {
-		//width:'45%',
-		//height:'100%',
-		collapsible : true,
-		title : '仪器列表',
-		renderTo : Ext.getBody(),
-		store : store,
-		multiSelect : true,
-		viewConfig : {
-			emptyText : 'No images to display'
-		},
-		tbar : tb,
-		columns : [
-    	Ext.create('Ext.grid.RowNumberer'),
-    	{
+    var sm = new Ext.selection.CheckboxModel(); 
+    var columns = [  
+        Ext.create('Ext.grid.RowNumberer'),
+        {
 			header : 'id',
 			dataIndex : 'id',
 			hidden:true
@@ -107,7 +95,22 @@ Ext.onReady(function() {
 		}, {
 			header : '单位名称',
 			dataIndex : 'institution_id'
-		}],
+		}];
+		
+	var listView = Ext.create('Ext.grid.Panel', {
+		//width:'45%',
+		//height:'100%',
+		collapsible : true,
+		title : '列表',
+		renderTo : Ext.getBody(),
+		store : store,
+		multiSelect : true,
+		viewConfig : {
+			emptyText : '没有记录'
+		},
+		tbar : tb,
+		selModel:sm,
+		columns : columns,
 		bbar : new Ext.PagingToolbar({
 							pageSize : 25,
 							store : store,
@@ -277,7 +280,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/instruments/create_manage',
+					url : '/admin/instruments',
 					method : 'POST',
 					success : function(result,response) {
 						if (response.result.info == 'success') {
@@ -296,7 +299,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/instruments/'+id+'/update_manage/',
+					url : '/admin/instruments/'+id+'/modify',
 					method : 'POST',										
 					success: function(result,response) {
 						if (response.result.info == 'success') {
@@ -330,7 +333,7 @@ Ext.onReady(function() {
     		msg:'正在删除信息，请稍等...'
     	});
     	Ext.Ajax.request({
-    		url:'/instruments/destroy_manage',
+    		url:'/admin/instruments/delete',
     		params:{id:keys},
     		method:'POST',
     		success:function(response,options){

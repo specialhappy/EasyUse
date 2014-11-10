@@ -1,6 +1,7 @@
 class Admin::InstrumentsController < ApplicationController
   before_action :set_instrument, only: [:show, :edit, :update, :destroy]
   layout 'adminlayout'
+  protect_from_forgery :only => :index
   # GET /admin/instruments
   # GET /admin/instruments.json
   def index
@@ -22,7 +23,6 @@ class Admin::InstrumentsController < ApplicationController
 
   # GET /instruments/new
   def new
-    @instrument = Instrument.new
   end
 
   # GET /instruments/1/edit
@@ -32,32 +32,49 @@ class Admin::InstrumentsController < ApplicationController
   # POST /instruments
   # POST /instruments.json
   def create
-    @instrument = Instrument.new(instrument_params)
-
-    respond_to do |format|
-      if @instrument.save
-        format.html { redirect_to @instrument, notice: 'Instrument was successfully created.' }
-        format.json { render :show, status: :created, location: @instrument }
-      else
-        format.html { render :new }
-        format.json { render json: @instrument.errors, status: :unprocessable_entity }
+        @instrument = Instrument.new(:name => params[:name].to_s,:model => params[:model].to_s,:price => params[:price],:img_url => params[:img_url].to_s,:status => params[:status].to_s,:description => params[:description].to_s)
+    info = @instrument.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/instruments/1/modify
+  def modify
+    begin
+        instrument = Instrument.find(params[:id])
+        instrument.name = params[:name].to_s
+        instrument.model = params[:model].to_s
+        instrument.price = params[:price]
+        instrument.img_url = params[:img_url].to_s
+        instrument.status = params[:status].to_s
+        instrument.description = params[:description].to_s
+        info = instrument.save ? 'success' : '更新失败'
+      rescue ActiveRecord::RecordNotFound
+        logger.error '更新不存在的数据'
+        info = '不存在的数据'
+      rescue Exception => e
+        logger.error e.to_s
+        info = "更新异常"
       end
-    end
+      render :text => get_result(info)
   end
 
+# POST /admin/instruments/delete
+    def delete
+          begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      Instrument.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
+    end
+    render :text => get_result(info)     
+    end
+    
   # PATCH/PUT /instruments/1
   # PATCH/PUT /instruments/1.json
-  def update
-    respond_to do |format|
-      if @instrument.update(instrument_params)
-        format.html { redirect_to @instrument, notice: 'Instrument was successfully updated.' }
-        format.json { render :show, status: :ok, location: @instrument }
-      else
-        format.html { render :edit }
-        format.json { render json: @instrument.errors, status: :unprocessable_entity }
-      end
+ def update  
     end
-  end
 
   # DELETE /instruments/1
   # DELETE /instruments/1.json

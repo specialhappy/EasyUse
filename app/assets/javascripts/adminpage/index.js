@@ -188,5 +188,5 @@ Ext.require(['*']);
     
     function loadPage(url,text) {
         Ext.getDom('iframeContent').src=url;
-       // Ext.getCmp('mainContent').setTitle(text);
+        Ext.getCmp('mainContent').setTitle(text);
     }
