@@ -1,64 +1,58 @@
 class Admin::RegionCentersController < ApplicationController
   before_action :set_region_center, only: [:show, :edit, :update, :destroy]
-
-  # GET /region_centers
-  # GET /region_centers.json
+  layout 'adminlayout'
+  protect_from_forgery :only => :index
+  # GET /admin/region_centers
+  # GET /admin/region_centers.json
   def index
-    @region_centers = RegionCenter.all
   end
 
-  # GET /region_centers/1
-  # GET /region_centers/1.json
-  def show
+  #GET /admin/region_centers/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    region_centers=RegionCenter.order("id").limit(limit).offset(start)
+    count=RegionCenter.count :all
+   render :text =>get_json(count,region_centers.to_json)
   end
-
-  # GET /region_centers/new
-  def new
-    @region_center = RegionCenter.new
-  end
-
-  # GET /region_centers/1/edit
-  def edit
-  end
-
-  # POST /region_centers
+  
+    # POST /region_centers
   # POST /region_centers.json
   def create
-    @region_center = RegionCenter.new(region_center_params)
-
-    respond_to do |format|
-      if @region_center.save
-        format.html { redirect_to @region_center, notice: 'Region center was successfully created.' }
-        format.json { render :show, status: :created, location: @region_center }
-      else
-        format.html { render :new }
-        format.json { render json: @region_center.errors, status: :unprocessable_entity }
+        @region_center = RegionCenter.new(:name => params[:name].to_s,:url => params[:url].to_s,:description => params[:description].to_s)
+    info = @region_center.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/region_centers/1/modify
+  def modify
+    begin
+ region_center = RegionCenter.find(params[:id])
+      region_center.name = params[:name].to_s
+      region_center.description = params[:description].to_s
+      region_center.url = params[:url].to_s
+        info = region_center.save ? 'success' : '更新失败'
+      rescue ActiveRecord::RecordNotFound
+        logger.error '更新不存在的数据'
+        info = '不存在的数据'
+      rescue Exception => e
+        logger.error e.to_s
+        info = "更新异常"
       end
-    end
+      render :text => get_result(info)
   end
 
-  # PATCH/PUT /region_centers/1
-  # PATCH/PUT /region_centers/1.json
-  def update
-    respond_to do |format|
-      if @region_center.update(region_center_params)
-        format.html { redirect_to @region_center, notice: 'Region center was successfully updated.' }
-        format.json { render :show, status: :ok, location: @region_center }
-      else
-        format.html { render :edit }
-        format.json { render json: @region_center.errors, status: :unprocessable_entity }
-      end
+# POST /admin/region_centers/delete
+ def delete
+    begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      RegionCenter.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
     end
-  end
-
-  # DELETE /region_centers/1
-  # DELETE /region_centers/1.json
-  def destroy
-    @region_center.destroy
-    respond_to do |format|
-      format.html { redirect_to region_centers_url, notice: 'Region center was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :text => get_result(info)
   end
 
   private

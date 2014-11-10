@@ -1,64 +1,59 @@
 class Admin::InstitutionsController < ApplicationController
   before_action :set_institution, only: [:show, :edit, :update, :destroy]
-
-  # GET /institutions
-  # GET /institutions.json
+  layout 'adminlayout'
+  protect_from_forgery :only => :index
+  # GET /admin/institutions
+  # GET /admin/institutions.json
   def index
-    @institutions = Institution.all
   end
 
-  # GET /institutions/1
-  # GET /institutions/1.json
-  def show
+  #GET /admin/institutions/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    institutions=Institution.order("id").limit(limit).offset(start)
+    count=Institution.count :all
+   render :text =>get_json(count,institutions.to_json)
   end
-
-  # GET /institutions/new
-  def new
-    @institution = Institution.new
-  end
-
-  # GET /institutions/1/edit
-  def edit
-  end
-
-  # POST /institutions
+  
+    # POST /institutions
   # POST /institutions.json
   def create
-    @institution = Institution.new(institution_params)
-
-    respond_to do |format|
-      if @institution.save
-        format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
-        format.json { render :show, status: :created, location: @institution }
-      else
-        format.html { render :new }
-        format.json { render json: @institution.errors, status: :unprocessable_entity }
+        @institution = Institution.new(:name => params[:name].to_s,:url => params[:url].to_s,:description => params[:description].to_s,:region_center_id => params[:region_center_id].to_s)
+    info = @institution.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/institutions/1/modify
+  def modify
+    begin
+ institution = Institution.find(params[:id])
+      institution.name = params[:name].to_s
+      institution.description = params[:description].to_s
+      institution.url = params[:url].to_s
+      institution.region_center_id = params[:region_center_id].to_s
+        info = institution.save ? 'success' : '更新失败'
+      rescue ActiveRecord::RecordNotFound
+        logger.error '更新不存在的数据'
+        info = '不存在的数据'
+      rescue Exception => e
+        logger.error e.to_s
+        info = "更新异常"
       end
-    end
+      render :text => get_result(info)
   end
 
-  # PATCH/PUT /institutions/1
-  # PATCH/PUT /institutions/1.json
-  def update
-    respond_to do |format|
-      if @institution.update(institution_params)
-        format.html { redirect_to @institution, notice: 'Institution was successfully updated.' }
-        format.json { render :show, status: :ok, location: @institution }
-      else
-        format.html { render :edit }
-        format.json { render json: @institution.errors, status: :unprocessable_entity }
-      end
+# POST /admin/institutions/delete
+ def delete
+    begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      Institution.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
     end
-  end
-
-  # DELETE /institutions/1
-  # DELETE /institutions/1.json
-  def destroy
-    @institution.destroy
-    respond_to do |format|
-      format.html { redirect_to institutions_url, notice: 'Institution was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :text => get_result(info)
   end
 
   private

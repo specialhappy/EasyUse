@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20141109073179) do
     t.string   "name"
     t.text     "description"
     t.string   "url"
-    t.integer  "regionCenter_id"
+    t.integer  "region_center_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

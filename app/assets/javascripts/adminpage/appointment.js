@@ -116,6 +116,7 @@ Ext.onReady(function() {
 		viewConfig : {
 			emptyText : '没有记录'
 		},
+		forceFit: true,
 		tbar : tb,
 		selModel:sm,
 		columns : columns,
@@ -137,12 +138,11 @@ Ext.onReady(function() {
 		win.show();
 	};
 	// 查看某条记录
-	listView.addListener('itemdblclick', display, this);
 	function display() {
 		var record = listView.getSelectionModel().getSelection();
 		if (record.length == 1) {			
 			form.form.reset();
-			//	form.isAdd = false;
+			form.isAdd = false;
 			win.setTitle("查看");
 			win.show();
 			form.getForm().loadRecord(record[0]);
@@ -152,6 +152,7 @@ Ext.onReady(function() {
 	};	
 	var id=0;
 	// 修改某条记录
+	listView.addListener('itemdblclick', edit, this);
 	function edit() {
 		var record = listView.getSelectionModel().getSelection();
 		if (record.length == 1) {

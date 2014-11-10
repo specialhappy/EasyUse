@@ -11,20 +11,27 @@ Ext.onReady(function() {
 		}, {
 			name : 'name',
 		}, {
-			name : 'model',
+			name : 'card_number',
 		}, {
-			name : 'price',
-			type : 'decimal'
+			name : 'password',
 		}, {
-			name : 'img_url',
+			name : 'sex',
+		}, {
+			name : 'id_number',
+		}, {
+			name : 'phone',
+		}, {
+			name : 'picture',
+		}, {
+			name : 'email',
+		}, {
+			name : 'address',
+		}, {
+			name : 'login_number',
+		}, {
+			name : 'last_login_time',
 		}, {
 			name : 'status',
-		}, {
-			name : 'description',
-		}, {
-			name : 'user_id',
-		}, {
-			name : 'institution_id',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -33,7 +40,7 @@ Ext.onReady(function() {
 		autoLoad : true,
 		proxy : {
 			type : 'ajax',
-			url : '/admin/instruments/list',
+			url : '/admin/users/list',
 			reader : {
 				type : 'json',
 				root : 'root',
@@ -70,30 +77,44 @@ Ext.onReady(function() {
 			dataIndex : 'id',
 			hidden:true
 		}, {
-			header : '仪器名称',
+			header : '姓名',
 			dataIndex : 'name'
 		}, {
-			header : '型号',
-			dataIndex : 'model'
+			header : '卡号',
+			dataIndex : 'card_number'
 		}, {
-			header : '仪器价格',
-			dataIndex : 'price'
+			header : '密码',
+			dataIndex : 'password',
+			hidden:true
 		}, {
-			header : '图片',
-			dataIndex : 'img_url',
-			hidden : true
+			header : '性别',
+			dataIndex : 'sex'
+		}, {
+			header : '身份证号',
+			dataIndex : 'id_number'
+		}, {
+			header : '手机号码',
+			dataIndex : 'phone',
+		}, {
+			header : '照片',
+			dataIndex : 'picture'
+		}, {
+			header : '电子邮箱',
+			dataIndex : 'email'
+		}, {
+			header : '联系地址',
+			dataIndex : 'address'
+		}, {
+			header : '登录次数',
+			dataIndex : 'login_number'
+		}, {
+			header : '最近登录时间',
+			dataIndex : 'last_login_time'
 		}, {
 			header : '状态',
 			dataIndex : 'status'
 		}, {
-			header : '仪器描述',
-			dataIndex : 'description',
-			hidden : true
-		}, {
-			header : '管理人',
-			dataIndex : 'user_id'
-		}, {
-			header : '单位名称',
+			header : '单位',
 			dataIndex : 'institution_id'
 		}];
 		
@@ -201,33 +222,40 @@ Ext.onReady(function() {
             labelAlign:'left'
         },  {
         	fieldLabel: '照片路径',
-        	name: 'img_url',
+        	name: 'picture',
         	hidden : true
         },{
-			fieldLabel : '仪器名称',
+			fieldLabel : '姓名',
 			name : 'name',
-			msgTarget : 'side',
 		}, {
-			fieldLabel : '型号',
-			name : 'model',
+			fieldLabel : '卡号',
+			name : 'card_number',
 		}, {
-			fieldLabel : '仪器价格',
-			name : 'price',
+			fieldLabel : '密码',
+			name : 'password',
+		}, {
+			xtype : 'combo',
+			fieldLabel : '性别',
+			name : 'sex',
+		}, {
+			fieldLabel : '身份证号',
+			name : 'id_number',
+		}, {
+			fieldLabel : '手机号码',
+			name : 'phone',
+		}, {
+			fieldLabel : '电子邮箱',
+			name : 'email',
+		}, {
+			fieldLabel : '联系地址',
+			name : 'address',
 		}, {
 			fieldLabel : '状态',
 			name : 'status',
 		}, {
 			xtype : 'combo',
-			fieldLabel : '管理人',
-			name : 'user_id',
-		}, {
-			xtype : 'combo',
 			fieldLabel : '单位名称',
 			name : 'institution_id',
-		}, {
-			fieldLabel : '仪器描述',
-			name : 'description',
-			xtype : 'textarea',
 		}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/
@@ -281,7 +309,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/instruments',
+					url : '/admin/users',
 					method : 'POST',
 					success : function(result,response) {
 						if (response.result.info == 'success') {
@@ -300,7 +328,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/instruments/'+id+'/modify',
+					url : '/admin/users/'+id+'/modify',
 					method : 'POST',										
 					success: function(result,response) {
 						if (response.result.info == 'success') {
@@ -335,7 +363,7 @@ Ext.onReady(function() {
     		msg:'正在删除信息，请稍等...'
     	});
     	Ext.Ajax.request({
-    		url:'/admin/instruments/delete',
+    		url:'/admin/users/delete',
     		params:{id:keys},
     		method:'POST',
     		success:function(response,options){
