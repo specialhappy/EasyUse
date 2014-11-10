@@ -1,0 +1,22 @@
+<div style=" border: 1px,  border-color:#00000 ">
+	<center>
+		<%= form_for :login, url: validates_welcome_index_path do |f| %>
+		<p>
+			<h2> 登录 </h2>
+		</p >
+		<p>
+			<%= f.label :email%>
+			<%= f.email_field :email %>
+		</p >
+
+		<p>
+			<%= f.label :password %>
+			<%= f.password_field :password %>
+		</p >
+
+		<p>
+			<%= f.submit%>
+		</p >
+		<% end %>
+	</center>
+</div>
