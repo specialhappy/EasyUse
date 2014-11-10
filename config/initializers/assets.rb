@@ -11,3 +11,4 @@ Rails.application.config.assets.precompile += %w( extjs/resources/css/ext-all.cs
 Rails.application.config.assets.precompile += %w( adminjs/ext-all-debug.js )
 Rails.application.config.assets.precompile += %w( adminjs/ext-lang-zh_CN.js )
 Rails.application.config.assets.precompile += %w( adminpage/index.js )
+Rails.application.config.assets.precompile += %w( adminpage/instrument.js )

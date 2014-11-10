@@ -1,6 +1,6 @@
 class Admin::AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
-
+  layout 'adminlayout'
   # GET /appointments
   # GET /appointments.json
   def index

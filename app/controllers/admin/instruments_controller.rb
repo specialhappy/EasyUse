@@ -1,12 +1,20 @@
 class Admin::InstrumentsController < ApplicationController
   before_action :set_instrument, only: [:show, :edit, :update, :destroy]
-
-  # GET /instruments
-  # GET /instruments.json
+  layout 'adminlayout'
+  # GET /admin/instruments
+  # GET /admin/instruments.json
   def index
-    @instruments = Instrument.all
   end
 
+  #GET /admin/instruments/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    instruments=Instrument.order("id").limit(limit).offset(start)
+    count=Instrument.count :all
+   render :text =>get_json(count,instruments.to_json)
+  end
+  
   # GET /instruments/1
   # GET /instruments/1.json
   def show
