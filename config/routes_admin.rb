@@ -33,7 +33,11 @@ Rails.application.routes.draw do
     resources :instruments do
       collection do
         get 'list'
+        post 'delete'
       end
+          member do
+      post 'modify'
+    end
     end
 
   end
