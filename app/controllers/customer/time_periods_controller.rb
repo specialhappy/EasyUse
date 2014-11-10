@@ -1,6 +1,6 @@
 class Customer::TimePeriodsController < ApplicationController
   before_action :set_time_period, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /time_periods
   # GET /time_periods.json
   def index

@@ -1,6 +1,6 @@
 class Customer::ApplicationFormsController < ApplicationController
   before_action :set_application_form, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /application_forms
   # GET /application_forms.json
   def index

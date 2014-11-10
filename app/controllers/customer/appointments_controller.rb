@@ -1,6 +1,6 @@
 class Customer::AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /appointments
   # GET /appointments.json
   def index

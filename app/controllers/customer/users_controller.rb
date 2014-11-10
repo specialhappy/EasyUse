@@ -1,6 +1,6 @@
 class Customer::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /users
   # GET /users.json
   def index

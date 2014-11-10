@@ -28,16 +28,24 @@ Rails.application.routes.draw do
 
     resources :application_forms
 
-    resources :appointments
-    
-    resources :instruments do
-      collection do
-        get 'list'
+    resources :appointments do
+            collection do
+      get 'list'
         post 'delete'
       end
-          member do
-      post 'modify'
+      member do
+        post 'modify'
+      end
     end
+    
+ resources :instruments do
+      collection do
+      get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
     end
 
   end

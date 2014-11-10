@@ -1,4 +1,5 @@
 class WelcomeController < ApplicationController
+    layout 'customerlayout'
   def index
     @instruments = Instrument.all
     @a_level_tags = ALevelTag.all

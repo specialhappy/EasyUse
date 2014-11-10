@@ -1,6 +1,6 @@
 class Customer::OperationLogsController < ApplicationController
   before_action :set_operation_log, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /operation_logs
   # GET /operation_logs.json
   def index

@@ -1,6 +1,6 @@
 class Customer::WorkingRecordsController < ApplicationController
   before_action :set_working_record, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /working_records
   # GET /working_records.json
   def index

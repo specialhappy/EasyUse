@@ -1,6 +1,6 @@
 class Customer::RegionCentersController < ApplicationController
   before_action :set_region_center, only: [:show, :edit, :update, :destroy]
-
+    layout 'customerlayout'
   # GET /region_centers
   # GET /region_centers.json
   def index

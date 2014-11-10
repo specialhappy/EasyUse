@@ -16,23 +16,10 @@ class Admin::InstrumentsController < ApplicationController
    render :text =>get_json(count,instruments.to_json)
   end
   
-  # GET /instruments/1
-  # GET /instruments/1.json
-  def show
-  end
-
-  # GET /instruments/new
-  def new
-  end
-
-  # GET /instruments/1/edit
-  def edit
-  end
-
-  # POST /instruments
+    # POST /instruments
   # POST /instruments.json
   def create
-        @instrument = Instrument.new(:name => params[:name].to_s,:model => params[:model].to_s,:price => params[:price],:img_url => params[:img_url].to_s,:status => params[:status].to_s,:description => params[:description].to_s)
+        @instrument = Instrument.new(:name => params[:name].to_s,:model => params[:model].to_s,:price => params[:price],:img_url => params[:img_url].to_s,:status => params[:status].to_s,:description => params[:description].to_s,:user_id => params[:user_id].to_s,:institution_id => params[:institution_id])
     info = @instrument.save ? 'success' : '添加失败' 
    render :text => get_result(info)
   end
@@ -40,13 +27,15 @@ class Admin::InstrumentsController < ApplicationController
   #POST /admin/instruments/1/modify
   def modify
     begin
-        instrument = Instrument.find(params[:id])
-        instrument.name = params[:name].to_s
-        instrument.model = params[:model].to_s
-        instrument.price = params[:price]
-        instrument.img_url = params[:img_url].to_s
-        instrument.status = params[:status].to_s
-        instrument.description = params[:description].to_s
+ instrument = Instrument.find(params[:id])
+      instrument.name = params[:name].to_s
+      instrument.model = params[:model].to_s
+      instrument.price = params[:price]
+      instrument.img_url = params[:img_url].to_s
+      instrument.status = params[:status].to_s
+      instrument.description = params[:description].to_s
+      instrument.user_id = params[:user_id].to_s
+      instrument.institution_id = params[:institution_id].to_s
         info = instrument.save ? 'success' : '更新失败'
       rescue ActiveRecord::RecordNotFound
         logger.error '更新不存在的数据'
@@ -59,8 +48,8 @@ class Admin::InstrumentsController < ApplicationController
   end
 
 # POST /admin/instruments/delete
-    def delete
-          begin
+ def delete
+    begin
       ids = params[:id][1..params[:id].length-2].split(',')
       Instrument.destroy(ids)
       info = 'success'
@@ -68,8 +57,21 @@ class Admin::InstrumentsController < ApplicationController
       logger.error e.to_s
       info = "删除异常"
     end
-    render :text => get_result(info)     
-    end
+    render :text => get_result(info)
+  end
+  
+  # GET /instruments/1
+  # GET /instruments/1.json
+  def show
+  end
+
+  # GET /instruments/new
+  def new
+  end
+
+  # GET /instruments/1/edit
+  def edit
+  end
     
   # PATCH/PUT /instruments/1
   # PATCH/PUT /instruments/1.json
@@ -79,11 +81,6 @@ class Admin::InstrumentsController < ApplicationController
   # DELETE /instruments/1
   # DELETE /instruments/1.json
   def destroy
-    @instrument.destroy
-    respond_to do |format|
-      format.html { redirect_to instruments_url, notice: 'Instrument was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private

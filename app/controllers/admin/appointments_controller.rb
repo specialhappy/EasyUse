@@ -1,65 +1,67 @@
 class Admin::AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
   layout 'adminlayout'
-  # GET /appointments
-  # GET /appointments.json
+  protect_from_forgery :only => :index
+  # GET /admin/appointments
+  # GET /admin/appointments.json
   def index
-    @appointments = Appointment.all
   end
 
-  # GET /appointments/1
-  # GET /appointments/1.json
-  def show
+  #GET /admin/appointments/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    appointments=Appointment.order("id").limit(limit).offset(start)
+    count=Appointment.count :all
+   render :text =>get_json(count,appointments.to_json)
   end
-
-  # GET /appointments/new
-  def new
-    @appointment = Appointment.new
-  end
-
-  # GET /appointments/1/edit
-  def edit
-  end
-
-  # POST /appointments
+  
+    # POST /appointments
   # POST /appointments.json
   def create
-    @appointment = Appointment.new(appointment_params)
-
-    respond_to do |format|
-      if @appointment.save
-        format.html { redirect_to @appointment, notice: 'Appointment was successfully created.' }
-        format.json { render :show, status: :created, location: @appointment }
-      else
-        format.html { render :new }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+        @appointment = Appointment.new(:start_time => params[:start_time].to_s,:end_time => params[:end_time].to_s,:price_paid => params[:price_paid].to_s,:fee => params[:fee],:submit_time => params[:submit_time].to_s,:status => params[:status].to_s,:user_id => params[:user_id].to_s,:group_id => params[:group_id],:instrument_id => params[:instrument_id])
+    info = @appointment.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/appointments/1/modify
+  def modify
+    begin
+        appointment = Appointment.find(params[:id])
+       # appointment.start_time = params[:start_time].to_s
+     #   appointment.end_time = params[:end_time].to_s
+        appointment.price_paid = params[:price_paid].to_s
+        appointment.fee = params[:fee]
+      #  appointment.submit_time = params[:submit_time].to_s
+        appointment.status = params[:status].to_s
+        appointment.user_id = params[:user_id].to_s
+        appointment.group_id = params[:group_id].to_s
+        appointment.instrument_id = params[:instrument_id].to_s
+        info = appointment.save ? 'success' : '更新失败'
+      rescue ActiveRecord::RecordNotFound
+        logger.error '更新不存在的数据'
+        info = '不存在的数据'
+      rescue Exception => e
+        logger.error e.to_s
+        info = "更新异常"
       end
-    end
+      render :text => get_result(info)
   end
 
-  # PATCH/PUT /appointments/1
-  # PATCH/PUT /appointments/1.json
-  def update
-    respond_to do |format|
-      if @appointment.update(appointment_params)
-        format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @appointment }
-      else
-        format.html { render :edit }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
-      end
+# POST /admin/appointments/delete
+ def delete
+    begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      Appointment.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
     end
+    render :text => get_result(info)
   end
 
-  # DELETE /appointments/1
-  # DELETE /appointments/1.json
-  def destroy
-    @appointment.destroy
-    respond_to do |format|
-      format.html { redirect_to appointments_url, notice: 'Appointment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
