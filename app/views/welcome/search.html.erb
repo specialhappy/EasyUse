@@ -1,0 +1,8 @@
+<div>
+     <% @instruments.each do |instrument| %>
+     <div><%=image_tag(instrument.img_url)%> </div> 
+     <div>仪器名:<%= instrument.name %></div> 
+     <div>型号:  <%= instrument.model %></div>
+     <div><%= link_to '查看详情', instrument %></div>
+    <% end %>
+</div>
