@@ -1,4 +1,74 @@
-<h1>欢迎您来预约仪器</h1>
-<h2>welcome to make an appointment!</h2>
+<%= render "common/header"%>
 
+<div class="container" style="margin-top: 60px">
+	<div class="row">
 
+		<div class="row">
+			<div class="col-md-3"  style="margin-top:40px">
+				Logo
+			</div>
+
+			<div class="col-md-6" style="margin-top:40px">
+				<form role='form'>
+					<div class="input-group">
+						<input type="text" class="form-control">
+						<span class="input-group-btn">
+							<button type="" class="btn btn-default" type="button">
+								搜索
+							</button> </span>
+					</div>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<div class="panel-group" id="accordion">
+
+				<% @a_level_tags.each do |a_level_tag| %>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion"
+						href="#collapseOne"> <%= a_level_tag.name %> </a></h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in">
+						<div class="panel-body">
+							B-Level-Tag
+						</div>
+					</div>
+				</div>
+
+				<% end %>
+
+			</div>
+		</div>
+
+		<div class="col-md-10"  style="padding: 30px">
+
+			<div class="row">
+				<% @instruments.each do |instrument| %>
+				<div class="col-xs-6 col-sm-3">
+					<div class="thumbnail">
+						<a href="#"> <%= image_tag(instrument.img_url)%> </a>
+						<div class="caption">
+							<small>仪器名:<%= instrument.name %>
+								<br/>
+								型号:  <%= instrument.model %>
+								<br/>
+							</small>
+							<center>
+								<a class="btn btn-link" href="#" role="button">预约</a>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<% end %>
+			</div>
+
+		</div>
+	</div>
+</div>
+<%= render "common/footer"%>
