@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       post 'validates'
       post 'search'
+      get 'logout'
     end
 
   end
