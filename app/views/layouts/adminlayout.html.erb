@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EasyUse</title>
+  <%= stylesheet_link_tag "extjs/resources/css/ext-all.css" %>
+
+  <%= javascript_include_tag "adminjs/ext-all-debug.js" %>
+  <%= javascript_include_tag "adminjs/ext-lang-zh_CN.js" %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
