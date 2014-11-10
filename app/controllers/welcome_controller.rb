@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
-    layout 'customerlayout'
+  layout 'customerlayout'
+  protect_from_forgery :except => :search
   def index
     @instruments = Instrument.all
     @a_level_tags = ALevelTag.all
@@ -27,5 +28,9 @@ class WelcomeController < ApplicationController
     end
 
   end
-  
+
+  #搜索的功能
+  def search
+    @instruments=Instrument.where("name LIKE '%#{params[:search]}%'")
+  end
 end
