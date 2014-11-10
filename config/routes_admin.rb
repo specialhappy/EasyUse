@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    
+
     get 'manage/index'
 
     resources :region_centers
@@ -29,8 +29,16 @@ Rails.application.routes.draw do
     resources :application_forms
 
     resources :appointments
-
-    resources :instruments
+    
+    resources :instruments do
+      collection do
+        get 'list'
+        post 'delete'
+      end
+          member do
+      post 'modify'
+    end
+    end
 
   end
 
