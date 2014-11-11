@@ -12,7 +12,7 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="#index">首页</a>
+					<a href="/welcome#index">首页</a>
 				</li>
 				<li>
 					<a href="#about">关于</a>
@@ -24,7 +24,7 @@
 			<%if session[:user_id]==nil%>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="welcome/login">登录</a>
+					<a href="/welcome/login">登录</a>
 				</li>
 				<li>
 					<a href="#">注册</a>
@@ -39,15 +39,15 @@
 					class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#">我的预约</a>
+							<a href="/appointments">我的预约</a>
 						</li>
 						<li>
-							<a href="#">我的群组</a>
+							<a href="/groups">我的群组</a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">消息</a>
+					<a href="/messages">消息</a>
 				</li>
 
 				<li class="dropdown">
@@ -56,7 +56,7 @@
 					class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#">帐号管理</a>
+							<a href="/customer/users/<%=session[:user_id]%>">帐号管理</a>
 						</li>
 						<li>
 							<a href="/welcome/logout">注销登录</a>

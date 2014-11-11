@@ -1,8 +1,48 @@
-<div>
-     <% @instruments.each do |instrument| %>
-     <div><%=image_tag(instrument.img_url)%> </div> 
-     <div>仪器名:<%= instrument.name %></div> 
-     <div>型号:  <%= instrument.model %></div>
-     <div><%= link_to '查看详情', instrument %></div>
-    <% end %>
+<%= render "common/header"%>
+
+<div class="container" style="margin-top: 60px">
+
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
+
+		<div class="col-md-6" style="margin-top:40px">
+			<form role='form' method="post" action="/welcome/search">
+				<div class="input-group">
+					<input type="text" name="search" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+							搜索
+						</button> </span>
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<div class="row" style="margin-top:40px">
+
+		<% @instruments.each do |instrument| %>
+		<div class="col-md-3">
+			<div class="thumbnail">
+				<a href="#"> <%= image_tag(instrument.img_url)%> </a>
+				<div class="caption">
+					<small>仪器名:<%= instrument.name %>
+						<br/>
+						型号:  <%= instrument.model %>
+						<br/>
+						<%= link_to '查看详情', instrument %> </small>
+					<center>
+						<a class="btn btn-link" href="#" role="button">预约</a>
+					</center>
+				</div>
+			</div>
+		</div>
+
+		<% end %>
+
+	</div>
 </div>
+</div>
+
+<%= render "common/footer"%>
