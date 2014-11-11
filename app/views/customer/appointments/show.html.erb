@@ -1,34 +1,105 @@
-<p id="notice"><%= notice %></p>
+<%= render "common/header"%>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @appointment.start_time %>
-</p>
+<div class="container" style="margin-top: 60px">
 
-<p>
-  <strong>End time:</strong>
-  <%= @appointment.end_time %>
-</p>
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
-<p>
-  <strong>Price paid:</strong>
-  <%= @appointment.price_paid %>
-</p>
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<h3>预约详情</h3>
+			</center>
+		</div>
 
-<p>
-  <strong>Fee:</strong>
-  <%= @appointment.fee %>
-</p>
+	</div>
 
-<p>
-  <strong>Submit time:</strong>
-  <%= @appointment.submit_time %>
-</p>
+	<div class="row">
 
-<p>
-  <strong>Status:</strong>
-  <%= @appointment.status %>
-</p>
 
-<%= link_to 'Edit', edit_appointment_path(@appointment) %> |
-<%= link_to 'Back', appointments_path %>
+
+
+
+
+
+	<!--div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+      </div>
+    </div-->
+
+
+
+<div class="col-md-2" style="padding: 20px">
+			<%= render "customer/common/sidebar"%>
+		</div>
+
+
+
+<div class="col-md-10" style="padding:20px">
+
+		<p id="notice">
+			<%= notice %>
+		</p>
+
+		<p>
+			<strong>Start time:</strong>
+			<%= @appointment.start_time %>
+		</p>
+
+		<p>
+			<strong>End time:</strong>
+			<%= @appointment.end_time %>
+		</p>
+
+		<p>
+			<strong>Price paid:</strong>
+			<%= @appointment.price_paid %>
+		</p>
+
+		<p>
+			<strong>Fee:</strong>
+			<%= @appointment.fee %>
+		</p>
+
+		<p>
+			<strong>Submit time:</strong>
+			<%= @appointment.submit_time %>
+		</p>
+
+		<p>
+			<strong>Status:</strong>
+			<%= @appointment.status %>
+		</p>
+		<div class="row pull-right">
+		<%= link_to '修改预约', edit_appointment_path(@appointment) %> <!--|
+		<%= link_to 'Back', appointments_path %>-->
+		</div>
+</div>
+
+		
+
+
+
+
+
+
+
+
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+<%= render "common/footer"%>

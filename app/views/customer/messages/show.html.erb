@@ -1,19 +1,48 @@
-<p id="notice"><%= notice %></p>
+<%= render "common/header"%>
 
-<p>
-  <strong>From:</strong>
-  <%= @message.from %>
-</p>
+<div class="container" style="margin-top: 60px">
 
-<p>
-  <strong>Content:</strong>
-  <%= @message.content %>
-</p>
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
-<p>
-  <strong>Send time:</strong>
-  <%= @message.send_time %>
-</p>
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<h3>消息详情</h3>
+			</center>
+		</div>
 
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+	</div>
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "customer/common/sidebar"%>
+		</div>
+
+		<div class="col-md-10" style="padding:20px">
+			<p id="notice">
+				<%= notice %>
+			</p>
+
+			<p>
+				<strong>From:</strong>
+				<%= @message.from %>
+			</p>
+
+			<p>
+				<strong>Content:</strong>
+				<%= @message.content %>
+			</p>
+
+			<p>
+				<strong>Send time:</strong>
+				<%= @message.send_time %>
+			</p>
+<!--div class="row pull-right">
+			<%= link_to '编辑消息', edit_message_path(@message) %> |
+		<%= link_to 'Back', messages_path %>
+			</div-->
+		</div>
+	</div>
+	</div>
+	<%= render "common/footer"%>
