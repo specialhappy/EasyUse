@@ -68,8 +68,12 @@ Ext.require(['*']);
                     hrefTarget : '/admin/instruments',
                     leaf : true
                 }, {
-                    text : '标签管理',
+                    text : '一级标签管理',
                     hrefTarget : '/admin/a_level_tags',
+                    leaf : true
+                }, {
+                    text : '二级标签管理',
+                    hrefTarget : '/admin/b_level_tags',
                     leaf : true
                 }]
             },
@@ -178,7 +182,7 @@ Ext.require(['*']);
                 ,contentPanel
                 ]
         });
-        var curNode=instrumentManage.root;
+        var curNode=appointmentManage.root;
         if(curNode.children.length>0){
             curNode=curNode.children[0];
         };

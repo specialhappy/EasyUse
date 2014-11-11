@@ -1,5 +1,5 @@
 class Admin::InstrumentsController < ApplicationController
-  before_action :set_instrument, only: [:show, :edit, :update, :destroy]
+  before_action :set_instrument, only: [:modify]
   layout 'adminlayout'
   protect_from_forgery :only => :index
   # GET /admin/instruments
@@ -18,46 +18,31 @@ class Admin::InstrumentsController < ApplicationController
   
     # POST /instruments
   # POST /instruments.json
-  def create
-      uploaded_io = params[:photoImg]
-      if uploaded_io.nil? == false
-        name=getFileName(uploaded_io)
-      File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
-      file.write(uploaded_io.read)
-      end
-      end
-        @instrument = Instrument.new(:name => params[:name].to_s,:model => params[:model].to_s,:price => params[:price],:img_url => name,:status => params[:status].to_s,:description => params[:description].to_s,:user_id => params[:user_id].to_s,:institution_id => params[:institution_id])
-    info = @instrument.save ? 'success' : '添加失败' 
-   render :text => get_result(info)
-  end
+ def create
+			@instrument = Instrument.new(instrument_params)
+			uploaded_io = params[:photoImg]
+			if uploaded_io.nil? == false
+			name=getFileName(uploaded_io)
+			File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+			file.write(uploaded_io.read)
+			end
+			@instrument.img_url=name
+			end
+			info = @instrument.save ? 'success' : '添加失败'
+			render :text => get_result(info)
+			end
   
   #POST /admin/instruments/1/modify
   def modify
-    begin
           uploaded_io = params[:photoImg]
       if uploaded_io.nil? == false
         name=getFileName(uploaded_io)
           File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
           file.write(uploaded_io.read)  
           end
+          @instrument.img_url = name
       end
- instrument = Instrument.find(params[:id])
-      instrument.name = params[:name].to_s
-      instrument.model = params[:model].to_s
-      instrument.price = params[:price]
-      instrument.img_url = name
-      instrument.status = params[:status].to_s
-      instrument.description = params[:description].to_s
-      instrument.user_id = params[:user_id].to_s
-      instrument.institution_id = params[:institution_id].to_s
-        info = instrument.save ? 'success' : '更新失败'
-      rescue ActiveRecord::RecordNotFound
-        logger.error '更新不存在的数据'
-        info = '不存在的数据'
-      rescue Exception => e
-        logger.error e.to_s
-        info = "更新异常"
-      end
+      info = @instrument.update(instrument_params) ? 'success' : '更新失败'
       render :text => get_result(info)
   end
 
@@ -91,6 +76,6 @@ class Admin::InstrumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instrument_params
-      params[:instrument]
+      params.permit(:name, :model, :price, :description, :status,:user_id,:institution_id)
     end
 end

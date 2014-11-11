@@ -1,5 +1,5 @@
 class Admin::AppointmentsController < ApplicationController
-  before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_appointment, only: [:modify]
   layout 'adminlayout'
   protect_from_forgery :only => :index
   # GET /admin/appointments
@@ -19,32 +19,15 @@ class Admin::AppointmentsController < ApplicationController
     # POST /appointments
   # POST /appointments.json
   def create
-        @appointment = Appointment.new(:start_time => params[:start_time].to_s,:end_time => params[:end_time].to_s,:price_paid => params[:price_paid].to_s,:fee => params[:fee],:submit_time => params[:submit_time].to_s,:status => params[:status].to_s,:user_id => params[:user_id].to_s,:group_id => params[:group_id],:instrument_id => params[:instrument_id])
-    info = @appointment.save ? 'success' : '添加失败' 
+        @appointment = Appointment.new(appointment_params)
+        @appointment.submit_time=Time.now
+        info = @appointment.save ? 'success' : '添加失败' 
    render :text => get_result(info)
   end
   
   #POST /admin/appointments/1/modify
   def modify
-    begin
-        appointment = Appointment.find(params[:id])
-       # appointment.start_time = params[:start_time].to_s
-     #   appointment.end_time = params[:end_time].to_s
-        appointment.price_paid = params[:price_paid].to_s
-        appointment.fee = params[:fee]
-      #  appointment.submit_time = params[:submit_time].to_s
-        appointment.status = params[:status].to_s
-        appointment.user_id = params[:user_id].to_s
-        appointment.group_id = params[:group_id].to_s
-        appointment.instrument_id = params[:instrument_id].to_s
-        info = appointment.save ? 'success' : '更新失败'
-      rescue ActiveRecord::RecordNotFound
-        logger.error '更新不存在的数据'
-        info = '不存在的数据'
-      rescue Exception => e
-        logger.error e.to_s
-        info = "更新异常"
-      end
+      info = @appointment.update(appointment_params) ? 'success' : '更新失败'
       render :text => get_result(info)
   end
 
@@ -71,6 +54,6 @@ class Admin::AppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appointment_params
-      params[:appointment]
+      params.permit(:start_time, :end_time, :price_paid, :fee, :status, :user_id, :instrument_id, :group_id)
     end
 end

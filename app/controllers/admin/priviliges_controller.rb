@@ -1,64 +1,46 @@
 class Admin::PriviligesController < ApplicationController
-  before_action :set_privilige, only: [:show, :edit, :update, :destroy]
-
-  # GET /priviliges
-  # GET /priviliges.json
+  before_action :set_privilige, only: [:modify]
+  layout 'adminlayout'
+  protect_from_forgery :only => :index
+  # GET /admin/priviliges
+  # GET /admin/priviliges.json
   def index
-    @priviliges = Privilige.all
   end
 
-  # GET /priviliges/1
-  # GET /priviliges/1.json
-  def show
+  #GET /admin/priviliges/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    priviliges=Privilige.order("id").limit(limit).offset(start)
+    count=Privilige.count :all
+   render :text =>get_json(count,priviliges.to_json)
   end
-
-  # GET /priviliges/new
-  def new
-    @privilige = Privilige.new
-  end
-
-  # GET /priviliges/1/edit
-  def edit
-  end
-
-  # POST /priviliges
+  
+    # POST /priviliges
   # POST /priviliges.json
   def create
-    @privilige = Privilige.new(privilige_params)
-
-    respond_to do |format|
-      if @privilige.save
-        format.html { redirect_to @privilige, notice: 'Privilige was successfully created.' }
-        format.json { render :show, status: :created, location: @privilige }
-      else
-        format.html { render :new }
-        format.json { render json: @privilige.errors, status: :unprocessable_entity }
-      end
-    end
+        @privilige = Privilige.new(privilige_params)
+    info = @privilige.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/priviliges/1/modify
+  def modify
+      info = @privilige.update(privilige_params) ? 'success' : '更新失败'
+      render :text => get_result(info)
   end
 
-  # PATCH/PUT /priviliges/1
-  # PATCH/PUT /priviliges/1.json
-  def update
-    respond_to do |format|
-      if @privilige.update(privilige_params)
-        format.html { redirect_to @privilige, notice: 'Privilige was successfully updated.' }
-        format.json { render :show, status: :ok, location: @privilige }
-      else
-        format.html { render :edit }
-        format.json { render json: @privilige.errors, status: :unprocessable_entity }
-      end
+# POST /admin/priviliges/delete
+ def delete
+    begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      Privilige.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
     end
-  end
-
-  # DELETE /priviliges/1
-  # DELETE /priviliges/1.json
-  def destroy
-    @privilige.destroy
-    respond_to do |format|
-      format.html { redirect_to priviliges_url, notice: 'Privilige was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :text => get_result(info)
   end
 
   private
@@ -69,6 +51,6 @@ class Admin::PriviligesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def privilige_params
-      params[:privilige]
+      params.permit(:name, :description)
     end
 end
