@@ -2,6 +2,8 @@ Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.panel.*']);
 Ext.onReady(function() {
 
 //传值时需包括区域中心和单位的id，表单里需要做下拉框，下拉框store，以及下拉框在表格和表单的对应显示
+
+/**BEGIN 数据类型和数据源**/
 	//定义数据类型
 	Ext.define('datamodel', {
 		extend : 'Ext.data.Model',
@@ -32,6 +34,8 @@ Ext.onReady(function() {
 			name : 'last_login_time',
 		}, {
 			name : 'status',
+		}, {
+			name : 'institution_id',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -49,6 +53,38 @@ Ext.onReady(function() {
 			}
 		}
 	});
+
+	
+		// 定义部门数据类型，用于下拉列表
+	Ext.define('getInstitution', {
+				extend : 'Ext.data.Model',
+				fields : [{
+							name : 'id'
+						}, {
+							name : 'name'
+						}]
+
+			});
+
+	//定义数据源，充当下拉框的数据来源
+	var Istore = Ext.create('Ext.data.Store', {
+		model : 'getInstitution',
+		autoLoad : true,
+		proxy : {
+			type : 'ajax',
+			url : '/admin/institutions/list',
+			reader : {
+				type : 'json',
+				root : 'root',
+				totalProperty : 'totalProperty',
+				idProperty : 'id'
+			}
+		}
+	});
+	
+	/**END 数据类型和数据源**/
+	
+	/** BEGIN 表格的组件 **/
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -97,7 +133,8 @@ Ext.onReady(function() {
 			dataIndex : 'phone',
 		}, {
 			header : '照片',
-			dataIndex : 'picture'
+			dataIndex : 'picture',
+			hidden: true
 		}, {
 			header : '电子邮箱',
 			dataIndex : 'email'
@@ -139,6 +176,120 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
+	/** END 表格的组件 **/
+	
+ /** BEGIN 弹出框表格，新建和修改时公用 **/
+	var readonly = false;
+	var form = Ext.create('Ext.form.Panel', {
+		border:false,
+		overflowY:'auto',
+		bodyPadding: 10,
+		bodyStyle : 'background:#dfe9f5',		
+		defaults : {
+			readOnly : readonly,
+			labelWidth:80,
+			anchor: '100%',
+			xtype : 'textfield',
+			allowBlank : true
+		},
+		items : [{
+    		bodyStyle:'background:#dfe9f5',
+    		width:145,
+            autoHeight:true,
+            bodyPadding: '5px',
+            html:'<img src="2.png'+' "width="130" height="160">',
+            hidden:true
+    	},{
+            xtype: 'filefield',
+            width:200,
+            emptyText: '请选择上传图片',
+            fieldLabel: '请上传图片',
+            name: 'photoImg',
+            buttonText: '浏览  ',
+            labelAlign:'left'
+        },  {
+        	fieldLabel: '照片路径',
+        	name: 'picture',
+        	hidden:true
+        },{
+			fieldLabel : '姓名',
+			name : 'name',
+		}, {
+			fieldLabel : '卡号',
+			name : 'card_number',
+		}, {
+			fieldLabel : '密码',
+			name : 'password',
+		}, {
+			xtype : 'combo',
+			fieldLabel : '性别',
+			name : 'sex',
+		}, {
+			fieldLabel : '身份证号',
+			name : 'id_number',
+		}, {
+			fieldLabel : '手机号码',
+			name : 'phone',
+		}, {
+			fieldLabel : '电子邮箱',
+			name : 'email',
+		}, {
+			fieldLabel : '联系地址',
+			name : 'address',
+		}, {
+			fieldLabel : '状态',
+			name : 'status',
+		}, {
+			xtype : 'combo',
+			fieldLabel : '单位名称',
+			name : 'institution_id',
+			store: Istore,
+			valueField:'id',
+			displayField:'name'
+		}]
+	});
+/** END 弹出框表格，新建和修改时公用 **/
+
+/** BEGIN 公用弹出窗口 **/
+    //表格的容器窗口
+	var win = Ext.create('Ext.window.Window', {
+		width : 400,
+		//height : 300,
+		minWidth : 300,
+		minHeight : 200,
+		layout : 'fit',
+		plain : true,
+		items : form,
+		buttons : [{
+			text : '保存',
+			handler : submitForm
+		}, {
+			text : '取消',
+			handler : function() {
+				win.hide();
+			}
+		}]
+	});
+	//错误提示窗口
+	function failureAlert(failureInfo) {
+				top.Ext.Msg.show({
+				title : '错误提示',
+				msg :failureInfo,
+				icon : Ext.Msg.ERROR,
+				buttons : Ext.Msg.OK
+			});
+	};
+	//成功提示窗口
+	function successAlert(successInfo){
+		top.Ext.Msg.show({
+							title : '提示',
+							msg : successInfo,
+							icon : Ext.Msg.INFO,
+							buttons : Ext.Msg.OK
+						});
+	}
+	/** END 公用弹出窗口 **/
+
 	
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
@@ -192,113 +343,6 @@ Ext.onReady(function() {
     };
     /** END 工具条按钮的调用函数 **/
 
-    /** BEGIN 弹出框表格，新建和修改时公用 **/
-	var readonly = false;
-	var form = Ext.create('Ext.form.Panel', {
-		border:false,
-		overflowY:'auto',
-		bodyPadding: 10,
-		bodyStyle : 'background:#dfe9f5',		
-		defaults : {
-			readOnly : readonly,
-			labelWidth:80,
-			anchor: '100%',
-			xtype : 'textfield',
-			allowBlank : true
-		},
-		items : [{
-    		bodyStyle:'background:#dfe9f5',
-    		width:145,
-            autoHeight:true,
-            bodyPadding: '5px',
-            html:'<img src="../images/photo.png'+'" width="130" height="160">'
-    	},{
-            xtype: 'filefield',
-            width:200,
-            emptyText: '请选择上传图片',
-            fieldLabel: '请上传图片',
-            name: 'photoImg',
-            buttonText: '浏览  ',
-            labelAlign:'left'
-        },  {
-        	fieldLabel: '照片路径',
-        	name: 'picture',
-        	hidden : true
-        },{
-			fieldLabel : '姓名',
-			name : 'name',
-		}, {
-			fieldLabel : '卡号',
-			name : 'card_number',
-		}, {
-			fieldLabel : '密码',
-			name : 'password',
-		}, {
-			xtype : 'combo',
-			fieldLabel : '性别',
-			name : 'sex',
-		}, {
-			fieldLabel : '身份证号',
-			name : 'id_number',
-		}, {
-			fieldLabel : '手机号码',
-			name : 'phone',
-		}, {
-			fieldLabel : '电子邮箱',
-			name : 'email',
-		}, {
-			fieldLabel : '联系地址',
-			name : 'address',
-		}, {
-			fieldLabel : '状态',
-			name : 'status',
-		}, {
-			xtype : 'combo',
-			fieldLabel : '单位名称',
-			name : 'institution_id',
-		}]
-	});
-/** END 弹出框表格，新建和修改时公用 **/
-
-/** BEGIN 公用弹出窗口 **/
-    //表格的容器窗口
-	var win = Ext.create('Ext.window.Window', {
-		width : 400,
-		//height : 300,
-		minWidth : 300,
-		minHeight : 200,
-		layout : 'fit',
-		plain : true,
-		items : form,
-		buttons : [{
-			text : '保存',
-			handler : submitForm
-		}, {
-			text : '取消',
-			handler : function() {
-				win.hide();
-			}
-		}]
-	});
-	//错误提示窗口
-	function failureAlert(failureInfo) {
-				top.Ext.Msg.show({
-				title : '错误提示',
-				msg :failureInfo,
-				icon : Ext.Msg.ERROR,
-				buttons : Ext.Msg.OK
-			});
-	};
-	//成功提示窗口
-	function successAlert(successInfo){
-		top.Ext.Msg.show({
-							title : '提示',
-							msg : successInfo,
-							icon : Ext.Msg.INFO,
-							buttons : Ext.Msg.OK
-						});
-	}
-	/** END 公用弹出窗口 **/
 
 /** BEGIN 向后台发送请求 **/
 
@@ -380,6 +424,8 @@ Ext.onReady(function() {
     	});
     };
     /** END 向后台发送请求 **/
+   
+
     
 });
 
