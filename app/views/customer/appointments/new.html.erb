@@ -76,7 +76,7 @@
 				</div>
 			</div>
 			<div>
-				<%= collection_select(:Group,:group_id, @groups, :id, :name)%>
+				<%= collection_select(:Group,:group_id, @groups, :id, :name, options ={:prompt => "选择群组"})%>
 			</div>
 			<div class="field">
 				<%= f.label :experiment_description %>
