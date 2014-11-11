@@ -1,7 +1,7 @@
 Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.panel.*']);
 Ext.onReady(function() {
 
-/**BEGIN 数据类型和数据源**/
+//传值时需包括区域中心和单位的id，表单里需要做下拉框，下拉框store，以及下拉框在表格和表单的对应显示
 	//定义数据类型
 	Ext.define('datamodel', {
 		extend : 'Ext.data.Model',
@@ -12,10 +12,6 @@ Ext.onReady(function() {
 			name : 'name',
 		}, {
 			name : 'description',
-		}, {
-			name : 'url',
-		}, {
-			name : 'region_center_id',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -24,7 +20,7 @@ Ext.onReady(function() {
 		autoLoad : true,
 		proxy : {
 			type : 'ajax',
-			url : '/admin/institutions/list',
+			url : '/admin/roles/list',
 			reader : {
 				type : 'json',
 				root : 'root',
@@ -33,32 +29,6 @@ Ext.onReady(function() {
 			}
 		}
 	});
-	// 定义数据类型，用于下拉列表
-	Ext.define('combomodel', {
-				extend : 'Ext.data.Model',
-				fields : [{
-							name : 'id'
-						}, {
-							name : 'name'
-						}]
-			});
-	//定义区域中心数据源，充当下拉框的数据来源
-	var Rstore = Ext.create('Ext.data.Store', {
-		model : 'combomodel',
-		proxy : {
-			type : 'ajax',
-			url : '/admin/region_centers/list',
-			reader : {
-				type : 'json',
-				root : 'root',
-				totalProperty : 'totalProperty',
-				idProperty : 'id'
-			}
-		}
-	});
-	/**END 数据类型和数据源**/
-	
-	/** BEGIN 表格的组件 **/
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -78,6 +48,7 @@ Ext.onReady(function() {
 			handler : destroy
 		}]
 	});
+
     var sm = new Ext.selection.CheckboxModel(); 
     var columns = [  
         Ext.create('Ext.grid.RowNumberer'),
@@ -86,18 +57,13 @@ Ext.onReady(function() {
 			dataIndex : 'id',
 			hidden:true
 		}, {
-			header : '单位名称',
+			header : '角色名称',
 			dataIndex : 'name'
 		},  {
-			header : '描述',
+			header : '角色描述',
 			dataIndex : 'description'
-		}, {
-			header : '链接地址',
-			dataIndex : 'url'
-		}, {
-			header : '所属区域中心',
-			dataIndex : 'region_center_id'
 		}];
+		
 	var listView = Ext.create('Ext.grid.Panel', {
 		//width:'45%',
 		//height:'100%',
@@ -119,7 +85,6 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
-	/** END 表格的组件 **/
 	
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
@@ -144,7 +109,7 @@ Ext.onReady(function() {
 	};	
 	var id=0;
 	// 修改某条记录
-		listView.addListener('itemdblclick', edit, this);
+	listView.addListener('itemdblclick', edit, this);
 	function edit() {
 		var record = listView.getSelectionModel().getSelection();
 		if (record.length == 1) {
@@ -188,22 +153,12 @@ Ext.onReady(function() {
 			allowBlank : true
 		},
 		items : [{
-			fieldLabel : '单位名称',
+			fieldLabel : '角色名称',
 			name : 'name',
 		}, {
 			xtype: 'textarea',
-			fieldLabel : '单位描述',
+			fieldLabel : '角色描述',
 			name : 'description',
-		}, {
-			fieldLabel : '链接地址',
-			name : 'url',
-		}, {
-			xtype:'combo',
-			fieldLabel : '所属区域中心',
-			name : 'region_center_id',
-			store: Rstore,
-			valueField:'id',
-			displayField:'name'
 		}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/
@@ -257,7 +212,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/institutions',
+					url : '/admin/roles',
 					method : 'POST',
 					success : function(result,response) {
 						if (response.result.info == 'success') {
@@ -276,7 +231,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/institutions/'+id+'/modify',
+					url : '/admin/roles/'+id+'/modify',
 					method : 'POST',										
 					success: function(result,response) {
 						if (response.result.info == 'success') {
@@ -311,7 +266,7 @@ Ext.onReady(function() {
     		msg:'正在删除信息，请稍等...'
     	});
     	Ext.Ajax.request({
-    		url:'/admin/institutions/delete',
+    		url:'/admin/roles/delete',
     		params:{id:keys},
     		method:'POST',
     		success:function(response,options){
@@ -330,4 +285,3 @@ Ext.onReady(function() {
     /** END 向后台发送请求 **/
     
 });
-

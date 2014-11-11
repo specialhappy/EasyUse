@@ -26,9 +26,25 @@ Rails.application.routes.draw do
 
     resources :time_periods
 
-    resources :a_level_tags
+    resources :a_level_tags do
+            collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
-    resources :b_level_tags
+    resources :b_level_tags do
+            collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
     resources :groups do
       collection do
@@ -40,9 +56,25 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :priviliges
+    resources :priviliges do
+            collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
-    resources :roles
+    resources :roles do
+            collection do
+        get 'list'
+        post 'delete'
+      end
+      member do
+        post 'modify'
+      end
+    end
 
     resources :users do
       collection do

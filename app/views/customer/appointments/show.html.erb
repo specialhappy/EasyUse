@@ -23,32 +23,36 @@
 
 		<div class="col-md-10" style="padding:20px">
 
+			<h1> <%= notice %> </h1>
 
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th colspan="2"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>开始时间</td><td><%= @appointment.start_time %></td>
+					</tr>
+					<tr>
+						<td>结束时间</td><td><%= @appointment.end_time %></td>
+					</tr>
+					<tr>
+						<td>支付状态</td><td><%= @appointment.price_paid %></td>
+					</tr>
+					<tr>
+						<td>费用</td><td><%= @appointment.fee %></td>
+					</tr>
+					<tr>
+						<td>提交时间</td><td><%= @appointment.submit_time %></td>
+					</tr>
+					<tr>
+						<td>审核状态</td><td><%= @appointment.status %></td>
+					</tr>
 
-
-
-<h1> <%= notice %> </h1>
-
-
-
-<table class="table table-striped">
-      <thead>
-        <tr>
-         <th colspan="2"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr> <td>开始时间</td> <td><%= @appointment.start_time %></td> </tr>
-         <tr>  <td>结束时间</td> <td><%= @appointment.end_time %></td> </tr>
-         <tr>  <td>支付状态</td><td><%= @appointment.price_paid %></td> </tr>
-          <tr> <td>费用</td><td><%= @appointment.fee %></td> </tr>
-          <tr>  <td>提交时间</td><td><%= @appointment.submit_time %></td> </tr>
-             <tr><td>审核状态</td><td><%= @appointment.status %></td> </tr>
-        
-       
-      </tbody>
-    </table>
-
+				</tbody>
+			</table>
 
 			<div class="pull-right">
 				<%= link_to '修改预约', edit_appointment_path(@appointment) %>

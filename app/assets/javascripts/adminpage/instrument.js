@@ -2,6 +2,7 @@ Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.panel.*']);
 Ext.onReady(function() {
 
 //传值时需包括区域中心和单位的id，表单里需要做下拉框，下拉框store，以及下拉框在表格和表单的对应显示
+	/**BEGIN 数据类型和数据源**/
 	//定义数据类型
 	Ext.define('datamodel', {
 		extend : 'Ext.data.Model',
@@ -42,6 +43,48 @@ Ext.onReady(function() {
 			}
 		}
 	});
+		// 定义数据类型，用于下拉列表
+	Ext.define('combomodel', {
+				extend : 'Ext.data.Model',
+				fields : [{
+							name : 'id'
+						}, {
+							name : 'name'
+						}]
+			});
+	//定义单位数据源，充当下拉框的数据来源
+	var Istore = Ext.create('Ext.data.Store', {
+		model : 'combomodel',
+		autoLoad : true,
+		proxy : {
+			type : 'ajax',
+			url : '/admin/institutions/list',
+			reader : {
+				type : 'json',
+				root : 'root',
+				totalProperty : 'totalProperty',
+				idProperty : 'id'
+			}
+		}
+	});
+	//定义用户数据源，充当下拉框的数据来源
+	var Ustore = Ext.create('Ext.data.Store', {
+		model : 'combomodel',
+		autoLoad : true,
+		proxy : {
+			type : 'ajax',
+			url : '/admin/users/list',
+			reader : {
+				type : 'json',
+				root : 'root',
+				totalProperty : 'totalProperty',
+				idProperty : 'id'
+			}
+		}
+	});
+	/**END 数据类型和数据源**/
+	
+	/** BEGIN 表格的组件 **/
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -61,7 +104,6 @@ Ext.onReady(function() {
 			handler : destroy
 		}]
 	});
-
     var sm = new Ext.selection.CheckboxModel(); 
     var columns = [  
         Ext.create('Ext.grid.RowNumberer'),
@@ -118,6 +160,7 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
+	/** END 表格的组件 **/
 	
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
@@ -190,7 +233,8 @@ Ext.onReady(function() {
     		width:145,
             autoHeight:true,
             bodyPadding: '5px',
-            html:'<img src="../images/photo.png'+'" width="130" height="160">'
+            html:'<img src="../images/photo.png'+'" width="130" height="160">',
+            hidden:true
     	},{
             xtype: 'filefield',
             width:200,
@@ -220,10 +264,16 @@ Ext.onReady(function() {
 			xtype : 'combo',
 			fieldLabel : '管理人',
 			name : 'user_id',
+			store: Ustore,
+			valueField:'id',
+			displayField:'name'
 		}, {
 			xtype : 'combo',
 			fieldLabel : '单位名称',
 			name : 'institution_id',
+			store: Istore,
+			valueField:'id',
+			displayField:'name'
 		}, {
 			fieldLabel : '仪器描述',
 			name : 'description',
