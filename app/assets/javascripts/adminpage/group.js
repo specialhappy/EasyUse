@@ -11,20 +11,11 @@ Ext.onReady(function() {
 		}, {
 			name : 'name',
 		}, {
-			name : 'model',
-		}, {
-			name : 'price',
-			type : 'decimal'
-		}, {
-			name : 'img_url',
-		}, {
-			name : 'status',
-		}, {
 			name : 'description',
 		}, {
-			name : 'user_id',
+			name : 'create_time',
 		}, {
-			name : 'institution_id',
+			name : 'status',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -33,7 +24,7 @@ Ext.onReady(function() {
 		autoLoad : true,
 		proxy : {
 			type : 'ajax',
-			url : '/admin/instruments/list',
+			url : '/admin/groups/list',
 			reader : {
 				type : 'json',
 				root : 'root',
@@ -70,31 +61,17 @@ Ext.onReady(function() {
 			dataIndex : 'id',
 			hidden:true
 		}, {
-			header : '仪器名称',
+			header : '名称',
 			dataIndex : 'name'
+		},  {
+			header : '描述',
+			dataIndex : 'description'
 		}, {
-			header : '型号',
-			dataIndex : 'model'
-		}, {
-			header : '仪器价格',
-			dataIndex : 'price'
-		}, {
-			header : '图片',
-			dataIndex : 'img_url',
-			hidden : true
+			header : '创建时间',
+			dataIndex : 'create_time'
 		}, {
 			header : '状态',
 			dataIndex : 'status'
-		}, {
-			header : '仪器描述',
-			dataIndex : 'description',
-			hidden : true
-		}, {
-			header : '管理人',
-			dataIndex : 'user_id'
-		}, {
-			header : '单位名称',
-			dataIndex : 'institution_id'
 		}];
 		
 	var listView = Ext.create('Ext.grid.Panel', {
@@ -127,7 +104,7 @@ Ext.onReady(function() {
 		win.setTitle("新增");
 		win.show();
 	};
-	// 查看某条记录	
+	// 查看某条记录
 	function display() {
 		var record = listView.getSelectionModel().getSelection();
 		if (record.length == 1) {			
@@ -186,48 +163,18 @@ Ext.onReady(function() {
 			allowBlank : true
 		},
 		items : [{
-    		bodyStyle:'background:#dfe9f5',
-    		width:145,
-            autoHeight:true,
-            bodyPadding: '5px',
-            html:'<img src="../images/photo.png'+'" width="130" height="160">'
-    	},{
-            xtype: 'filefield',
-            width:200,
-            emptyText: '请选择上传图片',
-            fieldLabel: '请上传图片',
-            name: 'photoImg',
-            buttonText: '浏览  ',
-            labelAlign:'left'
-        },  {
-        	fieldLabel: '照片路径',
-        	name: 'img_url',
-        	hidden : true
-        },{
-			fieldLabel : '仪器名称',
+			fieldLabel : '群组名称',
 			name : 'name',
-			msgTarget : 'side',
 		}, {
-			fieldLabel : '型号',
-			name : 'model',
+			xtype: 'textarea',
+			fieldLabel : '群组描述',
+			name : 'description',
 		}, {
-			fieldLabel : '仪器价格',
-			name : 'price',
+			fieldLabel : '创建时间',
+			name : 'create_time',
 		}, {
 			fieldLabel : '状态',
 			name : 'status',
-		}, {
-			xtype : 'combo',
-			fieldLabel : '管理人',
-			name : 'user_id',
-		}, {
-			xtype : 'combo',
-			fieldLabel : '单位名称',
-			name : 'institution_id',
-		}, {
-			fieldLabel : '仪器描述',
-			name : 'description',
-			xtype : 'textarea',
 		}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/
@@ -281,7 +228,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/instruments',
+					url : '/admin/groups',
 					method : 'POST',
 					success : function(result,response) {
 						if (response.result.info == 'success') {
@@ -300,7 +247,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/instruments/'+id+'/modify',
+					url : '/admin/groups/'+id+'/modify',
 					method : 'POST',										
 					success: function(result,response) {
 						if (response.result.info == 'success') {
@@ -335,7 +282,7 @@ Ext.onReady(function() {
     		msg:'正在删除信息，请稍等...'
     	});
     	Ext.Ajax.request({
-    		url:'/admin/instruments/delete',
+    		url:'/admin/groups/delete',
     		params:{id:keys},
     		method:'POST',
     		success:function(response,options){
