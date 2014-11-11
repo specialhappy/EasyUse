@@ -21,67 +21,40 @@
 
 		<div class="col-md-10" style="padding:20px">
 
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Card number:</strong>
-  <%= @user.card_number %>
-</p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
 
-<p>
-  <strong>Sex:</strong>
-  <%= @user.sex %>
-</p>
 
-<p>
-  <strong>Id number:</strong>
-  <%= @user.id_number %>
-</p>
+<table class="table table-striped">
+      <thead>
+        <tr>
+         <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr> <td>卡号</td> <td> <%= @user.card_number %></td> </tr>
+         <tr>  <td>姓名</td> <td>  <%= @user.name %></td> </tr>
+         <tr>  <td>密码</td><td><%= @user.password %></td> </tr>
+          <tr>  <td>性别</td><td> <%= @user.sex %></td> </tr>
+           <tr>  <td>发送时间</td><td>  <%= @user.id_number %></td> </tr>
+             <tr>  <td>电话号码</td><td>  <%= @user.phone %></td> </tr>
+            <tr>  <td>照片</td><td>  <%= @user.picture %></td> </tr>
+              <tr>  <td>邮件地址</td><td> <%= @user.email %></td> </tr>
+                <tr>  <td>住址</td><td>  <%= @user.address %></td> </tr>
+                  <tr>  <td>登录账号</td><td><%= @user.login_number %></td> </tr>
+                    <tr>  <td>最后登录时间</td><td>    <%= @user.last_login_time %></td> </tr>
+                    <tr>  <td>状态</td><td>   <%= @user.status %></td> </tr>
+        
+       
+      </tbody>
+    </table>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @user.phone %>
-</p>
 
-<p>
-  <strong>Picture:</strong>
-  <%= @user.picture %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
 
-<p>
-  <strong>Login number:</strong>
-  <%= @user.login_number %>
-</p>
 
-<p>
-  <strong>Last login time:</strong>
-  <%= @user.last_login_time %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @user.status %>
-</p>
 <div class="row pull-right">
 <%= link_to '编辑账户信息', edit_user_path(@user) %> |
 <!--<%= link_to 'Back', users_path %>-->

@@ -21,29 +21,40 @@
 		</div>
 		
 <div class="col-md-10" style="padding:20px">
-			<p id="notice">
-				<%= notice %>
-			</p>
+	
+	
+	
+	
+	
+	
+	
+	
 
-			<p>
-				<strong>Name:</strong>
-				<%= @group.name %>
-			</p>
+<h1> <%= notice %> </h1>
 
-			<p>
-				<strong>Description:</strong>
-				<%= @group.description %>
-			</p>
 
-			<p>
-				<strong>Create time:</strong>
-				<%= @group.create_time %>
-			</p>
 
-			<p>
-				<strong>Status:</strong>
-				<%= @group.status %>
-			</p>
+<table class="table table-striped">
+      <thead>
+        <tr>
+         <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr> <td>群组名</td> <td><%= @group.name %></td> </tr>
+         <tr>  <td>群组详情</td> <td><%= @group.description %></td> </tr>
+         <tr>  <td>创建时间</td><td>	<%= @group.create_time %></td> </tr>
+          <tr> <td>状态</td><td><%= @group.status %></td> </tr>
+
+        
+       
+      </tbody>
+    </table>
+
+	
+	
+	
+	
 				<div class="row pull-right">
 			<%= link_to '编辑群组', edit_group_path(@group) %> <!--|
 			<%= link_to 'Back', groups_path %>-->

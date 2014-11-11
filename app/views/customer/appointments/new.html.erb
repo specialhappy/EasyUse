@@ -16,14 +16,84 @@
 
 	</div>
 	<div class="row">
-		<div class="col-md-2" style="padding: 20px">
-			<%= render "customer/common/sidebar"%>
+		<div>
+			<p>
+				<strong>Name:</strong>
+				<%= @instrument.name %>
+			</p>
+
+			<p>
+				<strong>Model:</strong>
+				<%= @instrument.model %>
+			</p>
+
+			<p>
+				<strong>Price:</strong>
+				<%= @instrument.price %>
+			</p>
+
+			<p>
+				<strong>Img url:</strong>
+				<%= @instrument.img_url %>
+			</p>
+
+			<p>
+				<strong>Description:</strong>
+				<%= @instrument.description %>
+			</p>
+
+			<p>
+				<strong>Status:</strong>
+				<%= @instrument.status %>
+			</p>
 		</div>
 		<div class="col-md-10" style="padding:20px">
-			<%= render 'form' %>
-		<!--div class="row">
-<%= link_to 'Back', appointments_path %>
-</div-->
+			<%= form_for(@appointment, :html=>{:class=>"form-horizontal"} ) do |f| %>
+			<% if @appointment.errors.any? %>
+			<div id="error_explanation">
+				<h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+				<ul>
+					<% @appointment.errors.full_messages.each do |message| %>
+					<li>
+						<%= message %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+
+			<div class="form-group field">
+				<%= f.label :开始时间,:class=>'col-sm-2 control-label' %>
+				<div class="col-sm-10">
+					<%= f.datetime_select :start_time %>
+				</div>
+			</div>
+			<div class="form-group field">
+				<%= f.label :结束时间,:class=>'col-sm-2 control-label' %>
+				<div class="col-sm-10">
+					<%= f.datetime_select :end_time %>
+				</div>
+			</div>
+			<div>
+				<%= collection_select(:Group,:group_id, @groups, :id, :name, options ={:prompt => "选择群组"})%>
+			</div>
+			<div class="field">
+				<%= f.label :experiment_description %>
+				<br>
+				<%= f.text_area :experiment_description, :value => ' ' %>
+			</div>
+			<div class="field">
+				<%= f.label :instrument_id %>
+				<br>
+				<%= f.text_field :instrument_id, :value => @instrument.id %>
+			</div>
+			<div class="form-group actions">
+				<div class="col-sm-10 pull-right">
+					<%= f.submit '提交'%>
+				</div>
+			</div>
+			<% end %>
 		</div>
 	</div>
 
