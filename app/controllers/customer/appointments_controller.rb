@@ -45,7 +45,10 @@ class Customer::AppointmentsController < ApplicationController
     info= @appointment.save ? 'success':'fail'
     @application_form = @appointment.create_application_form(experiment_description_params)
 
-    redirect_to '/customer/appointments/appointment_success'
+    #检查是否需要管理员手动审核，默认系统自动完成审核功能
+    if verify(session[:user_id])
+      redirect_to '/customer/appointments/appointment_success'
+    end
   #respond_to do |format|
   #  if @appointment.save
   #    format.html { redirect_to @appointment, notice: 'Appointment was successfully created.' }
@@ -106,4 +109,7 @@ class Customer::AppointmentsController < ApplicationController
     params.require(:Group).permit(:group_id)
   end
 
+  def verify(user_id)
+    return true
+  end
 end
