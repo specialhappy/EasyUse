@@ -53,23 +53,18 @@ Ext.onReady(function() {
 			}
 		}
 	});
-
-	
-		// 定义部门数据类型，用于下拉列表
-	Ext.define('getInstitution', {
+	// 定义数据类型，用于下拉列表
+	Ext.define('combomodel', {
 				extend : 'Ext.data.Model',
 				fields : [{
 							name : 'id'
 						}, {
 							name : 'name'
 						}]
-
 			});
-
-	//定义数据源，充当下拉框的数据来源
+	//定义单位数据源，充当下拉框的数据来源
 	var Istore = Ext.create('Ext.data.Store', {
-		model : 'getInstitution',
-		autoLoad : true,
+		model : 'combomodel',
 		proxy : {
 			type : 'ajax',
 			url : '/admin/institutions/list',
@@ -81,7 +76,6 @@ Ext.onReady(function() {
 			}
 		}
 	});
-	
 	/**END 数据类型和数据源**/
 	
 	/** BEGIN 表格的组件 **/
