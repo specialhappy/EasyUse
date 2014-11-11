@@ -24,20 +24,51 @@
 				<%= notice %>
 			</p>
 
-			<p>
-				<strong>From:</strong>
-				<%= @message.from %>
-			</p>
 
-			<p>
-				<strong>Content:</strong>
-				<%= @message.content %>
-			</p>
 
-			<p>
-				<strong>Send time:</strong>
-				<%= @message.send_time %>
-			</p>
+
+
+
+
+
+
+
+
+
+<h1> <%= notice %> </h1>
+
+
+
+<table class="table table-striped">
+      <thead>
+        <tr>
+         <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr> <td>消息发送人</td> <td><%= @message.from %></td> </tr>
+         <tr>  <td>消息内容</td> <td><%= @message.content %></td> </tr>
+         <tr>  <td>发送时间</td><td><%= @message.send_time %></td> </tr>
+        
+       
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 <!--div class="row pull-right">
 			<%= link_to '编辑消息', edit_message_path(@message) %> |
 		<%= link_to 'Back', messages_path %>

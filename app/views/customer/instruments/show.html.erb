@@ -1,34 +1,56 @@
-<p id="notice"><%= notice %></p>
+<%= render "common/header"%>
+<div class="container" style="margin-top: 60px">
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @instrument.name %>
-</p>
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<p  id="notice">
+					<%= notice %>
+			</center>
+			</p>
+		</div>
 
-<p>
-  <strong>Model:</strong>
-  <%= @instrument.model %>
-</p>
+	</div>
+	<hr/>
 
-<p>
-  <strong>Price:</strong>
-  <%= @instrument.price %>
-</p>
+	<div class="jumbotron">
+		<center>
+			<h2><%= @instrument.name %> </h2>
+			<p>
 
-<p>
-  <strong>Img url:</strong>
-  <%= @instrument.img_url %>
-</p>
+				<%= image_tag(@instrument.img_url)%>
 
-<p>
-  <strong>Description:</strong>
-  <%= @instrument.description %>
-</p>
+			</p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @instrument.status %>
-</p>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>型号</th><th>价格</th><th>描述</th><th>状态</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="info"><%= @instrument.model %></td>
+						<td class="info"> <%= @instrument.price %></td>
+						<td class="info"> <%= @instrument.description %></td>
+						<td class="info"> <%= @instrument.status %></td>
+					</tr>
 
-<%= link_to 'Edit', edit_instrument_path(@instrument) %> |
-<%= link_to 'Back', instruments_path %>
+				</tbody>
+			</table>
+
+			<p>
+				<a class="btn btn-lg btn-success" href="#" role="button">预约</a>
+			</p>
+		</center>
+	</div>
+
+	<!--<%= link_to 'Edit', edit_instrument_path(@instrument) %> |
+	<%= link_to 'Back', instruments_path %>-->
+
+</div>
+
+<%= render "common/footer"%>
