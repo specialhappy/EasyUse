@@ -1,5 +1,33 @@
-<h1>New user</h1>
+<%= render "common/header"%>
+<div class="container" style="margin-top: 60px">
+	<div class="row">
+		<div class="row">
+			<div class="col-md-3"  style="margin-top:40px">
+				Logo
+			</div>
+
+			<div class="col-md-9" style="margin-top:40px">
+				<center>
+					<h3>新建用户</h3>
+				</center>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="row">
+
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "customer/common/sidebar"%>
+		</div>
+		<div class="col-md-10" style="padding:20px">
 
 <%= render 'form' %>
 
-<%= link_to 'Back', users_path %>
+<!--<%= link_to 'Back', users_path %>-->
+</div>
+	</div>
+</div>
+
+<%= render "common/footer"%>
+

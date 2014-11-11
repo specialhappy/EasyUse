@@ -1,24 +1,54 @@
-<p id="notice"><%= notice %></p>
+<%= render "common/header"%>
 
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
+<div class="container" style="margin-top: 60px">
 
-<p>
-  <strong>Description:</strong>
-  <%= @group.description %>
-</p>
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
-<p>
-  <strong>Create time:</strong>
-  <%= @group.create_time %>
-</p>
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<h3>群组详情</h3>
+			</center>
+		</div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @group.status %>
-</p>
+	</div>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "customer/common/sidebar"%>
+		</div>
+		
+<div class="col-md-10" style="padding:20px">
+			<p id="notice">
+				<%= notice %>
+			</p>
+
+			<p>
+				<strong>Name:</strong>
+				<%= @group.name %>
+			</p>
+
+			<p>
+				<strong>Description:</strong>
+				<%= @group.description %>
+			</p>
+
+			<p>
+				<strong>Create time:</strong>
+				<%= @group.create_time %>
+			</p>
+
+			<p>
+				<strong>Status:</strong>
+				<%= @group.status %>
+			</p>
+				<div class="row pull-right">
+			<%= link_to '编辑群组', edit_group_path(@group) %> <!--|
+			<%= link_to 'Back', groups_path %>-->
+			</div>
+		</div>
+	</div>
+</div>
+<%= render "common/footer"%>
