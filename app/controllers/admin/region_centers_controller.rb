@@ -1,5 +1,5 @@
 class Admin::RegionCentersController < ApplicationController
-  before_action :set_region_center, only: [:show, :edit, :update, :destroy]
+  before_action :set_region_center, only: [:modify]
   layout 'adminlayout'
   protect_from_forgery :only => :index
   # GET /admin/region_centers
@@ -19,26 +19,14 @@ class Admin::RegionCentersController < ApplicationController
     # POST /region_centers
   # POST /region_centers.json
   def create
-        @region_center = RegionCenter.new(:name => params[:name].to_s,:url => params[:url].to_s,:description => params[:description].to_s)
+        @region_center = RegionCenter.new(region_center_params)
     info = @region_center.save ? 'success' : '添加失败' 
    render :text => get_result(info)
   end
   
   #POST /admin/region_centers/1/modify
   def modify
-    begin
- region_center = RegionCenter.find(params[:id])
-      region_center.name = params[:name].to_s
-      region_center.description = params[:description].to_s
-      region_center.url = params[:url].to_s
-        info = region_center.save ? 'success' : '更新失败'
-      rescue ActiveRecord::RecordNotFound
-        logger.error '更新不存在的数据'
-        info = '不存在的数据'
-      rescue Exception => e
-        logger.error e.to_s
-        info = "更新异常"
-      end
+        info = @region_center.update(region_center_params) ? 'success' : '更新失败'
       render :text => get_result(info)
   end
 
@@ -63,6 +51,6 @@ class Admin::RegionCentersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def region_center_params
-      params[:region_center]
+      params.permit(:name, :description, :url)
     end
 end

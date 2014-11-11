@@ -1,64 +1,46 @@
 class Admin::RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
-
-  # GET /roles
-  # GET /roles.json
+  before_action :set_role, only: [:modify]
+  layout 'adminlayout'
+  protect_from_forgery :only => :index
+  # GET /admin/roles
+  # GET /admin/roles.json
   def index
-    @roles = Role.all
   end
 
-  # GET /roles/1
-  # GET /roles/1.json
-  def show
+  #GET /admin/roles/list
+  def list
+    start=params[:start].to_i
+    limit=params[:limit].to_i
+    roles=Role.order("id").limit(limit).offset(start)
+    count=Role.count :all
+   render :text =>get_json(count,roles.to_json)
   end
-
-  # GET /roles/new
-  def new
-    @role = Role.new
-  end
-
-  # GET /roles/1/edit
-  def edit
-  end
-
-  # POST /roles
+  
+    # POST /roles
   # POST /roles.json
   def create
-    @role = Role.new(role_params)
-
-    respond_to do |format|
-      if @role.save
-        format.html { redirect_to @role, notice: 'Role was successfully created.' }
-        format.json { render :show, status: :created, location: @role }
-      else
-        format.html { render :new }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
-      end
-    end
+        @role = Role.new(role_params)
+    info = @role.save ? 'success' : '添加失败' 
+   render :text => get_result(info)
+  end
+  
+  #POST /admin/roles/1/modify
+  def modify
+      info = @role.update(role_params) ? 'success' : '更新失败'
+      render :text => get_result(info)
   end
 
-  # PATCH/PUT /roles/1
-  # PATCH/PUT /roles/1.json
-  def update
-    respond_to do |format|
-      if @role.update(role_params)
-        format.html { redirect_to @role, notice: 'Role was successfully updated.' }
-        format.json { render :show, status: :ok, location: @role }
-      else
-        format.html { render :edit }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
-      end
+# POST /admin/roles/delete
+ def delete
+    begin
+      ids = params[:id][1..params[:id].length-2].split(',')
+      Role.destroy(ids)
+      info = 'success'
+    rescue Exception => e
+      logger.error e.to_s
+      info = "删除异常"
     end
-  end
-
-  # DELETE /roles/1
-  # DELETE /roles/1.json
-  def destroy
-    @role.destroy
-    respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :text => get_result(info)
   end
 
   private
@@ -69,6 +51,6 @@ class Admin::RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params[:role]
+      params.permit(:name, :description)
     end
 end

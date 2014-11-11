@@ -13,9 +13,7 @@ Ext.onReady(function() {
 		}, {
 			name : 'description',
 		}, {
-			name : 'url',
-		}, {
-			name : 'region_center_id',
+			name : 'a_level_tag_id',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -24,7 +22,7 @@ Ext.onReady(function() {
 		autoLoad : true,
 		proxy : {
 			type : 'ajax',
-			url : '/admin/institutions/list',
+			url : '/admin/b_level_tags/list',
 			reader : {
 				type : 'json',
 				root : 'root',
@@ -33,7 +31,7 @@ Ext.onReady(function() {
 			}
 		}
 	});
-	// 定义数据类型，用于下拉列表
+		// 定义数据类型，用于下拉列表
 	Ext.define('combomodel', {
 				extend : 'Ext.data.Model',
 				fields : [{
@@ -42,12 +40,12 @@ Ext.onReady(function() {
 							name : 'name'
 						}]
 			});
-	//定义区域中心数据源，充当下拉框的数据来源
-	var Rstore = Ext.create('Ext.data.Store', {
+	//定义单位数据源，充当下拉框的数据来源
+	var ATstore = Ext.create('Ext.data.Store', {
 		model : 'combomodel',
 		proxy : {
 			type : 'ajax',
-			url : '/admin/region_centers/list',
+			url : '/admin/a_level_tags/list',
 			reader : {
 				type : 'json',
 				root : 'root',
@@ -57,8 +55,8 @@ Ext.onReady(function() {
 		}
 	});
 	/**END 数据类型和数据源**/
-	
-	/** BEGIN 表格的组件 **/
+
+	/** BEGIN 表格的组件 **/	
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -86,17 +84,14 @@ Ext.onReady(function() {
 			dataIndex : 'id',
 			hidden:true
 		}, {
-			header : '单位名称',
+			header : '二级标签名称',
 			dataIndex : 'name'
 		},  {
-			header : '描述',
+			header : '二级标签描述',
 			dataIndex : 'description'
-		}, {
-			header : '链接地址',
-			dataIndex : 'url'
-		}, {
-			header : '所属区域中心',
-			dataIndex : 'region_center_id'
+		},  {
+			header : '所属一级标签',
+			dataIndex : 'a_level_tag_id'
 		}];
 	var listView = Ext.create('Ext.grid.Panel', {
 		//width:'45%',
@@ -144,7 +139,7 @@ Ext.onReady(function() {
 	};	
 	var id=0;
 	// 修改某条记录
-		listView.addListener('itemdblclick', edit, this);
+	listView.addListener('itemdblclick', edit, this);
 	function edit() {
 		var record = listView.getSelectionModel().getSelection();
 		if (record.length == 1) {
@@ -188,20 +183,17 @@ Ext.onReady(function() {
 			allowBlank : true
 		},
 		items : [{
-			fieldLabel : '单位名称',
+			fieldLabel : '二级标签名称',
 			name : 'name',
 		}, {
 			xtype: 'textarea',
-			fieldLabel : '单位描述',
+			fieldLabel : '二级标签描述',
 			name : 'description',
 		}, {
-			fieldLabel : '链接地址',
-			name : 'url',
-		}, {
-			xtype:'combo',
-			fieldLabel : '所属区域中心',
-			name : 'region_center_id',
-			store: Rstore,
+			xtype: 'combo',
+			fieldLabel : '所属一级标签',
+			name : 'a_level_tag_id',
+			store: ATstore,
 			valueField:'id',
 			displayField:'name'
 		}]
@@ -257,7 +249,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/institutions',
+					url : '/admin/b_level_tags',
 					method : 'POST',
 					success : function(result,response) {
 						if (response.result.info == 'success') {
@@ -276,7 +268,7 @@ Ext.onReady(function() {
 				form.form.submit({
 					waitMsg : '正在提交数据，请稍后...',
 					waitTitle : '提示',
-					url : '/admin/institutions/'+id+'/modify',
+					url : '/admin/b_level_tags/'+id+'/modify',
 					method : 'POST',										
 					success: function(result,response) {
 						if (response.result.info == 'success') {
@@ -311,7 +303,7 @@ Ext.onReady(function() {
     		msg:'正在删除信息，请稍等...'
     	});
     	Ext.Ajax.request({
-    		url:'/admin/institutions/delete',
+    		url:'/admin/b_level_tags/delete',
     		params:{id:keys},
     		method:'POST',
     		success:function(response,options){
