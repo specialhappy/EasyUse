@@ -25,10 +25,13 @@ class Customer::GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = Group.new(group_params)
+    #@group = Group.new(group_params)
+    @user = User.find(session[:user_id])
+    
+    @group = @user.groups.create(group_params)
 
     respond_to do |format|
-      if @group.save
+      if true
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
