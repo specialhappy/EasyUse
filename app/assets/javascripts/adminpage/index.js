@@ -5,7 +5,7 @@ Ext.require(['*']);
         Ext.QuickTips.init();
         
         Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
-        
+
         //左侧菜单面板
         var menuPanel = new Ext.Panel({
             split : true,
@@ -20,7 +20,7 @@ Ext.require(['*']);
             region : 'west'
         });
         
-                var appointmentManage = new Ext.tree.TreePanel({
+ 	   var appointmentManage = new Ext.tree.TreePanel({
             border : false,
             title : '预约管理',
             autoScroll : true,
@@ -173,13 +173,11 @@ Ext.require(['*']);
             Ext.create('Ext.Component', {
                 region: 'north',
                 height: 32,
-                autoEl: {
-                    tag: 'div',
-                    html:'<p>north - generally for menus, toolbars and/or advertisements</p>'
-                }
+                margins: '0 15 5 0',
+                contentEl:'north'
             }),
-                menuPanel
-                ,contentPanel
+                menuPanel,
+                contentPanel
                 ]
         });
         var curNode=appointmentManage.root;

@@ -36,6 +36,8 @@ Ext.onReady(function() {
 			name : 'status',
 		}, {
 			name : 'institution_id',
+		}, {
+			name : 'role_id',
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -76,6 +78,40 @@ Ext.onReady(function() {
 			}
 		}
 	});
+	//定义单位数据源，充当下拉框的数据来源
+	var Rstore = Ext.create('Ext.data.Store', {
+		model : 'combomodel',
+		proxy : {
+			type : 'ajax',
+			url : '/admin/roles/list',
+			reader : {
+				type : 'json',
+				root : 'root',
+				totalProperty : 'totalProperty',
+				idProperty : 'id'
+			}
+		}
+	});
+	var statusStore = new Ext.data.Store({
+				fields : ['id', 'name'],
+				data : [{
+							'id' : 1,
+							'name' : '可用'
+						}, {
+							'id' : 2,
+							'name' : '禁用'
+						}]
+			});
+	var sexStore = new Ext.data.Store({
+				fields : ['id', 'name'],
+				data : [{
+							'id' : 1,
+							'name' : '男'
+						}, {
+							'id' : 2,
+							'name' : '女'
+						}]
+			});
 	/**END 数据类型和数据源**/
 	
 	/** BEGIN 表格的组件 **/
@@ -142,11 +178,21 @@ Ext.onReady(function() {
 			header : '最近登录时间',
 			dataIndex : 'last_login_time'
 		}, {
-			header : '状态',
-			dataIndex : 'status'
-		}, {
 			header : '单位',
 			dataIndex : 'institution_id'
+		}, {
+			header : '角色',
+			dataIndex : 'role_id'
+		}, {
+			header : '状态',
+			dataIndex : 'status',
+			renderer:function(value){  
+            if(value=='可用'){  
+                return "<span style='color:green;font-weight:bold';>可用</span><img src='../icons/right.gif' />";  
+            } else {  
+                return "<span style='color:red;font-weight:bold';>禁用</span><img src='../icons/wrong.gif' />";  
+            }  
+            }
 		}];
 		
 	var listView = Ext.create('Ext.grid.Panel', {
@@ -218,6 +264,9 @@ Ext.onReady(function() {
 			xtype : 'combo',
 			fieldLabel : '性别',
 			name : 'sex',
+			store : sexStore,
+			valueField:'name',
+			displayField:'name'
 		}, {
 			fieldLabel : '身份证号',
 			name : 'id_number',
@@ -231,14 +280,25 @@ Ext.onReady(function() {
 			fieldLabel : '联系地址',
 			name : 'address',
 		}, {
-			fieldLabel : '状态',
-			name : 'status',
-		}, {
 			xtype : 'combo',
 			fieldLabel : '单位名称',
 			name : 'institution_id',
 			store: Istore,
 			valueField:'id',
+			displayField:'name'
+		}, {
+			xtype : 'combo',
+			fieldLabel : '角色',
+			name : 'role_id',
+			store: Rstore,
+			valueField:'id',
+			displayField:'name'
+		}, {
+			xtype : 'combo',
+			fieldLabel : '状态',
+			name : 'status',
+			store : statusStore,
+			valueField:'name',
 			displayField:'name'
 		}]
 	});
