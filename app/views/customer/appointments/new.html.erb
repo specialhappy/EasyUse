@@ -76,7 +76,7 @@
 				</div>
 			</div>
 			<div>
-				<select>
+				<%= collection_select(:Group,:group_id, @groups, :id, :name)%>
 			</div>
 			<div class="field">
 				<%= f.label :experiment_description %>

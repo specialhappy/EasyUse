@@ -17,6 +17,8 @@ class Customer::AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     @instrument = Instrument.find(params[:id])
+    @user = User.find(session[:user_id])
+    @groups = @user.groups
   end
 
   # GET /appointments/1/edit
@@ -39,6 +41,7 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.status=appointment_params[:status]
     @appointment.user_id=@user.id
     @appointment.instrument_id=instrument_id_params[:instrument_id]
+    @appointment.group_id=group_id_params[:group_id]
     info= @appointment.save ? 'success':'fail'
     @application_form = @appointment.create_application_form(experiment_description_params)
 
@@ -97,6 +100,10 @@ class Customer::AppointmentsController < ApplicationController
 
   def experiment_description_params
     params.require(:appointment).permit(:experiment_description)
+  end
+  
+  def group_id_params
+    params.require(:Group).permit(:group_id)
   end
 
 end
