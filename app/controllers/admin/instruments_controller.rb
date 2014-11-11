@@ -19,7 +19,14 @@ class Admin::InstrumentsController < ApplicationController
     # POST /instruments
   # POST /instruments.json
   def create
-        @instrument = Instrument.new(:name => params[:name].to_s,:model => params[:model].to_s,:price => params[:price],:img_url => params[:img_url].to_s,:status => params[:status].to_s,:description => params[:description].to_s,:user_id => params[:user_id].to_s,:institution_id => params[:institution_id])
+      uploaded_io = params[:photoImg]
+      if uploaded_io.nil? == false
+        name=getFileName(uploaded_io)
+      File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+      file.write(uploaded_io.read)
+      end
+      end
+        @instrument = Instrument.new(:name => params[:name].to_s,:model => params[:model].to_s,:price => params[:price],:img_url => name,:status => params[:status].to_s,:description => params[:description].to_s,:user_id => params[:user_id].to_s,:institution_id => params[:institution_id])
     info = @instrument.save ? 'success' : '添加失败' 
    render :text => get_result(info)
   end
@@ -27,11 +34,18 @@ class Admin::InstrumentsController < ApplicationController
   #POST /admin/instruments/1/modify
   def modify
     begin
+          uploaded_io = params[:photoImg]
+      if uploaded_io.nil? == false
+        name=getFileName(uploaded_io)
+          File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+          file.write(uploaded_io.read)  
+          end
+      end
  instrument = Instrument.find(params[:id])
       instrument.name = params[:name].to_s
       instrument.model = params[:model].to_s
       instrument.price = params[:price]
-      instrument.img_url = params[:img_url].to_s
+      instrument.img_url = name
       instrument.status = params[:status].to_s
       instrument.description = params[:description].to_s
       instrument.user_id = params[:user_id].to_s
@@ -62,6 +76,14 @@ class Admin::InstrumentsController < ApplicationController
   
 
   private
+    def getFileName(uploaded_io)
+    if uploaded_io.nil? == false
+        @strs=uploaded_io.content_type.to_s.split("/")
+   @time=Time.new.to_s
+   @fileName=@time+'.'+@strs[1]
+    return @fileName
+    end
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_instrument
       @instrument = Instrument.find(params[:id])

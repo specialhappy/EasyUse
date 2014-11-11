@@ -18,23 +18,28 @@ class Admin::UsersController < ApplicationController
   
     # POST /users
   # POST /users.json
-  def create
-    uploaded_io = params[:photoImg]
-  File.open(Rails.root.join('app','assets', 'images', getFileName(uploaded_io)), 'wb') do |file|
-   file.write(uploaded_io.read)  
-    end
-        @user = User.new(:name => params[:name].to_s,:card_number => params[:card_number].to_s,:password => params[:password].to_s,:sex => params[:sex].to_s,:id_number => params[:id_number].to_s,:phone => params[:phone].to_s,:picture => getFileName(uploaded_io),:email => params[:email],:address => params[:address],:status => params[:status],:institution_id => params[:institution_id])
-    info = @user.save ? 'success' : '添加失败' 
-   render :text => get_result(info)
-  end
+ def create
+			uploaded_io = params[:photoImg]
+			if uploaded_io.nil? == false
+			  name=getFileName(uploaded_io)
+			File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+			file.write(uploaded_io.read)
+			end
+			end
+			@user = User.new(:name => params[:name].to_s,:card_number => params[:card_number].to_s,:password => params[:password].to_s,:sex => params[:sex].to_s,:id_number => params[:id_number].to_s,:phone => params[:phone].to_s,:picture => name,:email => params[:email],:address => params[:address],:status => params[:status],:institution_id => params[:institution_id])
+			info = @user.save ? 'success' : '添加失败'
+			render :text => get_result(info)
+			end
   
   #POST /admin/users/1/modify
   def modify
-    begin
-          uploaded_io = params[:photoImg]
-  File.open(Rails.root.join('app','assets', 'images', getFileName(uploaded_io)), 'wb') do |file|
-   file.write(uploaded_io.read)  
-   end
+    uploaded_io = params[:photoImg]
+      if uploaded_io.nil? == false
+        name=getFileName(uploaded_io)
+          File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+          file.write(uploaded_io.read)  
+          end
+      end
  user = User.find(params[:id])
       user.name = params[:name].to_s
       user.card_number = params[:card_number].to_s
@@ -42,19 +47,12 @@ class Admin::UsersController < ApplicationController
       user.sex = params[:sex].to_s
       user.id_number = params[:id_number].to_s
       user.phone = params[:phone].to_s
-      user.picture = getFileName(uploaded_io)
+      user.picture = name
       user.email = params[:email].to_s
       user.address = params[:address].to_s
       user.status = params[:status].to_s
       user.institution_id = params[:institution_id].to_s
         info = user.save ? 'success' : '更新失败'
-      rescue ActiveRecord::RecordNotFound
-        logger.error '更新不存在的数据'
-        info = '不存在的数据'
-      rescue Exception => e
-        logger.error e.to_s
-        info = "更新异常"
-      end
       render :text => get_result(info)
   end
 
@@ -73,10 +71,12 @@ class Admin::UsersController < ApplicationController
 
   private
   def getFileName(uploaded_io)
+    if uploaded_io.nil? == false
         @strs=uploaded_io.content_type.to_s.split("/")
-    @time=Time.new.to_s
-    @fileName=@time+'.'+@strs[1]
+   @time=Time.new.to_s
+   @fileName=@time+'.'+@strs[1]
     return @fileName
+    end
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_user

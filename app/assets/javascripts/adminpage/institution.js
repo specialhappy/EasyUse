@@ -1,7 +1,7 @@
 Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.panel.*']);
 Ext.onReady(function() {
 
-//传值时需包括区域中心和单位的id，表单里需要做下拉框，下拉框store，以及下拉框在表格和表单的对应显示
+/**BEGIN 数据类型和数据源**/
 	//定义数据类型
 	Ext.define('datamodel', {
 		extend : 'Ext.data.Model',
@@ -33,6 +33,32 @@ Ext.onReady(function() {
 			}
 		}
 	});
+	// 定义数据类型，用于下拉列表
+	Ext.define('combomodel', {
+				extend : 'Ext.data.Model',
+				fields : [{
+							name : 'id'
+						}, {
+							name : 'name'
+						}]
+			});
+	//定义区域中心数据源，充当下拉框的数据来源
+	var Rstore = Ext.create('Ext.data.Store', {
+		model : 'combomodel',
+		proxy : {
+			type : 'ajax',
+			url : '/admin/region_centers/list',
+			reader : {
+				type : 'json',
+				root : 'root',
+				totalProperty : 'totalProperty',
+				idProperty : 'id'
+			}
+		}
+	});
+	/**END 数据类型和数据源**/
+	
+	/** BEGIN 表格的组件 **/
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -52,7 +78,6 @@ Ext.onReady(function() {
 			handler : destroy
 		}]
 	});
-
     var sm = new Ext.selection.CheckboxModel(); 
     var columns = [  
         Ext.create('Ext.grid.RowNumberer'),
@@ -73,7 +98,6 @@ Ext.onReady(function() {
 			header : '所属区域中心',
 			dataIndex : 'region_center_id'
 		}];
-		
 	var listView = Ext.create('Ext.grid.Panel', {
 		//width:'45%',
 		//height:'100%',
@@ -95,6 +119,7 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
+	/** END 表格的组件 **/
 	
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
@@ -173,8 +198,12 @@ Ext.onReady(function() {
 			fieldLabel : '链接地址',
 			name : 'url',
 		}, {
+			xtype:'combo',
 			fieldLabel : '所属区域中心',
 			name : 'region_center_id',
+			store: Rstore,
+			valueField:'id',
+			displayField:'name'
 		}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/
