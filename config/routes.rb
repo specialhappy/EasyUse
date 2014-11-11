@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
 
     require File.expand_path('../routes_admin',__FILE__)
-  
+
   end
-  
-    namespace :customer do
+
+  namespace :customer do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
     resources :region_centers
@@ -37,18 +37,23 @@ Rails.application.routes.draw do
 
     resources :application_forms
 
-    resources :appointments
+    resources :appointments do
+      collection do
+        get 'appointment_success'
+      end
+
+    end
 
     resources :instruments
-    
+
     resources :messages
-    
+
     require File.expand_path('../routes_customer',__FILE__)
 
   end
-  
+
   scope module: 'customer' do
-    resources :region_centers, :institutions, :time_periods, :a_level_tags, :b_level_tags, :groups, :priviliges, :roles, :users, :working_records, :operation_logs, :application_forms, :appointments, :instruments, :messages
+    resources :region_centers, :institutions, :time_periods, :a_level_tags, :b_level_tags, :groups, :priviliges, :roles, :users, :working_records, :operation_logs, :application_forms, :appointments, :instruments, :messages, :payments
   end
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".

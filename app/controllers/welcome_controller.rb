@@ -38,4 +38,5 @@ class WelcomeController < ApplicationController
   def search
     @instruments=Instrument.where("name LIKE '%#{params[:search]}%'")
   end
+  
 end
