@@ -4,7 +4,8 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments
   # GET /appointments.json
   def index
-    @appointments = Appointment.all
+    #@appointments = Appointment.all
+    @appointments = User.find(session[:user_id]).appointments
   end
 
   # GET /appointments/1
