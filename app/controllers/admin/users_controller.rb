@@ -19,7 +19,11 @@ class Admin::UsersController < ApplicationController
     # POST /users
   # POST /users.json
   def create
-        @user = User.new(:name => params[:name].to_s,:card_number => params[:card_number].to_s,:password => params[:password].to_s,:sex => params[:sex].to_s,:id_number => params[:id_number].to_s,:phone => params[:phone].to_s,:picture => params[:picture].to_s,:email => params[:email],:address => params[:address],:status => params[:status],:institution_id => params[:institution_id])
+    uploaded_io = params[:photoImg]
+  File.open(Rails.root.join('app','assets', 'images', getFileName(uploaded_io)), 'wb') do |file|
+   file.write(uploaded_io.read)  
+    end
+        @user = User.new(:name => params[:name].to_s,:card_number => params[:card_number].to_s,:password => params[:password].to_s,:sex => params[:sex].to_s,:id_number => params[:id_number].to_s,:phone => params[:phone].to_s,:picture => getFileName(uploaded_io),:email => params[:email],:address => params[:address],:status => params[:status],:institution_id => params[:institution_id])
     info = @user.save ? 'success' : '添加失败' 
    render :text => get_result(info)
   end
@@ -27,6 +31,10 @@ class Admin::UsersController < ApplicationController
   #POST /admin/users/1/modify
   def modify
     begin
+          uploaded_io = params[:photoImg]
+  File.open(Rails.root.join('app','assets', 'images', getFileName(uploaded_io)), 'wb') do |file|
+   file.write(uploaded_io.read)  
+   end
  user = User.find(params[:id])
       user.name = params[:name].to_s
       user.card_number = params[:card_number].to_s
@@ -34,7 +42,7 @@ class Admin::UsersController < ApplicationController
       user.sex = params[:sex].to_s
       user.id_number = params[:id_number].to_s
       user.phone = params[:phone].to_s
-      user.picture = params[:picture].to_s
+      user.picture = getFileName(uploaded_io)
       user.email = params[:email].to_s
       user.address = params[:address].to_s
       user.status = params[:status].to_s
@@ -64,6 +72,12 @@ class Admin::UsersController < ApplicationController
   end
 
   private
+  def getFileName(uploaded_io)
+        @strs=uploaded_io.content_type.to_s.split("/")
+    @time=Time.new.to_s
+    @fileName=@time+'.'+@strs[1]
+    return @fileName
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])

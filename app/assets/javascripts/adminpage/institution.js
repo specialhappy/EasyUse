@@ -71,7 +71,7 @@ Ext.onReady(function() {
 			dataIndex : 'url'
 		}, {
 			header : '所属区域中心',
-			dataIndex : 'region_center'
+			dataIndex : 'region_center_id'
 		}];
 		
 	var listView = Ext.create('Ext.grid.Panel', {
