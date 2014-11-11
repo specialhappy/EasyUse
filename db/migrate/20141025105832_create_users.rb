@@ -14,6 +14,7 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :last_login_time
       t.string :status
 
+        t.belongs_to :role
       t.belongs_to :institution
       t.timestamps
     end

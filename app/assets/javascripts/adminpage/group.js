@@ -1,7 +1,7 @@
 Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.panel.*']);
 Ext.onReady(function() {
 
-//传值时需包括区域中心和单位的id，表单里需要做下拉框，下拉框store，以及下拉框在表格和表单的对应显示
+/**BEGIN 数据类型和数据源**/
 	//定义数据类型
 	Ext.define('datamodel', {
 		extend : 'Ext.data.Model',
@@ -33,6 +33,19 @@ Ext.onReady(function() {
 			}
 		}
 	});
+	var statusStore = new Ext.data.Store({
+				fields : ['id', 'name'],
+				data : [{
+							'id' : 1,
+							'name' : '可用'
+						}, {
+							'id' : 2,
+							'name' : '禁用'
+						}]
+			});
+	/**END 数据类型和数据源**/
+	
+		/** BEGIN 表格的组件 **/
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -52,7 +65,6 @@ Ext.onReady(function() {
 			handler : destroy
 		}]
 	});
-
     var sm = new Ext.selection.CheckboxModel(); 
     var columns = [  
         Ext.create('Ext.grid.RowNumberer'),
@@ -71,9 +83,15 @@ Ext.onReady(function() {
 			dataIndex : 'create_time'
 		}, {
 			header : '状态',
-			dataIndex : 'status'
+			dataIndex : 'status',
+			renderer:function(value){  
+            if(value=='可用'){  
+                return "<span style='color:green;font-weight:bold';>可用</span><img src='../icons/right.gif' />";  
+            } else {  
+                return "<span style='color:red;font-weight:bold';>禁用</span><img src='../icons/wrong.gif' />";  
+            }  
+        }
 		}];
-		
 	var listView = Ext.create('Ext.grid.Panel', {
 		//width:'45%',
 		//height:'100%',
@@ -95,7 +113,8 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
-	
+		/** END 表格的组件 **/
+		
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
 	function add() {
@@ -173,8 +192,12 @@ Ext.onReady(function() {
 			fieldLabel : '创建时间',
 			name : 'create_time',
 		}, {
+			xtype : 'combo',
 			fieldLabel : '状态',
 			name : 'status',
+			store : statusStore,
+			valueField:'name',
+			displayField:'name'
 		}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/

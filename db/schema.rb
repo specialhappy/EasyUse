@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20141109073179) do
     t.integer  "login_number"
     t.datetime "last_login_time"
     t.string   "status"
+    t.integer  "role_id"
     t.integer  "institution_id"
     t.datetime "created_at"
     t.datetime "updated_at"

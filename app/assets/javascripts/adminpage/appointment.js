@@ -100,6 +100,38 @@ Ext.onReady(function() {
 			}
 		}
 	});
+	var paidStore = new Ext.data.Store({
+				fields : ['id', 'name'],
+				data : [{
+							'id' : 1,
+							'name' : '可支付'
+						}, {
+							'id' : 2,
+							'name' : '未支付'
+						}, {
+							'id' : 3,
+							'name' : '待退款'
+						}, {
+							'id' : 4,
+							'name' : '已退款'
+						}]
+			});
+	var statusStore = new Ext.data.Store({
+				fields : ['id', 'name'],
+				data : [{
+							'id' : 1,
+							'name' : '待审核'
+						}, {
+							'id' : 2,
+							'name' : '审核通过'
+						}, {
+							'id' : 3,
+							'name' : '审核未通过'
+						}, {
+							'id' : 4,
+							'name' : '用户已取消'
+						}]
+			});
 	/**END 数据类型和数据源**/
 	
 	/** BEGIN 表格的组件 **/
@@ -158,7 +190,28 @@ Ext.onReady(function() {
 			renderer: Ext.util.Format.dateRenderer('Y-m-d')
 		}, {
 			header : '审核状态',
-			dataIndex : 'status'
+			dataIndex : 'status',
+			renderer:function(value){  
+            if(value=='待审核'){  
+                return "<span style='color:blue;font-weight:bold';>待审核</span>";  
+            } else if(value=='审核通过') {  
+                return "<span style='color:green;font-weight:bold';>审核通过</span>";  
+            }else if(value=='审核未通过') {  
+                return "<span style='color:red;font-weight:bold';>审核未通过</span>";  
+            }else if(value=='用户已取消') {  
+                return "<span style='color:black;font-weight:bold';>用户已取消</span>";  
+            }  
+            }
+		}, {
+			xtype:"actioncolumn",
+			header : '查看预约表单',
+			items:[
+		    {icon:'../icons/information.png',tooltip:"下载",handler:function(grid,rindex,cindex){
+		     var record=grid.getStore().getAt(rindex);
+		     var id=record.get("id");
+		     show_application_form(id);
+		    }}
+		   ]
 		}];
 	var listView = Ext.create('Ext.grid.Panel', {
 		//width:'45%',
@@ -233,6 +286,10 @@ Ext.onReady(function() {
     		}
     	});
     };
+    
+    function show_application_form(id){
+    	alert(id);
+} 
     /** END 工具条按钮的调用函数 **/
 
     /** BEGIN 弹出框表格，新建和修改时公用 **/
@@ -258,17 +315,26 @@ Ext.onReady(function() {
 			xtype : 'datefield',
 			name : 'end_time',
 		}, {
+			xtype : 'combo',
 			fieldLabel : '审核状态',
 			name : 'status',
+			store: statusStore,
+			valueField:'name',
+			displayField:'name'
 		}, {
+			xtype : 'combo',
 			fieldLabel : '支付状态',
 			name : 'price_paid',
+			store: paidStore,
+			valueField:'name',
+			displayField:'name'
 		}, {
 			fieldLabel : '费用',
 			name : 'fee',
 		}, {
 			fieldLabel : '预约提交时间',
 			name : 'submit_time',
+			xtype : 'datefield',
 		}, {
 			xtype : 'combo',
 			fieldLabel : '预约人',
