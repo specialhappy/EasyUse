@@ -10,6 +10,7 @@
     <div id="north" class="x-hide-display" >
 	    <p align="right"><strong>用户名：</strong><%= session[:user_name]%>
 	    <strong>角色：</strong><%= session[:role_name]%>
+	    <input type="hidden" value="<%= session[:role_name]%>" id="role_name"/>
 	    <strong><a href="/admin/manage/logout">注销</a></strong>
 	    </p>
     </div>
