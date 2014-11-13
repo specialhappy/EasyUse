@@ -1,0 +1,17 @@
+<div style=" border: 1px,  border-color:#00000 ">
+	<center>
+		<%= form_for :login, url: terminal_validates_path do |f| %>
+		<p>
+			<h2> 刷卡登录模拟 </h2>
+		</p >
+		<p>
+			<%= f.label :email%>
+			<%= f.email_field :email %>
+		</p >
+
+		<p>
+			<%= f.submit%>
+		</p >
+		<% end %>
+	</center>
+</div>

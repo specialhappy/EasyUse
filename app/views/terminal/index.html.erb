@@ -1,0 +1,13 @@
+<% @appointments.each do |appointment| %>
+<tr>
+	<td><%= appointment.start_time %></td>
+	<td><%= appointment.end_time %></td>
+	<td><%= appointment.price_paid %></td>
+	<td><%= appointment.fee %></td>
+	<td><%= appointment.submit_time %></td>
+	<td><%= appointment.status %></td>
+	<td><%= link_to '详情', appointment %></td>
+	<td><%= link_to '编辑', edit_appointment_path(appointment) %></td>
+	<td><%= link_to '删除', appointment, method: :delete, data: { confirm: '确定删除?' } %></td>
+</tr>
+<% end %>
