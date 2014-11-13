@@ -1,17 +1,12 @@
 <div style=" border: 1px,  border-color:#00000 ">
 	<center>
-		<%= form_for :login, url: admin_manage_validate_path do |f| %>
+		<%= form_for :login, url: terminal_validates_path do |f| %>
 		<p>
-			<h2> EasyUse后台管理系统登录 </h2>
+			<h2> 刷卡登录模拟 </h2>
 		</p >
 		<p>
 			<%= f.label :email%>
 			<%= f.email_field :email %>
-		</p >
-
-		<p>
-			<%= f.label :password %>
-			<%= f.password_field :password %>
 		</p >
 
 		<p>

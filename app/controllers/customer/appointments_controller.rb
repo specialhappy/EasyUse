@@ -26,7 +26,7 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   def appointment_success
-
+    @appointment_id = params[:appointment_id]
   end
 
   # POST /appointments
@@ -35,20 +35,22 @@ class Customer::AppointmentsController < ApplicationController
     @user = User.find(session[:user_id])
     #    @appointment = Appointment.new(:start_time => appointment_params[:start_time],:end_time =>appointment_params[:end_time],:price_paid => appointment_params[:price_paid],:fee =>appointment_params[:fee],:submit_time => Time.now,:status => appointment_params[:status],:user_id => @user.id,:instrument_id => instrument_id_params[:instrument_id])
     @appointment = Appointment.new(appointment_params)
-    @appointment.price_paid=appointment_params[:price_paid]
+    @appointment.price_paid='未付款'
     @appointment.fee=appointment_params[:fee]
     @appointment.submit_time=Time.now
-    @appointment.status=appointment_params[:status]
+    @appointment.status='待审核'
     @appointment.user_id=@user.id
     @appointment.instrument_id=instrument_id_params[:instrument_id]
     @appointment.group_id=group_id_params[:group_id]
+    if verify(session[:user_id])
+      @appointment.status='审核通过'
+    end
     info= @appointment.save ? 'success':'fail'
     @application_form = @appointment.create_application_form(experiment_description_params)
 
-    #检查是否需要管理员手动审核，默认系统自动完成审核功能
-    if verify(session[:user_id])
-      redirect_to '/customer/appointments/appointment_success'
-    end
+    #redirect_to '/customer/appointments/appointment_success'
+    redirect_to '/customer/appointments/appointment_success?appointment_id='+@appointment.id.to_s
+
   #respond_to do |format|
   #  if @appointment.save
   #    format.html { redirect_to @appointment, notice: 'Appointment was successfully created.' }

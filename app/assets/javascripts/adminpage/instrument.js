@@ -82,6 +82,16 @@ Ext.onReady(function() {
 			}
 		}
 	});
+	var statusStore = new Ext.data.Store({
+				fields : ['id', 'name'],
+				data : [{
+							'id' : 1,
+							'name' : '可用'
+						}, {
+							'id' : 2,
+							'name' : '禁用'
+						}]
+			});
 	/**END 数据类型和数据源**/
 	
 	/** BEGIN 表格的组件 **/
@@ -125,9 +135,6 @@ Ext.onReady(function() {
 			dataIndex : 'img_url',
 			hidden : true
 		}, {
-			header : '状态',
-			dataIndex : 'status'
-		}, {
 			header : '仪器描述',
 			dataIndex : 'description',
 			hidden : true
@@ -137,6 +144,16 @@ Ext.onReady(function() {
 		}, {
 			header : '单位名称',
 			dataIndex : 'institution_id'
+		}, {
+			header : '状态',
+			dataIndex : 'status',
+			renderer:function(value){  
+            if(value=='可用'){  
+                return "<span style='color:green;font-weight:bold';>可用</span><img src='../icons/right.gif' />";  
+            } else {  
+                return "<span style='color:red;font-weight:bold';>禁用</span><img src='../icons/wrong.gif' />";  
+            }  
+            }
 		}];
 		
 	var listView = Ext.create('Ext.grid.Panel', {
@@ -258,8 +275,12 @@ Ext.onReady(function() {
 			fieldLabel : '仪器价格',
 			name : 'price',
 		}, {
+			xtype : 'combo',
 			fieldLabel : '状态',
 			name : 'status',
+			store : statusStore,
+			valueField:'name',
+			displayField:'name'
 		}, {
 			xtype : 'combo',
 			fieldLabel : '管理人',

@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   namespace :admin do
 
     get 'manage/index'
+    get 'manage/login'
+    get 'manage/logout'
+    post 'manage/validate'
 
     resources :region_centers do
       collection do
