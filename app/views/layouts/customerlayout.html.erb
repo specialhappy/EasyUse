@@ -10,7 +10,24 @@
 
 
   <%= csrf_meta_tags %>
-</head>
+<style>
+html,body{
+					height: 100%;
+					margin:0;
+					padding:0;
+				}
+				.container {
+					min-height: 100%;
+					height: auto !important;
+					height: 100%;
+					margin: 0 auto -160px;/*margin-bottom的负值等于footer高度*/
+				}
+				
+				.footer {
+					height: 80px;
+					clear:both;
+				}
+</style>
 <body>
 
 <%= yield %>

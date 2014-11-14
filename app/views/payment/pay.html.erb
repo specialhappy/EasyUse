@@ -1,2 +1,23 @@
-<h1>支付页面</h1>
-<a href="/payment/pay_success">点击支付</a>
+<%= render "common/header"%>
+<div class="container">
+	<div class="jumbotron">
+		<center>
+			<h1>支付页面</h1>
+			<br/>
+			<br/>
+			<p></p>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<p>
+				<a class="btn  btn-primary" href="/payment/pay_success?appointment_id=<%=@appointment_id%>">点击支付</a>
+			</p>
+		</center>
+	</div>
+
+</div>
+
+<%= render "common/footer"%>

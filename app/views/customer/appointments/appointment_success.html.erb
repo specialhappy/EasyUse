@@ -1,3 +1,33 @@
-<a href="/payment/pay">马上付款</a><br/>
-<a href="/welcome#index">继续搜索</a><br/>
-<a href="/appointments">查看预约列表</a><br/>
+<%= render "common/header"%>
+<div class="container">
+	<div class="jumbotron">
+		<center>
+			<h1>预约成功</h1>
+			<br/>
+			<br/>
+			<p>
+				预约单已经加入预约列表
+			</p>
+		</center>
+		<br/>
+		<br/>
+		<br/>
+
+		<p>
+			<div  class="row">
+				<div class="col-md-2 col-md-offset-5">
+					<a class="btn  btn-primary" href="/payment/pay?appointment_id=<%=@appointment_id%>">马上付款</a>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 80px">
+				<div class="col-md-2 col-md-offset-3">
+					<a href="/welcome#index">继续搜索</a>
+				</div>
+				<div class="col-md-2 col-md-offset-2">
+					<a  href="/appointments">查看预约列表</a>
+				</div>
+			</div>
+		</p>
+	</div>
+</div>
+<%= render "common/footer"%>
