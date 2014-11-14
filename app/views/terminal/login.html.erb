@@ -1,17 +1,24 @@
-<div style=" border: 1px,  border-color:#00000 ">
-	<center>
-		<%= form_for :login, url: terminal_validates_path do |f| %>
-		<p>
-			<h2> 刷卡登录模拟 </h2>
-		</p >
-		<p>
-			<%= f.label :email%>
-			<%= f.email_field :email %>
-		</p >
+<%= render "common/header"%>
+<div class="container">
+	<div class="row">
+		<center>
+		<h2> 刷卡登录模拟 </h2></center>
+	</div>
+	<hr>
+	<div class="row">
+		<%= form_for :login, url: terminal_validates_path , :html=>{:class=>"form-horizontal"} do |f| %>
 
-		<p>
-			<%= f.submit%>
-		</p >
+		<div class="form-group field">
+			<%= f.label :email,:class=>'col-sm-2  col-md-offset-1 control-label' %>
+			<div class="col-sm-6">
+				<%= f.email_field :email,:class=>'form-control'  %>
+			</div>
+		</div >
+
+		<div class="form-group actions">
+		<center>	<%= f.submit '提交',:class=>"btn btn-default"%></center>
+		</div >
 		<% end %>
-	</center>
+	</div>
 </div>
+<%= render "common/footer"%>
