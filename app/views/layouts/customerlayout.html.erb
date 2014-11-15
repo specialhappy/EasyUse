@@ -27,9 +27,11 @@
 		</style>
 		<body>
 			<%= render "common/header"%>
-				<div class="container" id="container" style="margin-top:60px;">
+			<div id="container">
+				<div class="container" style="margin-top:60px;">
 					<%= yield %>
 				</div>
+			</div>
 			<%= render "common/footer"%>
 		</body>
 </html>
