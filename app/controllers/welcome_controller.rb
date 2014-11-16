@@ -17,6 +17,7 @@ class WelcomeController < ApplicationController
   def register
     register = params[:register]
     @user = User.new
+    @user.name = register[:name]
     @user.email = register[:email]
     @user.password = register[:password]
     @user.role_id = 1

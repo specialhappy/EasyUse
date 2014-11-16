@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20141109073179) do
   end
 
   create_table "appointments", force: true do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.string   "date"
+    t.string   "time"
     t.string   "price_paid"
     t.decimal  "fee"
     t.datetime "submit_time"
