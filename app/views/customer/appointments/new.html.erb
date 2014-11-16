@@ -78,17 +78,15 @@
 		<div class="form-group field">
 			<%= f.label :日期,:class=>'col-sm-2 control-label' %>
 			<div class="col-sm-10">
-				<!--<%= f.text_field :start_time,:class=>'form_datetime' %>-->
 				<div class="form-group">
-					<div class="input-group date form_date col-md-5" data-date="1979-09-16" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-						<input class="form-control" size="16" type="text" value="" readonly>
+					<div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+						<input id="date" class="form-control" size="16" type="text" value="" readonly>
 						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 						<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					</div>
-					<input type="hidden" id="dtp_input2" value="" />
+					<input type="hidden" id="dtp_input2" name="date" value="" />
 					<br/>
 				</div>
-
 			</div>
 		</div>
 
@@ -96,40 +94,41 @@
 			<%= f.label :时间,:class=>'col-sm-2 control-label' %>
 			<div class="col-sm-10">
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox1" value="option1">
+					<input type="checkbox" id="Checkbox1" value="1" name="time1">
 					08:00-08:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox2" value="option2">
-					08:30-09:00  </label>
+					<input type="checkbox" id="Checkbox2" value="2" name="time2">
+					08:30-09:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+					<input type="checkbox" id="Checkbox3" value="3" name="time3">
 					09:00-09:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+					<input type="checkbox" id="Checkbox4" value="4" name="time4">
 					09:30-10:00 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox5" value="5" name="time5">
 					10:00-10:30 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox6" value="6" name="time6">
 					10:30-11:00 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
-					14:00-14:30 </label><br/>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox7" value="7" name="time7">
+					14:00-14:30 </label>
+				<br/>
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox8" value="8" name="time8">
 					14:30-15:00 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox9" value="9" name="time9">
 					15:00-15:30 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox10" value="10" name="time10">
 					15:30-16:00 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox11" value="11" name="time11">
 					16:00-16:30 </label>
-					<label class="checkbox-inline ">
-					<input type="checkbox" id="inlineCheckbox3" value="option3">
+				<label class="checkbox-inline ">
+					<input type="checkbox" id="Checkbox12" value="12" name="time12">
 					16:30-17:00 </label>
 			</div>
 		</div>
@@ -163,8 +162,10 @@
 </div>
 
 <script type="text/javascript">
+	
 	$('.form_date').datetimepicker({
-		// language:  'fr',
+		format : 'yyyy-mm-dd',
+		language : 'zh-CN',
 		weekStart : 1,
 		todayBtn : 1,
 		autoclose : 1,
@@ -173,6 +174,103 @@
 		minView : 2,
 		forceParse : 0
 	});
+	$('.form_date').datetimepicker().on('changeDate', function(ev) {
+		var date = ev.date.valueOf()
+		var d = new Date();
+		var localOffset = d.getTimezoneOffset() * 60000;
+		var utc = date + localOffset;
+		d.setTime(utc);
+		var year = d.getFullYear().toString();
+		var month = d.getMonth()+1;
+		if(month<10){
+			month = '0'+ month.toString();
+		}
+		else{
+			month = month.toString();
+		}
+		
+		var day = d.getDate();
+		if(day<10){
+			day = '0'+day.toString();
+		}
+		else{
+			day = day.toString();
+		}
+		var date = year+'-'+month+'-'+day;
+		//alert(date);
+		$.ajax({
 
+			type : "GET",
+
+			url : "/customer/appointments/get_time",
+
+			data : {
+				date : date,
+			},
+
+			dataType : "json",
+
+			success : function(data) {
+				//alert("haha");
+				//alert(eval(data).haha);
+				data = eval(data);
+				//alert(data['time5']);
+				$.each(data,function(index,item){
+					//alert(data[index]);
+					displayCheckbox(data[index]);
+				});
+			}
+		});
+
+	}); 
+	
+	function displayCheckbox(index){
+		//alert(index);
+		//document.getElementById("Checkbox1").disabled=true;
+		switch(index){
+			case "1":
+			disabledCheckbox("Checkbox1");
+			break;
+			case "2":
+			disabledCheckbox("Checkbox2");
+			break;
+			case "3":
+			disabledCheckbox("Checkbox3");
+			break;
+			case "4":
+			disabledCheckbox("Checkbox4");
+			break;
+			case "5":
+			disabledCheckbox("Checkbox5");
+			break;
+			case "6":
+			disabledCheckbox("Checkbox6");
+			break;
+			case "7":
+			disabledCheckbox("Checkbox7");
+			break;
+			case "8":
+			disabledCheckbox("Checkbox8");
+			break;
+			case "9":
+			disabledCheckbox("Checkbox9");
+			break;
+			case "10":
+			disabledCheckbox("Checkbox10");
+			break;
+			case "11":
+			disabledCheckbox("Checkbox11");
+			break;
+			case "12":
+			disabledCheckbox("Checkbox12");
+			break;
+			default:
+		}
+	}
+	
+	function disabledCheckbox (checkboxId) {
+		//alert(checkboxId);
+	    document.getElementById(checkboxId).disabled=true;
+	}
 </script>
 

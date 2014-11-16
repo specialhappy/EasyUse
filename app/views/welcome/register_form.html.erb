@@ -1,0 +1,28 @@
+<div style=" border: 1px,  border-color:#00000 ">
+	<center>
+		<%= form_for :register, url: register_welcome_index_path do |f| %>
+		<p>
+			<h2> 注册 </h2>
+		</p >
+		
+		<p>
+			<%= f.label :name%>
+			<%= f.name_field :name %>
+		</p >
+		
+		<p>
+			<%= f.label :email%>
+			<%= f.email_field :email %>
+		</p >
+
+		<p>
+			<%= f.label :password %>
+			<%= f.password_field :password %>
+		</p >
+
+		<p>
+			<%= f.submit%>
+		</p >
+		<% end %>
+	</center>
+</div>

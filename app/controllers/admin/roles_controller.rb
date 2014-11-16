@@ -7,26 +7,35 @@ class Admin::RolesController < ApplicationController
   def index
   end
 
+
   #GET /admin/roles/list
   def list
-    start=params[:start].to_i
+ start=params[:start].to_i
     limit=params[:limit].to_i
-    roles=Role.order("id").limit(limit).offset(start)
+    @roles=Role.order("id").limit(limit).offset(start)
     count=Role.count :all
-   render :text =>get_json(count,roles.to_json)
+
+    roles_p=[]
+    @roles.each do |role|
+      role_p={:role=>role,:privilige_ids=>role.privilige_ids}
+      roles_p << role_p
+    end
+    render :text =>get_json(count,roles_p.to_json)
   end
   
     # POST /roles
   # POST /roles.json
   def create
         @role = Role.new(role_params)
+        @role.privilige_ids=params[:privilige_id]
     info = @role.save ? 'success' : '添加失败' 
-   render :text => get_result(info)
+    render :text=>get_result(info)
   end
   
   #POST /admin/roles/1/modify
   def modify
-      info = @role.update(role_params) ? 'success' : '更新失败'
+    @role.privilige_ids=params[:privilige_id]
+     info = @role.update(role_params) ? 'success' : '更新失败'
       render :text => get_result(info)
   end
 

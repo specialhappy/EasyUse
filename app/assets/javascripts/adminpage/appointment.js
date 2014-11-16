@@ -194,7 +194,11 @@ Ext.onReady(function() {
 			renderer:function(value){  
             if(value=='待审核'){  
                 return "<span style='color:blue;font-weight:bold';>待审核</span>";  
-            } else if(value=='审核通过') {  
+            } else if(value=='未开始') {  
+                return "<span style='color:green;font-weight:bold';>审核通过</span>";  
+            }else if(value=='进行中') {  
+                return "<span style='color:green;font-weight:bold';>审核通过</span>";  
+            }else if(value=='已结束') {  
                 return "<span style='color:green;font-weight:bold';>审核通过</span>";  
             }else if(value=='审核未通过') {  
                 return "<span style='color:red;font-weight:bold';>审核未通过</span>";  

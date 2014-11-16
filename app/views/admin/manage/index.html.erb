@@ -1,4 +1,4 @@
-<%String roleName=session[:role_name];%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,10 @@
     <div id="north" class="x-hide-display" >
 	    <p align="right"><strong>用户名：</strong><%= session[:user_name]%>
 	    <strong>角色：</strong><%= session[:role_name]%>
-	    <input type="hidden" value="<%= session[:role_name]%>" id="role_name"/>
+	    <input type="hidden" value="<%= session[:privilige_appointment]%>" id="privilige1"/>
+	    <input type="hidden" value="<%= session[:privilige_instrument]%>" id="privilige2"/>
+	    <input type="hidden" value="<%= session[:privilige_user]%>" id="privilige3"/>
+	    <input type="hidden" value="<%= session[:privilige_privilige]%>" id="privilige4"/>
 	    <strong><a href="/admin/manage/logout">注销</a></strong>
 	    </p>
     </div>
