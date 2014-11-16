@@ -1,7 +1,4 @@
-<%= render "common/header"%>
-
 <div class="container" style="margin-top: 60px">
-
 	<div class="row">
 		<div class="col-md-3"  style="margin-top:40px">
 			Logo
@@ -14,52 +11,88 @@
 		</div>
 
 	</div>
-
+	<hr/>
 	<div class="row">
 
-		<div class="col-md-2" style="padding: 20px">
-			<%= render "customer/common/sidebar"%>
+		<div class="col-md-offset-1 col-md-3">
+
+			<%= image_tag(@instrument.img_url)%>
+			</center>
 		</div>
-
-		<div class="col-md-10" style="padding:20px">
-
-			<h1> <%= notice %> </h1>
+		<div class="col-md-offset-1 col-md-6 " >
 
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th colspan="2"></th>
+
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>开始时间</td><td><%= @appointment.start_time %></td>
+						<td >名称:</td><td ><%= @instrument.name %></td>
 					</tr>
 					<tr>
-						<td>结束时间</td><td><%= @appointment.end_time %></td>
+						<td >型号:</td><td ><%= @instrument.model %></td>
 					</tr>
 					<tr>
-						<td>支付状态</td><td><%= @appointment.price_paid %></td>
+						<td >价格:</td><td > <%= @instrument.price %></td>
 					</tr>
 					<tr>
-						<td>费用</td><td><%= @appointment.fee %></td>
+						<td >描述:</td><td > <%= @instrument.description %></td>
 					</tr>
 					<tr>
-						<td>提交时间</td><td><%= @appointment.submit_time %></td>
-					</tr>
-					<tr>
-						<td>审核状态</td><td><%= @appointment.status %></td>
+						<td >状态:</td><td > <%= @instrument.status %></td>
 					</tr>
 
 				</tbody>
 			</table>
 
-			<div class="pull-right">
-				<%= link_to '修改预约', edit_appointment_path(@appointment) %>
-			</div>
 		</div>
 
 	</div>
 
+	<div class="row" style="margin-top: 60px">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<form class="form-horizontal" >
+			<div class="form-group">
+				<label class="col-sm-2 control-label">实验描述</label>
+				<div class="col-sm-10">  <p class="form-control-static"><%= @appointment.application_form.experiment_description %></p>
+					<!--textarea rows="3" class="form-control" type="text" placeholder="<%= @appointment.application_form.experiment_description %>" readonly></textarea-->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">实验参与小组</label>
+				<div class="col-sm-10">  <p class="form-control-static"><%= @group.name %></p>
+				</div>
+			</div>
+
+			
+
+
+
+		</form>
+
+	</div>
 </div>
-<%= render "common/footer"%>
+<script type="text/javascript">
+	window.status="<%= notice %>"</script>

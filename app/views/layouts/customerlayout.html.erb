@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>EasyUse</title>
-  <%= stylesheet_link_tag "css/bootstrap.min.css" %>
-  <%= stylesheet_link_tag "css/style.css" %>
+	<head>
+		<title>EasyUse</title>
+		<%= stylesheet_link_tag "css/bootstrap.min.css" %>
+		<%= stylesheet_link_tag "css/style.css" %>
+		<%= stylesheet_link_tag "css/bootstrap-datetimepicker.min.css" %>
 
-  <%= javascript_include_tag "js/jquery-2.1.1.min.js" %>
-  <%= javascript_include_tag "js/bootstrap.min.js" %>
+		<%= javascript_include_tag "js/jquery-2.1.1.min.js" %>
+		<%= javascript_include_tag "js/bootstrap.min.js" %>
+		<%= javascript_include_tag "js/bootstrap-datetimepicker.min.js" %>
 
+		<%= csrf_meta_tags %>
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			#container {
+				height: 100%;min-height: 100%;height:auto !important;
+				margin: -80px 0px 0px -80px;/*margin-bottom的负值等于footer高度 height: 100%;min-height: 100%-80px;*/
+				padding: 100px  0px 0px 80px;
+			}
 
-  <%= csrf_meta_tags %>
-<style>
-html,body{
-					height: 100%;
-					margin:0;
-					padding:0;
-				}
-				.container {
-					min-height: 100%;
-					height: auto !important;
-					height: 100%;
-					margin: 0 auto -160px;/*margin-bottom的负值等于footer高度*/
-				}
+			.footer {
+				height: 80px;
+				clear: both;
+			}
+		</style>
+		<body>
+			<%= render "common/header"%>
+			<div id="container">
 				
-				.footer {
-					height: 80px;
-					clear:both;
-				}
-</style>
-<body>
-
-<%= yield %>
-
-</body>
+					<%= yield %>
+		  </div>
+			<%= render "common/footer"%>
+		</body>
 </html>

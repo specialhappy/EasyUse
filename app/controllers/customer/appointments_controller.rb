@@ -5,12 +5,21 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments.json
   def index
     #@appointments = Appointment.all
-    @appointments = User.find(session[:user_id]).appointments
+    @appointments = User.find(session[:user_id]).appointments.order("created_at desc")
   end
 
   # GET /appointments/1
   # GET /appointments/1.json
   def show
+    instrument_id=Appointment.find(params[:id])
+    @instrument=Instrument.find(instrument_id[:instrument_id])
+    group_id=Appointment.find(params[:id])
+      if group_id[:group_id]==nil
+     @group_name=''
+     else
+     @group = Group.find(group_id[:group_id])
+     @group_name=@group.name
+     end
   end
 
   # GET /appointments/new
@@ -36,12 +45,12 @@ class Customer::AppointmentsController < ApplicationController
     #    @appointment = Appointment.new(:start_time => appointment_params[:start_time],:end_time =>appointment_params[:end_time],:price_paid => appointment_params[:price_paid],:fee =>appointment_params[:fee],:submit_time => Time.now,:status => appointment_params[:status],:user_id => @user.id,:instrument_id => instrument_id_params[:instrument_id])
     @appointment = Appointment.new(appointment_params)
     @appointment.price_paid='未付款'
-    @appointment.fee=appointment_params[:fee]
     @appointment.submit_time=Time.now
     @appointment.status='待审核'
     @appointment.user_id=@user.id
     @appointment.instrument_id=instrument_id_params[:instrument_id]
     @appointment.group_id=group_id_params[:group_id]
+    @appointment.fee=fee_interface(@appointment)
     if verify(session[:user_id])
       @appointment.status='审核通过'
     end
@@ -113,5 +122,9 @@ class Customer::AppointmentsController < ApplicationController
 
   def verify(user_id)
     return true
+  end
+  
+  def fee_interface(appointment)
+    return 2;
   end
 end

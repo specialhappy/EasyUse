@@ -10,6 +10,22 @@ class WelcomeController < ApplicationController
 
   end
   
+  def register_form
+    
+  end
+  
+  def register
+    register = params[:register]
+    @user = User.new
+    @user.email = register[:email]
+    @user.password = register[:password]
+    @user.role_id = 1
+    @user.save
+    session[:user_id]=@user.id
+    session[:user_name]=@user.name
+    redirect_to welcome_index_url
+  end
+  
   def logout
     reset_session
     redirect_to welcome_index_url
