@@ -11,6 +11,10 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments/1
   # GET /appointments/1.json
   def show
+    instrument_id=Appointment.find(params[:id])
+    @instrument=Instrument.find(instrument_id[:instrument_id])
+    group_id=Appointment.find(params[:id])
+    @group = Group.find(group_id[:group_id])
   end
 
   # GET /appointments/new
