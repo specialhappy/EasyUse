@@ -53,18 +53,36 @@
 
 	<div class="row" style="margin-top: 60px">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<form class="form-horizontal" >
 			<div class="form-group">
 				<label class="col-sm-2 control-label">实验描述</label>
-				<div class="col-sm-10">
-					<textarea rows="3" class="form-control" type="text" placeholder="<%= @appointment.application_form.experiment_description %>" readonly></textarea>
+				<div class="col-sm-10">  <p class="form-control-static"><%= @appointment.application_form.experiment_description %></p>
+					<!--textarea rows="3" class="form-control" type="text" placeholder="<%= @appointment.application_form.experiment_description %>" readonly></textarea-->
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-2 control-label">实验参与小组</label>
-				<div class="col-sm-10">
-					<input class="form-control" type="text" placeholder="<%= @group.name %>" readonly>
+				<div class="col-sm-10">  <p class="form-control-static"><%= @group.name %></p>
 				</div>
 			</div>
 

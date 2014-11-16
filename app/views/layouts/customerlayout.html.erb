@@ -19,7 +19,8 @@
 			}
 			#container {
 				height: 100%;min-height: 100%;height:auto !important;
-				margin: -80px auto -80px;/*margin-bottom的负值等于footer高度 height: 100%;min-height: 100%-80px;*/
+				margin: -80px 0px 0px -80px;/*margin-bottom的负值等于footer高度 height: 100%;min-height: 100%-80px;*/
+				padding: 100px  0px 0px 80px;
 			}
 
 			.footer {
@@ -29,10 +30,10 @@
 		</style>
 		<body>
 			<%= render "common/header"%>
-			
+			<div id="container">
 				
 					<%= yield %>
-		
+		  </div>
 			<%= render "common/footer"%>
 		</body>
 </html>
