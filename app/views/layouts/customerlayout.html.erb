@@ -4,9 +4,11 @@
 		<title>EasyUse</title>
 		<%= stylesheet_link_tag "css/bootstrap.min.css" %>
 		<%= stylesheet_link_tag "css/style.css" %>
+		<%= stylesheet_link_tag "css/bootstrap-datetimepicker.min.css" %>
 
 		<%= javascript_include_tag "js/jquery-2.1.1.min.js" %>
 		<%= javascript_include_tag "js/bootstrap.min.js" %>
+		<%= javascript_include_tag "js/bootstrap-datetimepicker.min.js" %>
 
 		<%= csrf_meta_tags %>
 		<style>
@@ -27,11 +29,10 @@
 		</style>
 		<body>
 			<%= render "common/header"%>
-			<div id="container">
-				<div class="container" style="margin-top:60px;">
+			
+				
 					<%= yield %>
-				</div>
-			</div>
+		
 			<%= render "common/footer"%>
 		</body>
 </html>
