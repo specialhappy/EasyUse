@@ -14,7 +14,12 @@ class Customer::AppointmentsController < ApplicationController
     instrument_id=Appointment.find(params[:id])
     @instrument=Instrument.find(instrument_id[:instrument_id])
     group_id=Appointment.find(params[:id])
-    @group = Group.find(group_id[:group_id])
+      if group_id[:group_id]==nil
+     @group_name=''
+     else
+     @group = Group.find(group_id[:group_id])
+     @group_name=@group.name
+     end
   end
 
   # GET /appointments/new
