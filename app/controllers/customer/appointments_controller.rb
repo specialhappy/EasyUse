@@ -26,8 +26,12 @@ class Customer::AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     @instrument = Instrument.find(params[:id])
-    @user = User.find(session[:user_id])
-    @groups = @user.groups
+    begin
+      @user = User.find(session[:user_id])
+      @groups = @user.groups
+    rescue Exception => e
+      redirect_to '/welcome/login'
+    end
   end
 
   # GET /appointments/1/edit
