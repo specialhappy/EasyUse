@@ -215,6 +215,7 @@
 				//alert(eval(data).haha);
 				data = eval(data);
 				//alert(data['time5']);
+				enabledAll();
 				$.each(data,function(index,item){
 					//alert(data[index]);
 					displayCheckbox(data[index]);
@@ -223,6 +224,21 @@
 		});
 
 	}); 
+	
+	function enabledAll(){
+		document.getElementById("Checkbox1").disabled=false;
+		document.getElementById("Checkbox2").disabled=false;
+		document.getElementById("Checkbox3").disabled=false;
+		document.getElementById("Checkbox4").disabled=false;
+		document.getElementById("Checkbox5").disabled=false;
+		document.getElementById("Checkbox6").disabled=false;
+		document.getElementById("Checkbox7").disabled=false;
+		document.getElementById("Checkbox8").disabled=false;
+		document.getElementById("Checkbox9").disabled=false;
+		document.getElementById("Checkbox10").disabled=false;
+		document.getElementById("Checkbox11").disabled=false;
+		document.getElementById("Checkbox12").disabled=false;
+	}
 	
 	function displayCheckbox(index){
 		//alert(index);
