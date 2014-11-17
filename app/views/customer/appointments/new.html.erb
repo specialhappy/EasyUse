@@ -167,7 +167,11 @@
 
 
 <script type="text/javascript">
-	
+/*
+var today=new Date();
+var str_today_tmp=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+$('.form_date').datetimepicker('setStartDate','2014-11-11');
+*/
 	$('.form_date').datetimepicker({
 		format : 'yyyy-mm-dd',
 		language : 'zh-CN',
@@ -179,6 +183,8 @@
 		minView : 2,
 		forceParse : 0
 	});
+	
+
 	$('.form_date').datetimepicker().on('changeDate', function(ev) {
 		var date = ev.date.valueOf()
 		var d = new Date();
@@ -229,6 +235,19 @@
 		});
 
 	}); 
+	
+	
+	
+	
+	
+		var today=new Date();
+var str_today_tmp=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+alert((today.getMonth()+1).toString());
+$('.form_date').datetimepicker('setStartDate',str_today_tmp);
+	
+	
+	
+	
 	
 	function enabledAll(){
 		document.getElementById("Checkbox1").disabled=false;
