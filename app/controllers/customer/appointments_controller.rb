@@ -14,12 +14,12 @@ class Customer::AppointmentsController < ApplicationController
     instrument_id=Appointment.find(params[:id])
     @instrument=Instrument.find(instrument_id[:instrument_id])
     group_id=Appointment.find(params[:id])
-      if group_id[:group_id]==nil
-     @group_name=''
-     else
-     @group = Group.find(group_id[:group_id])
-     @group_name=@group.name
-     end
+    if group_id[:group_id]==nil
+      @group_name=''
+    else
+      @group = Group.find(group_id[:group_id])
+      @group_name=@group.name
+    end
   end
 
   # GET /appointments/new
@@ -37,7 +37,7 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments/1/edit
   def edit
   end
-  
+
   def get_time
     time=""
     swap=""
@@ -51,8 +51,8 @@ class Customer::AppointmentsController < ApplicationController
     end
     time = "{"+time.chop+"}"
     render :json => time
-    #data = {"haha"=>"1"}
-    #render :json => data
+  #data = {"haha"=>"1"}
+  #render :json => data
   end
 
   def appointment_success
@@ -132,7 +132,7 @@ class Customer::AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(:date)
   end
-  
+
   def appointment_time_params
     params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, )
   end
@@ -144,7 +144,7 @@ class Customer::AppointmentsController < ApplicationController
   def experiment_description_params
     params.require(:appointment).permit(:experiment_description)
   end
-  
+
   def group_id_params
     params.require(:Group).permit(:group_id)
   end
@@ -152,7 +152,7 @@ class Customer::AppointmentsController < ApplicationController
   def verify(user_id)
     return true
   end
-  
+
   def fee_interface(appointment)
     return 2;
   end

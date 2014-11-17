@@ -25,8 +25,8 @@
 
 				<thead>
 					<tr>
-						<th>开始时间</th>
-						<th>结束时间</th>
+						<th>日期</th>
+						<th>时间</th>
 						<th>支付状态</th>
 						<th>费用</th>
 						<th>提交时间</th>
@@ -38,8 +38,8 @@
 				<tbody>
 					<% @appointments.each do |appointment| %>
 					<tr>
-						<td><%= appointment.start_time %></td>
-						<td><%= appointment.end_time %></td>
+						<td><%= appointment.date %></td>
+						<td><%= appointment.time %></td>
 						<td><%= appointment.price_paid %></td>
 						<td><%= appointment.fee %></td>
 						<td><%= appointment.submit_time %></td>
