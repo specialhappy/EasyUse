@@ -75,9 +75,12 @@
 		</div>
 		<% end %>
 
+
+
+
 		<div class="form-group field">
 			<%= f.label :日期,:class=>'col-sm-2 control-label' %>
-			<div class="col-sm-10">
+			
 				<div class="form-group">
 					<div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
 						<input id="date" class="form-control" size="16" type="text" value="" readonly>
@@ -85,9 +88,9 @@
 						<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					</div>
 					<input type="hidden" id="dtp_input2" name="date" value="" />
-					<br/>
+			
 				</div>
-			</div>
+		
 		</div>
 
 		<div class="form-group field">
@@ -161,8 +164,14 @@
 
 </div>
 
+
+
 <script type="text/javascript">
-	
+/*
+var today=new Date();
+var str_today_tmp=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+$('.form_date').datetimepicker('setStartDate','2014-11-11');
+*/
 	$('.form_date').datetimepicker({
 		format : 'yyyy-mm-dd',
 		language : 'zh-CN',
@@ -174,6 +183,8 @@
 		minView : 2,
 		forceParse : 0
 	});
+	
+
 	$('.form_date').datetimepicker().on('changeDate', function(ev) {
 		var date = ev.date.valueOf()
 		var d = new Date();
@@ -224,6 +235,19 @@
 		});
 
 	}); 
+	
+	
+	
+	
+	
+		var today=new Date();
+var str_today_tmp=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+alert((today.getMonth()+1).toString());
+$('.form_date').datetimepicker('setStartDate',str_today_tmp);
+	
+	
+	
+	
 	
 	function enabledAll(){
 		document.getElementById("Checkbox1").disabled=false;
