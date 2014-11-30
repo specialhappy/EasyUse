@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :appointments do
       collection do
         get 'appointment_success'
+        get 'get_time'
       end
 
     end

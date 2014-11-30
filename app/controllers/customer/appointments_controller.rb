@@ -26,12 +26,33 @@ class Customer::AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     @instrument = Instrument.find(params[:id])
-    @user = User.find(session[:user_id])
-    @groups = @user.groups
+    begin
+      @user = User.find(session[:user_id])
+      @groups = @user.groups
+    rescue Exception => e
+      redirect_to '/welcome/login'
+    end
   end
 
   # GET /appointments/1/edit
   def edit
+  end
+  
+  def get_time
+    time=""
+    swap=""
+    date = params[:date]
+    @appointments=Appointment.where("date = ?", params[:date])
+    @appointments.each do |appointment|
+      swap = appointment.time.to_s
+      swap = swap.delete("{" "}")
+      swap = swap+","
+      time =time + swap
+    end
+    time = "{"+time.chop+"}"
+    render :json => time
+    #data = {"haha"=>"1"}
+    #render :json => data
   end
 
   def appointment_success
@@ -43,7 +64,9 @@ class Customer::AppointmentsController < ApplicationController
   def create
     @user = User.find(session[:user_id])
     #    @appointment = Appointment.new(:start_time => appointment_params[:start_time],:end_time =>appointment_params[:end_time],:price_paid => appointment_params[:price_paid],:fee =>appointment_params[:fee],:submit_time => Time.now,:status => appointment_params[:status],:user_id => @user.id,:instrument_id => instrument_id_params[:instrument_id])
-    @appointment = Appointment.new(appointment_params)
+    @appointment = Appointment.new
+    @appointment.date = params[:date]
+    @appointment.time = appointment_time_params.to_json
     @appointment.price_paid='未付款'
     @appointment.submit_time=Time.now
     @appointment.status='待审核'
@@ -53,6 +76,7 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.fee=fee_interface(@appointment)
     if verify(session[:user_id])
       @appointment.status='审核通过'
+      @appointment.status='未开始'
     end
     info= @appointment.save ? 'success':'fail'
     @application_form = @appointment.create_application_form(experiment_description_params)
@@ -104,8 +128,13 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
+  # useless
   def appointment_params
-    params.require(:appointment).permit(:start_time, :end_time, :price_paid, :fee, :status)
+    params.require(:appointment).permit(:date)
+  end
+  
+  def appointment_time_params
+    params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, )
   end
 
   def instrument_id_params
