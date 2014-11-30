@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :login_number
       t.datetime :last_login_time
       t.string :status
+      t.integer :default_group_id
 
         t.belongs_to :role
       t.belongs_to :institution

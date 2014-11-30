@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109073179) do
+ActiveRecord::Schema.define(version: 20141130100033) do
 
   create_table "a_level_tags", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "application_form_metas", force: true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.integer  "application_form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,10 +62,26 @@ ActiveRecord::Schema.define(version: 20141109073179) do
     t.integer "b_level_tag_id"
   end
 
+  create_table "check_rules", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "files", force: true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "application_form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "groups", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "create_time"
+    t.integer  "create_user_id"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -81,6 +105,7 @@ ActiveRecord::Schema.define(version: 20141109073179) do
     t.string   "name"
     t.string   "model"
     t.decimal  "price"
+    t.decimal  "fee_per_hour"
     t.string   "img_url"
     t.text     "description"
     t.string   "status"
@@ -155,6 +180,7 @@ ActiveRecord::Schema.define(version: 20141109073179) do
     t.integer  "login_number"
     t.datetime "last_login_time"
     t.string   "status"
+    t.integer  "default_group_id"
     t.integer  "role_id"
     t.integer  "institution_id"
     t.datetime "created_at"

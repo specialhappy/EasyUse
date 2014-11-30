@@ -11,7 +11,7 @@ class Admin::InstrumentsController < ApplicationController
   def list
     start=params[:start].to_i
     limit=params[:limit].to_i
-    instruments=Instrument.order("id").limit(limit).offset(start)
+        instruments=Instrument.order("id").limit(limit).offset(start)
     count=Instrument.count :all
    render :text =>get_json(count,instruments.to_json)
   end
