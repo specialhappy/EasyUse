@@ -4,6 +4,7 @@ class CreateInstruments < ActiveRecord::Migration
       t.string :name
       t.string :model
       t.decimal :price
+      t.decimal :fee_per_hour
       t.string :img_url
       t.text :description
       t.string :status
