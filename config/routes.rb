@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :check_rules
+
   root 'welcome#index'
 
   namespace :admin do
@@ -7,6 +9,18 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
 
     require File.expand_path('../routes_admin',__FILE__)
+
+  end
+  
+    namespace :maintainer do
+
+    require File.expand_path('../routes_maintainer',__FILE__)
+
+  end
+  
+    namespace :manager do
+
+    require File.expand_path('../routes_manager',__FILE__)
 
   end
 

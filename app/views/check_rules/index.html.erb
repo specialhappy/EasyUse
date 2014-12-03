@@ -1,0 +1,27 @@
+<h1>Listing check_rules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @check_rules.each do |check_rule| %>
+      <tr>
+        <td><%= check_rule.name %></td>
+        <td><%= check_rule.description %></td>
+        <td><%= link_to 'Show', check_rule %></td>
+        <td><%= link_to 'Edit', edit_check_rule_path(check_rule) %></td>
+        <td><%= link_to 'Destroy', check_rule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check rule', new_check_rule_path %>
