@@ -1,50 +1,98 @@
-<div class="col-md-9" style="margin-top:40px">
-	<center>
-		<h3>预约详情</h3>
-	</center>
-</div>
+<div class="container" style="margin-top: 60px">
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<h3>预约详情</h3>
+			</center>
+		</div>
 
-<div class="row">
+	</div>
+	<hr/>
+	<div class="row">
 
-	<div class="col-md-10" style="padding:20px">
+		<div class="col-md-offset-1 col-md-3">
 
-		<h1> <%= notice %> </h1>
-		<div class="仪器详细信息">
-			<h2><%= @instrument.name %> </h2>
-			<p>
+			<%= image_tag(@instrument.img_url)%>
+			</center>
+		</div>
+		<div class="col-md-offset-1 col-md-6 " >
 
-				<%= image_tag(@instrument.img_url)%>
-			</p >
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>型号</th><th>价格</th><th>描述</th><th>状态</th>
+
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="info"><%= @instrument.model %></td>
-						<td class="info"> <%= @instrument.price %></td>
-						<td class="info"> <%= @instrument.description %></td>
-						<td class="info"> <%= @instrument.status %></td>
+						<td >名称:</td><td ><%= @instrument.name %></td>
+					</tr>
+					<tr>
+						<td >型号:</td><td ><%= @instrument.model %></td>
+					</tr>
+					<tr>
+						<td >价格:</td><td > <%= @instrument.price %></td>
+					</tr>
+					<tr>
+						<td >描述:</td><td > <%= @instrument.description %></td>
+					</tr>
+					<tr>
+						<td >状态:</td><td > <%= @instrument.status %></td>
 					</tr>
 
 				</tbody>
 			</table>
+
 		</div>
-		<div class="仪器描述">
-			仪器描述：<%= @appointment.application_form.experiment_description %>
-		</div>
-		<div class="群组信息">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th colspan="2"></th>ead>
-						<tbody>
-							<tr>
-								<td>群组名</td><td><%= @group.name %></td>
-							</tr>
-						</tbody>
-			</table>
-		</div>
+
+	</div>
+
+	<div class="row" style="margin-top: 60px">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<form class="form-horizontal" >
+			<div class="form-group">
+				<label class="col-sm-2 control-label">实验描述</label>
+				<div class="col-sm-10">  <p class="form-control-static"><%= @appointment.application_form.experiment_description %></p>
+					<!--textarea rows="3" class="form-control" type="text" placeholder="<%= @appointment.application_form.experiment_description %>" readonly></textarea-->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">实验参与小组</label>
+				<div class="col-sm-10">  <p class="form-control-static"><%= @group.name %></p>
+				</div>
+			</div>
+
+			
+
+
+
+		</form>
+
+	</div>
+</div>
+<script type="text/javascript">
+	window.status="<%= notice %>"</script>

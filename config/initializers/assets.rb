@@ -13,8 +13,11 @@ Rails.application.config.assets.precompile += %w( adminjs/ext-lang-zh_CN.js )
 
 Rails.application.config.assets.precompile += %w( css/bootstrap.min.css )
 Rails.application.config.assets.precompile += %w( css/style.css )
-Rails.application.config.assets.precompile += %w( js/bootstrap.min.js)
+Rails.application.config.assets.precompile += %w( css/bootstrap-datetimepicker.min.css )
 Rails.application.config.assets.precompile += %w( js/jquery-2.1.1.min.js )
+Rails.application.config.assets.precompile += %w( js/bootstrap.min.js)
+Rails.application.config.assets.precompile += %w( js/bootstrap-datetimepicker.js)
+
 
 Rails.application.config.assets.precompile += %w( adminpage/index.js )
 Rails.application.config.assets.precompile += %w( adminpage/instrument.js )

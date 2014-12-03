@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     collection do
       post 'validates'
       post 'search'
+      get 'register_form'
+      post 'register'
       get 'logout'
       get 'login'
     end

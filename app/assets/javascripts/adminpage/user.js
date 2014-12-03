@@ -64,6 +64,17 @@ Ext.onReady(function() {
 							name : 'name'
 						}]
 			});
+		// 定义数据类型，用于角色下拉列表
+	Ext.define('combomodel2', {
+				extend : 'Ext.data.Model',
+				fields : [{
+							name : 'id',
+							mapping:'role.id'
+						}, {
+							name : 'name',
+							mapping:'role.name'
+						}]
+			});
 	//定义单位数据源，充当下拉框的数据来源
 	var Istore = Ext.create('Ext.data.Store', {
 		model : 'combomodel',
@@ -78,9 +89,9 @@ Ext.onReady(function() {
 			}
 		}
 	});
-	//定义单位数据源，充当下拉框的数据来源
+	//定义角色数据源，充当下拉框的数据来源
 	var Rstore = Ext.create('Ext.data.Store', {
-		model : 'combomodel',
+		model : 'combomodel2',
 		proxy : {
 			type : 'ajax',
 			url : '/admin/roles/list',

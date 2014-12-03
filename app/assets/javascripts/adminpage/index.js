@@ -7,8 +7,11 @@ Ext.require(['*']);
         
         Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
         
-        var x=document.getElementById("role_name");
-        var privilige={"预约管理":"111","仪器管理":"11100","用户管理":"11111","权限管理":"111"};
+        var p1=document.getElementById("privilige1").value;
+        var p2=document.getElementById("privilige2").value;
+        var p3=document.getElementById("privilige3").value;
+        var p4=document.getElementById("privilige4").value;
+        var privilige={"预约管理":p1,"仪器管理":p2,"用户管理":p3,"权限管理":p4};
         var p_appointment=privilige.预约管理;
         var p_instrument=privilige.仪器管理;
         var p_user=privilige.用户管理;

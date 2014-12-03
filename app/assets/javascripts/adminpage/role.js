@@ -1,17 +1,23 @@
 Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.panel.*']);
 Ext.onReady(function() {
 
-//传值时需包括区域中心和单位的id，表单里需要做下拉框，下拉框store，以及下拉框在表格和表单的对应显示
+	/**BEGIN 数据类型和数据源**/
 	//定义数据类型
 	Ext.define('datamodel', {
 		extend : 'Ext.data.Model',
 		fields : [{
 			name : 'id',
 			type : 'int',
+			mapping:'role.id'
 		}, {
 			name : 'name',
+			mapping:'role.name'
 		}, {
 			name : 'description',
+			mapping:'role.description'
+		}, {
+			name : 'privilige_id[]',
+			mapping:'privilige_ids'
 		}]
 	});
 	//定义数据源，充当页面表格的数据来源
@@ -29,6 +35,33 @@ Ext.onReady(function() {
 			}
 		}
 	});
+		// 定义数据类型，用于下拉列表
+	Ext.define('combomodel', {
+				extend : 'Ext.data.Model',
+				fields : [{
+							name : 'id'
+						}, {
+							name : 'name'
+						}]
+			});
+	//定义仪器数据源，充当下拉框的数据来源
+	var Pstore = Ext.create('Ext.data.Store', {
+		model : 'combomodel',
+		autoLoad : true,
+		proxy : {
+			type : 'ajax',
+			url : '/admin/priviliges/list',
+			reader : {
+				type : 'json',
+				root : 'root',
+				totalProperty : 'totalProperty',
+				idProperty : 'id'
+			}
+		}
+	});
+	/**END数据类型和数据源**/
+		
+	/** BEGIN 表格的组件 **/
 	var tb = Ext.create('Ext.toolbar.Toolbar', {
 		items : [{
 			text : '新增',
@@ -62,6 +95,10 @@ Ext.onReady(function() {
 		},  {
 			header : '角色描述',
 			dataIndex : 'description'
+		},  {
+			header : '权限',
+			dataIndex : 'privilige_id[]',
+			hidden:true
 		}];
 		
 	var listView = Ext.create('Ext.grid.Panel', {
@@ -85,6 +122,7 @@ Ext.onReady(function() {
 							displayInfo : true
 						}),
 	});
+	/** END 表格的组件 **/
 	
 	/** BEGIN 工具条按钮的调用函数 **/
 		// 新增某条记录
@@ -159,7 +197,15 @@ Ext.onReady(function() {
 			xtype: 'textarea',
 			fieldLabel : '角色描述',
 			name : 'description',
-		}]
+		}, {
+			xtype: 'combo',
+			fieldLabel : '权限',
+			name : 'privilige_id[]',
+			store: Pstore,
+			valueField:'id',
+			displayField:'name',
+			multiSelect: true
+			}]
 	});
 /** END 弹出框表格，新建和修改时公用 **/
 
@@ -179,7 +225,7 @@ Ext.onReady(function() {
 		}, {
 			text : '取消',
 			handler : function() {
-				win.hide();
+			  win.hide();
 			}
 		}]
 	});

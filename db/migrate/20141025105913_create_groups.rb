@@ -4,6 +4,7 @@ class CreateGroups < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.datetime :create_time
+      t.integer :create_user_id
       t.string :status
 
       t.timestamps

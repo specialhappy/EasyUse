@@ -1,3 +1,6 @@
+
+<div class="container" style="margin-top: 60px">
+
 <div class="row">
 	<center>
 		<h2> 刷卡登录模拟 </h2>
@@ -5,6 +8,8 @@
 </div>
 <hr>
 <div class="row">
+
+
 	<%= form_for :login, url: terminal_validates_path , :html=>{:class=>"form-horizontal"} do |f| %>
 
 	<div class="form-group field row">
@@ -14,14 +19,14 @@
 		</div>
 	</div >
 	<style>
-		.btn-lg {
-			line-height: 10
+		.btn-card {
+			line-height: 10!important
 		}
 	</style>
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6 form-group actions  ">
-			<%= f.submit '刷卡区',:class=>" btn btn-primary btn-lg   btn-block"%>
+			<%= f.submit '刷卡区',:class=>" btn btn-primary btn-lg   btn-block btn-card"%>
 		</div >
 	</div>
 
@@ -29,4 +34,5 @@
 	<%= image_tag("card.jpg")%>
 	</div-->
 	<% end %>
+</div>
 </div>
