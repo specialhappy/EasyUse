@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Card number:</strong>
+  <%= @manager_user.card_number %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_user.name %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @manager_user.password %>
+</p>
+
+<p>
+  <strong>Sex:</strong>
+  <%= @manager_user.sex %>
+</p>
+
+<p>
+  <strong>Id number:</strong>
+  <%= @manager_user.id_number %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @manager_user.phone %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @manager_user.picture %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @manager_user.email %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @manager_user.address %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @manager_user.status %>
+</p>
+
+<p>
+  <strong>Default group:</strong>
+  <%= @manager_user.default_group_id %>
+</p>
+
+<p>
+  <strong>Institution:</strong>
+  <%= @manager_user.institution_id %>
+</p>
+
+<%= link_to 'Edit', edit_manager_user_path(@manager_user) %> |
+<%= link_to 'Back', manager_users_path %>

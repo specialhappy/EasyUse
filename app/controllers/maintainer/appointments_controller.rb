@@ -1,0 +1,74 @@
+class Maintainer::AppointmentsController < ApplicationController
+  before_action :set_maintainer_appointment, only: [:show, :edit, :update, :destroy]
+layout 'customerlayout'
+  # GET /maintainer/appointments
+  # GET /maintainer/appointments.json
+  def index
+    @maintainer_appointments = Appointment.all
+  end
+
+  # GET /maintainer/appointments/1
+  # GET /maintainer/appointments/1.json
+  def show
+  end
+
+  # GET /maintainer/appointments/new
+  def new
+    @maintainer_appointment = Appointment.new
+  end
+
+  # GET /maintainer/appointments/1/edit
+  def edit
+  end
+
+  # POST /maintainer/appointments
+  # POST /maintainer/appointments.json
+  def create
+    @maintainer_appointment = Appointment.new(maintainer_appointment_params)
+
+    respond_to do |format|
+      if @maintainer_appointment.save
+        format.html { redirect_to [:maintainer, @maintainer_appointment], notice: 'Appointment was successfully created.' }
+        format.json { render :show, status: :created, location: @maintainer_appointment }
+      else
+        format.html { render :new }
+        format.json { render json: @maintainer_appointment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /maintainer/appointments/1
+  # PATCH/PUT /maintainer/appointments/1.json
+  def update
+    respond_to do |format|
+      if @maintainer_appointment.update(maintainer_appointment_params)
+        format.html { redirect_to [:maintainer, @maintainer_appointment], notice: 'Appointment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @maintainer_appointment }
+      else
+        format.html { render :edit }
+        format.json { render json: @maintainer_appointment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /maintainer/appointments/1
+  # DELETE /maintainer/appointments/1.json
+  def destroy
+    @maintainer_appointment.destroy
+    respond_to do |format|
+      format.html { redirect_to maintainer_appointments_url, notice: 'Appointment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_maintainer_appointment
+      @maintainer_appointment = Appointment.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def maintainer_appointment_params
+      params.require(:appointment).permit(:date, :time, :price_paid, :fee, :submit_time, :status, :user_id, :group_id, :instrument_id)
+    end
+end

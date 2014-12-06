@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_b_level_tag.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @manager_b_level_tag.description %>
+</p>
+
+<p>
+  <strong>A level tag:</strong>
+  <%= @manager_b_level_tag.a_level_tag_id %>
+</p>
+
+<%= link_to 'Edit', edit_manager_b_level_tag_path(@manager_b_level_tag) %> |
+<%= link_to 'Back', manager_b_level_tags_path %>

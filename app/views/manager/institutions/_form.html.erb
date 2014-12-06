@@ -1,0 +1,33 @@
+<%= form_for [:manager, @manager_institution] do |f| %>
+  <% if @manager_institution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manager_institution.errors.count, "error") %> prohibited this manager_institution from being saved:</h2>
+
+      <ul>
+      <% @manager_institution.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :region_center_id %><br>
+    <%= f.number_field :region_center_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -18,7 +18,7 @@ class CheckRulesControllerTest < ActionController::TestCase
 
   test "should create check_rule" do
     assert_difference('CheckRule.count') do
-      post :create, check_rule: { description: @check_rule.description, name: @check_rule.name }
+      post :create, check_rule: { applid: @check_rule.applid, description: @check_rule.description, name: @check_rule.name }
     end
 
     assert_redirected_to check_rule_path(assigns(:check_rule))
@@ -35,7 +35,7 @@ class CheckRulesControllerTest < ActionController::TestCase
   end
 
   test "should update check_rule" do
-    patch :update, id: @check_rule, check_rule: { description: @check_rule.description, name: @check_rule.name }
+    patch :update, id: @check_rule, check_rule: { applid: @check_rule.applid, description: @check_rule.description, name: @check_rule.name }
     assert_redirected_to check_rule_path(assigns(:check_rule))
   end
 
