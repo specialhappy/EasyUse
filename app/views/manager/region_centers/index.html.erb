@@ -1,0 +1,29 @@
+<h1>Listing manager_region_centers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manager_region_centers.each do |manager_region_center| %>
+      <tr>
+        <td><%= manager_region_center.name %></td>
+        <td><%= manager_region_center.description %></td>
+        <td><%= manager_region_center.url %></td>
+        <td><%= link_to 'Show', manager_region_center_path(manager_region_center) %></td>
+        <td><%= link_to 'Edit', edit_manager_region_center_path(manager_region_center) %></td>
+        <td><%= link_to 'Destroy', manager_region_center_path(manager_region_center), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Region center', new_manager_region_center_path %>

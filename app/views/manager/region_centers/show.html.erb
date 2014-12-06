@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_region_center.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @manager_region_center.description %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @manager_region_center.url %>
+</p>
+
+<%= link_to 'Edit', edit_manager_region_center_path(@manager_region_center) %> |
+<%= link_to 'Back', manager_region_centers_path %>

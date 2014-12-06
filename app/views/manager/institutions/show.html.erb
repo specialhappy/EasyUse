@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_institution.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @manager_institution.description %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @manager_institution.url %>
+</p>
+
+<p>
+  <strong>Region center:</strong>
+  <%= @manager_institution.region_center_id %>
+</p>
+
+<%= link_to 'Edit', edit_manager_institution_path(@manager_institution) %> |
+<%= link_to 'Back', manager_institutions_path %>

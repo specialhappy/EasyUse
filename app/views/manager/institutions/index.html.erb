@@ -1,0 +1,31 @@
+<h1>Listing manager_institutions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Url</th>
+      <th>Region center</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manager_institutions.each do |manager_institution| %>
+      <tr>
+        <td><%= manager_institution.name %></td>
+        <td><%= manager_institution.description %></td>
+        <td><%= manager_institution.url %></td>
+        <td><%= manager_institution.region_center_id %></td>
+        <td><%= link_to 'Show', manager_institution_path(manager_institution) %></td>
+        <td><%= link_to 'Edit', edit_manager_institution_path(manager_institution) %></td>
+        <td><%= link_to 'Destroy', manager_institution_path(manager_institution), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Institution', new_manager_institution_path %>

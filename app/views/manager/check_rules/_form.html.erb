@@ -1,0 +1,29 @@
+<%= form_for [:manager, @manager_check_rule] do |f| %>
+  <% if @manager_check_rule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manager_check_rule.errors.count, "error") %> prohibited this manager_check_rule from being saved:</h2>
+
+      <ul>
+      <% @manager_check_rule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :applid %><br>
+    <%= f.check_box :applid %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

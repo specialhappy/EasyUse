@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203074326) do
+ActiveRecord::Schema.define(version: 20141206134434) do
 
   create_table "a_level_tags", force: true do |t|
     t.string   "name"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20141203074326) do
   create_table "check_rules", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.boolean  "applid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

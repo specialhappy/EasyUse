@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_check_rule.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @manager_check_rule.description %>
+</p>
+
+<p>
+  <strong>Applid:</strong>
+  <%= @manager_check_rule.applid %>
+</p>
+
+<%= link_to 'Edit', edit_manager_check_rule_path(@manager_check_rule) %> |
+<%= link_to 'Back', manager_check_rules_path %>

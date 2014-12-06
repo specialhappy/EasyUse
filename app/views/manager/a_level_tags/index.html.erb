@@ -1,0 +1,27 @@
+<h1>Listing manager_a_level_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manager_a_level_tags.each do |manager_a_level_tag| %>
+      <tr>
+        <td><%= manager_a_level_tag.name %></td>
+        <td><%= manager_a_level_tag.description %></td>
+        <td><%= link_to 'Show', manager_a_level_tag_path(manager_a_level_tag) %></td>
+        <td><%= link_to 'Edit', edit_manager_a_level_tag_path(manager_a_level_tag) %></td>
+        <td><%= link_to 'Destroy', manager_a_level_tag_path(manager_a_level_tag), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New A level tag', new_manager_a_level_tag_path %>
