@@ -68,7 +68,7 @@ class Customer::InstrumentsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def instrument_params
-      params.require(:instrument).permit(:name, :model, :price, :img_url, :description, :status)
+      def instrument_params
+      params.require(:instrument).permit(:name, :model, :price,:fee_per_hour, :img_url, :description, :status)
     end
 end

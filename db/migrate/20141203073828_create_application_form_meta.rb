@@ -1,6 +1,6 @@
-class CreateApplicationFormMetas < ActiveRecord::Migration
+class CreateApplicationFormMeta < ActiveRecord::Migration
   def change
-    create_table :application_form_metas do |t|
+    create_table :application_form_meta do |t|
       t.string :key
       t.string :value
 

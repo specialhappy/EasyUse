@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130100033) do
+ActiveRecord::Schema.define(version: 20141206134434) do
 
   create_table "a_level_tags", force: true do |t|
     t.string   "name"
@@ -20,7 +20,15 @@ ActiveRecord::Schema.define(version: 20141130100033) do
     t.datetime "updated_at"
   end
 
-  create_table "application_form_metas", force: true do |t|
+  create_table "application_files", force: true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "application_form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "application_form_meta", force: true do |t|
     t.string   "key"
     t.string   "value"
     t.integer  "application_form_id"
@@ -29,6 +37,11 @@ ActiveRecord::Schema.define(version: 20141130100033) do
   end
 
   create_table "application_forms", force: true do |t|
+    t.string   "experiment_name"
+    t.string   "experiment_purpose"
+    t.string   "related_project"
+    t.string   "experiment_sample"
+    t.string   "experiment_operator"
     t.text     "experiment_description"
     t.integer  "appointment_id"
     t.datetime "created_at"
@@ -65,14 +78,7 @@ ActiveRecord::Schema.define(version: 20141130100033) do
   create_table "check_rules", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "files", force: true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.integer  "application_form_id"
+    t.boolean  "applid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

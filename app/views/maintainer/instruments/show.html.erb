@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @maintainer_instrument.name %>
+</p>
+
+<p>
+  <strong>Model:</strong>
+  <%= @maintainer_instrument.model %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @maintainer_instrument.price %>
+</p>
+
+<p>
+  <strong>Fee per hour:</strong>
+  <%= @maintainer_instrument.fee_per_hour %>
+</p>
+
+<p>
+  <strong>Img url:</strong>
+  <%= @maintainer_instrument.img_url %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @maintainer_instrument.description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @maintainer_instrument.status %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @maintainer_instrument.user_id %>
+</p>
+
+<p>
+  <strong>Institution:</strong>
+  <%= @maintainer_instrument.institution_id %>
+</p>
+
+<%= link_to 'Edit', edit_maintainer_instrument_path(@maintainer_instrument) %> |
+<%= link_to 'Back', maintainer_instruments_path %>

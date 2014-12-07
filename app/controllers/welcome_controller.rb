@@ -32,23 +32,27 @@ class WelcomeController < ApplicationController
     redirect_to welcome_index_url
   end
 
-  def validates
+def validates
     login=params[:login]
 
     #render  :text =>login[:email]
-
+if   login[:email]==''
     #先查询users里是否有与提交的validates的email的值。如果没有的话，则报错用户名不存在；如果有的话，则对它的password值进行比对。
+    redirect_to login_welcome_index_url
+ else
     @user=User.where( email: login[:email] ).take
 
-    if @user.email != '' and @user.password == login[:password]
-      session[:user_id]=@user.id
+    if @user ==nil  
+      redirect_to login_welcome_index_url
+    else if @user.password == login[:password]
+        session[:user_id]=@user.id
       session[:user_name]=@user.name
-      redirect_to welcome_index_url
-    else
-    #我最好在这里显示一个提示
-      redirect_to welcome_login_url
+      redirect_to welcome_index_url 
+   else
+    redirect_to login_welcome_index_url
     end
-
+   end
+end
   end
 
   #搜索的功能

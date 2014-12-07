@@ -1,0 +1,29 @@
+<h1>Listing manager_check_rules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Applid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manager_check_rules.each do |manager_check_rule| %>
+      <tr>
+        <td><%= manager_check_rule.name %></td>
+        <td><%= manager_check_rule.description %></td>
+        <td><%= manager_check_rule.applid %></td>
+        <td><%= link_to 'Show', manager_check_rule_path(manager_check_rule) %></td>
+        <td><%= link_to 'Edit', edit_manager_check_rule_path(manager_check_rule) %></td>
+        <td><%= link_to 'Destroy', manager_check_rule_path(manager_check_rule), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check rule', new_manager_check_rule_path %>

@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @maintainer_appointment.date %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @maintainer_appointment.time %>
+</p>
+
+<p>
+  <strong>Price paid:</strong>
+  <%= @maintainer_appointment.price_paid %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @maintainer_appointment.fee %>
+</p>
+
+<p>
+  <strong>Submit time:</strong>
+  <%= @maintainer_appointment.submit_time %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @maintainer_appointment.status %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @maintainer_appointment.user_id %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @maintainer_appointment.group_id %>
+</p>
+
+<p>
+  <strong>Instrument:</strong>
+  <%= @maintainer_appointment.instrument_id %>
+</p>
+
+<%= link_to 'Edit', edit_maintainer_appointment_path(@maintainer_appointment) %> |
+<%= link_to 'Back', maintainer_appointments_path %>

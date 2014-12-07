@@ -1,6 +1,6 @@
-class CreateFiles < ActiveRecord::Migration
+class CreateApplicationFiles < ActiveRecord::Migration
   def change
-    create_table :files do |t|
+    create_table :application_files do |t|
       t.string :name
       t.string :url
 
