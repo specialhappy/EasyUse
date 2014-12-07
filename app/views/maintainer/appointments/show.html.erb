@@ -1,49 +1,64 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="margin-top: 60px">
 
-<p>
-  <strong>Date:</strong>
-  <%= @maintainer_appointment.date %>
-</p>
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
-<p>
-  <strong>Time:</strong>
-  <%= @maintainer_appointment.time %>
-</p>
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<h3>预约详情</h3>
+			</center>
+		</div>
+	</div>
 
-<p>
-  <strong>Price paid:</strong>
-  <%= @maintainer_appointment.price_paid %>
-</p>
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "maintainer/common/sidebar"%>
+		</div>
 
-<p>
-  <strong>Fee:</strong>
-  <%= @maintainer_appointment.fee %>
-</p>
+		<div class="col-md-10" style="padding:20px">
+			<h1> <%= notice %> </h1>
 
-<p>
-  <strong>Submit time:</strong>
-  <%= @maintainer_appointment.submit_time %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @maintainer_appointment.status %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @maintainer_appointment.user_id %>
-</p>
-
-<p>
-  <strong>Group:</strong>
-  <%= @maintainer_appointment.group_id %>
-</p>
-
-<p>
-  <strong>Instrument:</strong>
-  <%= @maintainer_appointment.instrument_id %>
-</p>
-
-<%= link_to 'Edit', edit_maintainer_appointment_path(@maintainer_appointment) %> |
-<%= link_to 'Back', maintainer_appointments_path %>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th colspan="2"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>预约日期</td><td><%= @maintainer_appointment.date %></td>
+					</tr>
+					<tr>
+						<td>预约时间</td><td><%= @maintainer_appointment.time %></td>
+					</tr>
+					<tr>
+						<td>付款状态</td><td><%= @maintainer_appointment.price_paid %></td>
+					</tr>
+					<tr>
+						<td>总费用</td><td><%= @maintainer_appointment.fee %></td>
+					</tr>
+					<tr>
+						<td>申请时间</td><td><%= @maintainer_appointment.submit_time %></td>
+					</tr>
+					<tr>
+						<td>审核状态</td><td><%= @maintainer_appointment.status %></td>
+					</tr>
+					<tr>
+						<td>申请人</td><td><%= @maintainer_appointment.user_id %></td>
+					</tr>
+					<tr>
+						<td>Group</td><td><%= @maintainer_appointment.group_id %></td>
+					</tr>
+					<tr>
+						<td>预约仪器</td><td> <%= @maintainer_appointment.instrument_id %></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row pull-right">
+				<%= link_to '返回', maintainer_appointments_path %>
+			</div>
+		</div>
+	</div>
+</div>
