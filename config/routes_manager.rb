@@ -12,7 +12,11 @@ Rails.application.routes.draw do
     
     resources :users
     
-    resources :check_rules
+    resources :check_rules do
+    member do
+        get 'enable'
+      end
+end
     
   end
   
