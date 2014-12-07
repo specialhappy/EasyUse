@@ -1,33 +1,44 @@
 <%= form_for [:manager, @manager_institution] do |f| %>
-  <% if @manager_institution.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@manager_institution.errors.count, "error") %> prohibited this manager_institution from being saved:</h2>
+<% if @manager_institution.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@manager_institution.errors.count, "error") %> prohibited this manager_institution from being saved:</h2>
 
-      <ul>
-      <% @manager_institution.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @manager_institution.errors.full_messages.each do |message| %>
+		<li>
+			<%= message %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :region_center_id %><br>
-    <%= f.number_field :region_center_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="form-group field">
+	<%= f.label :单位名称,:class=>'col-sm-2 control-label' %>
+	<div class="col-sm-10">
+		<%= f.text_field :name,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+	<%= f.label :单位描述,:class=>'col-sm-2 control-label' %>
+	<div class="col-sm-10">
+		<%= f.text_area :description,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+	<%= f.label :单位网址,:class=>'col-sm-2 control-label' %>
+	<div class="col-sm-10">
+		<%= f.text_field :url,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+	<%= f.label :所属区域中心,:class=>'col-sm-2 control-label' %>
+	<br>
+	<%= f.number_field :region_center_id,:class=>'form-control' %>
+</div>
+<div class="form-group field actions">
+	<div class="pull-right">
+		<%= f.submit '提交',:class=>"btn btn-default"%>
+	</div>
+</div>
 <% end %>

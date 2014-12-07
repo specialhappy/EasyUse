@@ -1,6 +1,34 @@
-<h1>Editing manager_institution</h1>
+<div class="container" style="margin-top: 60px">
+	<div class="row">
+		<div class="row">
+			<div class="col-md-3"  style="margin-top:40px">
+				Logo
+			</div>
 
-<%= render 'form' %>
+			<div class="col-md-9" style="margin-top:40px">
+				<center>
+					<h3>单位编辑</h3>
+				</center>
+			</div>
 
-<%= link_to 'Show', manager_institution_path(@manager_institution) %> |
-<%= link_to 'Back', manager_institutions_path %>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "maintainer/common/sidebar"%>
+		</div>
+		<div class="col-md-10" style="padding:20px">
+
+			<div class ="form-horizontal">
+				<%= render 'form' %>
+			</div>
+			<div class="row pull-right">
+
+				<%= link_to '详情', manager_institution_path(@manager_institution) %> |
+				<%= link_to '返回', manager_institutions_path %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,29 +1,55 @@
-<h1>Listing manager_region_centers</h1>
+<div class="container" style="margin-top: 60px">
+	<div class="row">
+		<div class="row">
+			<div class="col-md-3"  style="margin-top:40px">
+				Logo
+			</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+			<div class="col-md-9" style="margin-top:40px">
+				<center>
+					<h3>区域中心管理</h3>
+				</center>
+			</div>
 
-  <tbody>
-    <% @manager_region_centers.each do |manager_region_center| %>
-      <tr>
-        <td><%= manager_region_center.name %></td>
-        <td><%= manager_region_center.description %></td>
-        <td><%= manager_region_center.url %></td>
-        <td><%= link_to 'Show', manager_region_center_path(manager_region_center) %></td>
-        <td><%= link_to 'Edit', edit_manager_region_center_path(manager_region_center) %></td>
-        <td><%= link_to 'Destroy', manager_region_center_path(manager_region_center), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+		</div>
 
-<br>
+	</div>
 
-<%= link_to 'New Region center', new_manager_region_center_path %>
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "manager/common/sidebar"%>
+		</div>
+
+		<div class="col-md-10" style="padding:20px">
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>区域中心名称</th>
+						<th>描述</th>
+						<th>网址</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @manager_region_centers.each do |manager_region_center| %>
+					<tr>
+						<td><%= manager_region_center.name %></td>
+						<td><%= manager_region_center.description %></td>
+						<td><%= manager_region_center.url %></td>
+						<td><%= link_to '详情', manager_region_center_path(manager_region_center) %></td>
+						<td><%= link_to '编辑', edit_manager_region_center_path(manager_region_center) %></td>
+						<td><%= link_to '删除', manager_region_center_path(manager_region_center), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<br>
+		<div class="row pull-right">
+
+			<%= link_to '新增区域中心', new_manager_region_center_path %>
+		</div>
+	</div>
+</div>
