@@ -11,43 +11,63 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+<div class="form-group field">
+    <%= f.label :name ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_field :name,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :model ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_field :model,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :price ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_field :price,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :fee_per_hour ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_field :fee_per_hour,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :img_url ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_field :img_url,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :description ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_area :description,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :status ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.text_field :status,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :user_id ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.number_field :user_id,:class=>'form-control' %>
+	</div>
+</div>
+<div class="form-group field">
+    <%= f.label :institution_id ,:class=>'col-sm-2 control-label'%>
+    <div class="col-sm-10">
+    <%= f.number_field :institution_id,:class=>'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :model %><br>
-    <%= f.text_field :model %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :fee_per_hour %><br>
-    <%= f.text_field :fee_per_hour %>
-  </div>
-  <div class="field">
-    <%= f.label :img_url %><br>
-    <%= f.text_field :img_url %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :institution_id %><br>
-    <%= f.number_field :institution_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="form-group field actions">
+	<div class="pull-right">
+    <%= f.submit '提交',:class=>"btn btn-default"%>
+	</div>
+</div>
 <% end %>
