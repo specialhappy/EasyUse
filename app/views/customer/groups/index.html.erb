@@ -32,6 +32,7 @@
       <th>群组信息</th>
       <th>创建时间</th>
       <th>状态</th>
+      <th>默认群组</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -43,6 +44,10 @@
         <td><%= group.description %></td>
         <td><%= group.create_time %></td>
         <td><%= group.status %></td>
+        <td><% if group.id==@default_group_id then %><%= '是'%> <%else %><%='否' %><%end%></td>
+        <td><!--%= link_to '设为默认群组', set_default_group_customer_groups_path(group), method: :post, data: { confirm: '确定设为默认群组?' }%-->
+        	<a href=<%='/customer/groups/'+group.id.to_s+'/set_default_group'%>>设为默认群组</a>
+        </td>
         <td><%= link_to '详情', group %></td>
         <td><%= link_to '编辑', edit_group_path(group) %></td>
         <td><%= link_to '删除', group, method: :delete, data: { confirm: '确定删除?' } %></td>
