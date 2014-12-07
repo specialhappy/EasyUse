@@ -1,14 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="margin-top: 60px">
 
-<p>
-  <strong>Name:</strong>
-  <%= @manager_a_level_tag.name %>
-</p>
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @manager_a_level_tag.description %>
-</p>
+		<div class="col-md-9" style="margin-top:40px">
+			<center>
+				<h3>一级标签详情</h3>
+			</center>
+		</div>
+	</div>
 
-<%= link_to 'Edit', edit_manager_a_level_tag_path(@manager_a_level_tag) %> |
-<%= link_to 'Back', manager_a_level_tags_path %>
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "manager/common/sidebar"%>
+		</div>
+
+		<div class="col-md-10" style="padding:20px">
+			<h1> <%= notice %> </h1>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th colspan="2"></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr>
+						<td>一级标签名称</td><td><%= @manager_a_level_tag.name %></td>
+					</tr>
+
+					<tr>
+						<td>标签描述</td><td><%= @manager_a_level_tag.description %></td>
+					</tr>
+
+				</tbody>
+			</table>
+			<div class="row pull-right">
+				<%= link_to '编辑', edit_manager_a_level_tag_path(@manager_a_level_tag) %> |
+				<%= link_to '返回', manager_a_level_tags_path %>
+			</div>
+		</div>
+	</div>
+</div>
