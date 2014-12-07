@@ -1,5 +1,5 @@
 class Customer::GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy,:set_defalut_group]
+  before_action :set_group, only: [:show, :edit, :update, :destroy]
     layout 'customerlayout'
   # GET /groups
   # GET /groups.json
