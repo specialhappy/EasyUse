@@ -1,5 +1,5 @@
 class Manager::CheckRulesController < ApplicationController
-  before_action :set_manager_check_rule, only: [:show, :edit, :update, :destroy]
+  before_action :set_manager_check_rule, only: [:show, :edit, :update, :destroy,:enable]
 layout 'customerlayout'
   # GET /manager/check_rules
   # GET /manager/check_rules.json
@@ -25,7 +25,7 @@ layout 'customerlayout'
   # POST /manager/check_rules.json
   def create
     @manager_check_rule = CheckRule.new(manager_check_rule_params)
-
+    @manager_check_rule.applid = false
     respond_to do |format|
       if @manager_check_rule.save
         format.html { redirect_to [:manager, @manager_check_rule], notice: 'Check rule was successfully created.' }
@@ -60,6 +60,18 @@ layout 'customerlayout'
       format.json { head :no_content }
     end
   end
+  
+  def enable
+    begin
+    CheckRule.where(applid: true).each do|manager_check_rule|
+            manager_check_rule.applid=false
+            manager_check_rule.save
+    end
+   @manager_check_rule.applid=true
+   @manager_check_rule.save
+   end
+    redirect_to manager_check_rules_url
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +81,6 @@ layout 'customerlayout'
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manager_check_rule_params
-      params.require(:check_rule).permit(:name, :description, :applid)
+      params.require(:check_rule).permit(:name, :description, :applied)
     end
 end
