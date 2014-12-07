@@ -5,7 +5,10 @@ class TerminalController < ApplicationController
   end
   
   def index
-    @appointments = User.find(session[:user_id]).appointments
+  # @appointments = User.find(session[:user_id]).appointments
+    @appointments = Instrument.first.appointments
+    #@appointments=@appointments.where()
+
   end
   
   def validates
