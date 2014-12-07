@@ -40,9 +40,9 @@
       <tr>
         <td><%= manager_check_rule.name %></td>
         <td><%= manager_check_rule.description %></td>
-        <td><%= manager_check_rule.applid %></td>
+        <td><%if manager_check_rule.applid %>是<%else%>否<%end%></td>
         <td>
-         <a href=<%='/manager/check_rules/'+manager_check_rule.id.to_s+'/enable'%> class=<%if !manager_check_rule.applid then %>'btn btn-link' <%else %> 'btn btn-link disabled'<%end%> >
+         <a href=<%='/manager/check_rules/'+manager_check_rule.id.to_s+'/enable'%> class=<%if !manager_check_rule.applid then %>'btn btn-link' <%else %> 'btn btn-link disabled'<%end%> style='padding: 0px '>
       启用
    </a>
       
