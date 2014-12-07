@@ -9,11 +9,12 @@ class Customer::AppointmentsController < ApplicationController
     @appointments = User.find(session[:user_id]).appointments.order("created_at desc")
     @appointments.each do |appointment|
       time = appointment.time
-      start_index = time[6].to_i
-      end_index = time[-3].to_i
+      start_index = time[6,2].to_i
+      end_index = time[-4,2].to_i
       start_time = time_group[start_index-1]
       end_time = time_group[end_index]
       appointment.time = start_time+" -- "+end_time
+      #appointment.time = start_index.to_s + end_index.to_s
     end
   end
 
@@ -143,7 +144,7 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   def appointment_time_params
-    params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, )
+    params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, :time13, :time14, :time15, :time16, :time17, :time18)
   end
 
   def instrument_id_params

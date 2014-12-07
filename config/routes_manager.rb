@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     member do
         get 'enable'
       end
+      member do
+        get 'disable'
+      end
 end
     
   end

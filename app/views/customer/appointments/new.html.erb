@@ -97,31 +97,31 @@
 			<%= f.label :时间,:class=>'col-sm-2 control-label' %>
 			<div class="col-sm-10">
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox1" value="1" name="time1">
+					<input type="checkbox" id="Checkbox01" value="01" name="time01">
 					08:00-08:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox2" value="2" name="time2">
+					<input type="checkbox" id="Checkbox02" value="02" name="time02">
 					08:30-09:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox3" value="3" name="time3">
+					<input type="checkbox" id="Checkbox03" value="03" name="time03">
 					09:00-09:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox4" value="4" name="time4">
+					<input type="checkbox" id="Checkbox04" value="04" name="time04">
 					09:30-10:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox5" value="5" name="time5">
+					<input type="checkbox" id="Checkbox05" value="05" name="time05">
 					10:00-10:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox6" value="6" name="time6">
+					<input type="checkbox" id="Checkbox06" value="06" name="time06">
 					10:30-11:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox7" value="7" name="time7">
+					<input type="checkbox" id="Checkbox07" value="07" name="time07">
 					11:00-11:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox8" value="8" name="time8">
+					<input type="checkbox" id="Checkbox08" value="08" name="time08">
 					11:30-12:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox9" value="9" name="time9">
+					<input type="checkbox" id="Checkbox09" value="09" name="time09">
 					12:00-12:30 </label>
 				<label class="checkbox-inline ">
 					<input type="checkbox" id="Checkbox10" value="10" name="time10">
@@ -250,19 +250,19 @@
 
 	var today = new Date();
 	var str_today_tmp = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-	alert((today.getMonth() + 1).toString());
+	//alert((today.getMonth() + 1).toString());
 	$('.form_date').datetimepicker('setStartDate', str_today_tmp);
 
 	function enabledAll() {
-		document.getElementById("Checkbox1").disabled = false;
-		document.getElementById("Checkbox2").disabled = false;
-		document.getElementById("Checkbox3").disabled = false;
-		document.getElementById("Checkbox4").disabled = false;
-		document.getElementById("Checkbox5").disabled = false;
-		document.getElementById("Checkbox6").disabled = false;
-		document.getElementById("Checkbox7").disabled = false;
-		document.getElementById("Checkbox8").disabled = false;
-		document.getElementById("Checkbox9").disabled = false;
+		document.getElementById("Checkbox01").disabled = false;
+		document.getElementById("Checkbox02").disabled = false;
+		document.getElementById("Checkbox03").disabled = false;
+		document.getElementById("Checkbox04").disabled = false;
+		document.getElementById("Checkbox05").disabled = false;
+		document.getElementById("Checkbox06").disabled = false;
+		document.getElementById("Checkbox07").disabled = false;
+		document.getElementById("Checkbox08").disabled = false;
+		document.getElementById("Checkbox09").disabled = false;
 		document.getElementById("Checkbox10").disabled = false;
 		document.getElementById("Checkbox11").disabled = false;
 		document.getElementById("Checkbox12").disabled = false;
@@ -278,32 +278,32 @@
 		//alert(index);
 		//document.getElementById("Checkbox1").disabled=true;
 		switch(index) {
-		case "1":
-			disabledCheckbox("Checkbox1");
+		case "01":
+			disabledCheckbox("Checkbox01");
 			break;
-		case "2":
-			disabledCheckbox("Checkbox2");
+		case "02":
+			disabledCheckbox("Checkbox02");
 			break;
-		case "3":
-			disabledCheckbox("Checkbox3");
+		case "03":
+			disabledCheckbox("Checkbox03");
 			break;
-		case "4":
-			disabledCheckbox("Checkbox4");
+		case "04":
+			disabledCheckbox("Checkbox04");
 			break;
-		case "5":
-			disabledCheckbox("Checkbox5");
+		case "05":
+			disabledCheckbox("Checkbox05");
 			break;
-		case "6":
-			disabledCheckbox("Checkbox6");
+		case "06":
+			disabledCheckbox("Checkbox06");
 			break;
-		case "7":
-			disabledCheckbox("Checkbox7");
+		case "07":
+			disabledCheckbox("Checkbox07");
 			break;
-		case "8":
-			disabledCheckbox("Checkbox8");
+		case "08":
+			disabledCheckbox("Checkbox08");
 			break;
-		case "9":
-			disabledCheckbox("Checkbox9");
+		case "09":
+			disabledCheckbox("Checkbox09");
 			break;
 		case "10":
 			disabledCheckbox("Checkbox10");

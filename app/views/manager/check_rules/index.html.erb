@@ -7,7 +7,7 @@
 		</div>
 
 		<div class="col-md-9" style="margin-top:40px">
-			<center><h3>我的群组</h3></center>
+			<center><h3>审核规则</h3></center>
 		</div>
 
 	</div>
@@ -42,8 +42,9 @@
         <td><%= manager_check_rule.description %></td>
         <td><%if manager_check_rule.applid %>是<%else%>否<%end%></td>
         <td>
-         <a href=<%='/manager/check_rules/'+manager_check_rule.id.to_s+'/enable'%> class=<%if !manager_check_rule.applid then %>'btn btn-link' <%else %> 'btn btn-link disabled'<%end%> style='padding: 0px '>
-      启用
+        	
+        	<%if !manager_check_rule.applid then %> <a href=<%='/manager/check_rules/'+manager_check_rule.id.to_s+'/enable'%>> 启用</a>
+        	<%else%><a href=<%='/manager/check_rules/'+manager_check_rule.id.to_s+'/disable'%>>禁用</a><%end%>
    </a>
       
         </td>
