@@ -49,7 +49,7 @@
 						<td><%= maintainer_appointment.user_id %></td>
 						<td><%= maintainer_appointment.instrument_id %></td>
 						<td><%= link_to '详情', maintainer_appointment_path(maintainer_appointment) %></td>
-						<td><%= link_to '删除', maintainer_appointment_path(maintainer_appointment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+						<td><a href=<%= '/maintainer/appointments/'+maintainer_appointment.id.to_s+'/check'%>>审核通过</a></td>
 					</tr>
 					<% end %>
 				</tbody>
