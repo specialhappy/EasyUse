@@ -5,7 +5,16 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments.json
   def index
     #@appointments = Appointment.all
+    time_group = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"]
     @appointments = User.find(session[:user_id]).appointments.order("created_at desc")
+    @appointments.each do |appointment|
+      time = appointment.time
+      start_index = time[6].to_i
+      end_index = time[-3].to_i
+      start_time = time_group[start_index-1]
+      end_time = time_group[end_index]
+      appointment.time = start_time+" -- "+end_time
+    end
   end
 
   # GET /appointments/1
