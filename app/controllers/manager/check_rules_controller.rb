@@ -1,5 +1,5 @@
 class Manager::CheckRulesController < ApplicationController
-  before_action :set_manager_check_rule, only: [:show, :edit, :update, :destroy,:enable]
+  before_action :set_manager_check_rule, only: [:show, :edit, :update, :destroy,:enable,:disable]
 layout 'customerlayout'
   # GET /manager/check_rules
   # GET /manager/check_rules.json
@@ -62,14 +62,16 @@ layout 'customerlayout'
   end
   
   def enable
-    begin
-    CheckRule.where(applid: true).each do|manager_check_rule|
-            manager_check_rule.applid=false
-            manager_check_rule.save
-    end
    @manager_check_rule.applid=true
    @manager_check_rule.save
-   end
+
+    redirect_to manager_check_rules_url
+  end
+
+  def disable
+   @manager_check_rule.applid=false
+   @manager_check_rule.save
+
     redirect_to manager_check_rules_url
   end
 

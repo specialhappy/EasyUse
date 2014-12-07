@@ -27,10 +27,7 @@
 	
 	
 	
-	
-	
 
-<h1> <%= notice %> </h1>
 
 
 
@@ -43,7 +40,7 @@
       <tbody>
         <tr> <td>规则名:</td> <td> <%= @manager_check_rule.name %></td> </tr>
          <tr>  <td>规则描述:</td> <td><%= @manager_check_rule.description %></td> </tr>
-         <tr>  <td>是否启用:</td><td>	 <%= @manager_check_rule.applid %></td> </tr>
+         <tr>  <td>是否启用:</td><td>	<td><%if @manager_check_rule.applid %>是<%else%>否<%end%></td></td> </tr>
 
         
        
@@ -55,8 +52,8 @@
 	
 	
 				<div class="row pull-right">
-			<%= link_to '编辑审核规则',  edit_manager_check_rule_path(@manager_check_rule) %> <!--|
-			<%= link_to 'Back', groups_path %>-->
+			<%= link_to '编辑审核规则',  edit_manager_check_rule_path(@manager_check_rule) %> |
+				<%= link_to '返回', manager_check_rules_path %>
 			</div>
 		</div>
 	</div>
