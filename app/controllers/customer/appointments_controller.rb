@@ -5,7 +5,17 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments.json
   def index
     #@appointments = Appointment.all
+    time_group = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"]
     @appointments = User.find(session[:user_id]).appointments.order("created_at desc")
+    @appointments.each do |appointment|
+      time = appointment.time
+      start_index = time[6,2].to_i
+      end_index = time[-4,2].to_i
+      start_time = time_group[start_index-1]
+      end_time = time_group[end_index]
+      appointment.time = start_time+" -- "+end_time
+      #appointment.time = start_index.to_s + end_index.to_s
+    end
   end
 
   # GET /appointments/1
@@ -134,7 +144,7 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   def appointment_time_params
-    params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, )
+    params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, :time13, :time14, :time15, :time16, :time17, :time18)
   end
 
   def instrument_id_params
