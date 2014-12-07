@@ -1,11 +1,13 @@
 class Customer::GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy,:set_defalut_group]
     layout 'customerlayout'
   # GET /groups
   # GET /groups.json
   def index
     #@groups = Group.all
     @groups = User.find(session[:user_id]).groups
+    
+    @default_group_id=User.find(session[:user_id]).default_group_id
   end
 
   # GET /groups/1
@@ -63,6 +65,14 @@ class Customer::GroupsController < ApplicationController
       format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def set_default_group
+  
+    @user=User.find(session[:user_id])
+    @user.default_group_id=params[:id]
+    @user.save
+    redirect_to groups_url
   end
 
   private

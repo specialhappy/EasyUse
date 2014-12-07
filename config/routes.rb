@@ -37,8 +37,11 @@ Rails.application.routes.draw do
 
     resources :b_level_tags
 
-    resources :groups
-
+    resources :groups do
+    member do
+        get 'set_default_group'
+      end
+end
     resources :priviliges
 
     resources :roles
