@@ -1,4 +1,4 @@
-<%= form_for [:maintainer, @maintainer_instrument] do |f| %>
+<%= form_for [:maintainer, @maintainer_instrument ] do |f| %>
   <% if @maintainer_instrument.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@maintainer_instrument.errors.count, "error") %> prohibited this maintainer_instrument from being saved:</h2>
@@ -12,55 +12,55 @@
   <% end %>
 
 <div class="form-group field">
-    <%= f.label :name ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :仪器名 ,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_field :name,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :model ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :型号 ,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_field :model,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :price ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :价格 ,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_field :price,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :fee_per_hour ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :使用单价 ,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_field :fee_per_hour,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :img_url ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :图片 ,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_field :img_url,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :description ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :描述,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_area :description,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :status ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :状态,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.text_field :status,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :user_id ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :负责人ID,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.number_field :user_id,:class=>'form-control' %>
 	</div>
 </div>
 <div class="form-group field">
-    <%= f.label :institution_id ,:class=>'col-sm-2 control-label'%>
+    <%= f.label :所属单位ID ,:class=>'col-sm-2 control-label'%>
     <div class="col-sm-10">
     <%= f.number_field :institution_id,:class=>'form-control' %>
   </div>
