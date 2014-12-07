@@ -1,5 +1,5 @@
 class Maintainer::AppointmentsController < ApplicationController
-  before_action :set_maintainer_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_maintainer_appointment, only: [:show, :edit, :update, :destroy, :check]
 layout 'customerlayout'
   # GET /maintainer/appointments
   # GET /maintainer/appointments.json
@@ -59,6 +59,11 @@ layout 'customerlayout'
       format.html { redirect_to maintainer_appointments_url, notice: 'Appointment was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def check
+    @maintainer_appointment.update(status: '审核通过')
+    redirect_to maintainer_appointments_url
   end
 
   private
