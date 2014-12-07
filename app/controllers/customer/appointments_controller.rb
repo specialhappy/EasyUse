@@ -144,7 +144,7 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   def appointment_time_params
-    params.permit(:time1, :time2, :time3, :time4, :time5, :time6, :time7, :time8, :time9, :time10, :time11, :time12, :time13, :time14, :time15, :time16, :time17, :time18)
+    params.permit(:time01, :time02, :time03, :time04, :time05, :time06, :time07, :time08, :time09, :time10, :time11, :time12, :time13, :time14, :time15, :time16, :time17, :time18)
   end
 
   def instrument_id_params
