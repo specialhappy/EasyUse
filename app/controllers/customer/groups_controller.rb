@@ -29,8 +29,11 @@ class Customer::GroupsController < ApplicationController
   def create
     #@group = Group.new(group_params)
     @user = User.find(session[:user_id])
-    
-    @group = @user.groups.create(group_params)
+    @group=Group.new(group_params)
+    @group.create_user_id=@user.id
+    @group.create_time=Time.now
+    @group.status="在用"
+    @user.groups << @group
 
     respond_to do |format|
       if true
