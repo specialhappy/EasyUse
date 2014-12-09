@@ -38,8 +38,13 @@ Rails.application.routes.draw do
     resources :b_level_tags
 
     resources :groups do
+      collection do
+        get 'join'
+      end
     member do
         get 'set_default_group'
+        get 'joinIn'
+        get 'out'
       end
 end
     resources :priviliges
