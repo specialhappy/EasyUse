@@ -1,0 +1,61 @@
+
+
+<div class="container" style="margin-top: 60px">
+<div class="row">
+	<div class="row">
+		<div class="col-md-3"  style="margin-top:40px">
+			Logo
+		</div>
+
+		<div class="col-md-9" style="margin-top:40px">
+			<center><h3>加入群组</h3></center>
+		</div>
+
+	</div>
+
+</div>
+
+	<div class="row">
+		<div class="col-md-2" style="padding: 20px">
+			<%= render "customer/common/sidebar"%>
+		</div>
+
+		<div class="col-md-10" style="padding:20px">
+
+
+
+			
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>群组名</th>
+      <th>群组信息</th>
+      <th>创建时间</th>
+      <th>状态</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.description %></td>
+        <td><%= group.create_time %></td>
+        <td><%= group.status %></td>
+        <td><%= link_to '详情', group %></td>
+        <td><% if @user_group_ids.include?group.id then %><%="已在群组中"%>
+        	 <%else %><a href=<%='/customer/groups/'+group.id.to_s+'/joinIn'%> onclick="alert('确定加入群组？')">加入群组</a><%end%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+		</div>
+	<div class="row pull-right">
+		
+<%= link_to '返回', groups_path %>
+	</div>
+	</div>
+</div>
+
