@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
     else if @user.password == login[:password]
       self.id = @user.id
       self.name = @user.name
+      self.role_id = @user.role_id
       return true
       else
       return false
