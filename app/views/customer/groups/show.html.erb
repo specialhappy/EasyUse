@@ -41,7 +41,9 @@
         </tr>
       </thead>
       <tbody>
+      	<% creator=User.find(@group.create_user_id)%>
         <tr> <td>群组名</td> <td><%= @group.name %></td> </tr>
+        <tr> <td>创建者</td><td><%= creator.name %></td> </tr>
          <tr>  <td>群组详情</td> <td><%= @group.description %></td> </tr>
          <tr>  <td>创建时间</td><td>	<%= @group.create_time %></td> </tr>
           <tr> <td>状态</td><td><%= @group.status %></td> </tr>
@@ -56,8 +58,8 @@
 	
 	
 				<div class="row pull-right">
-			<%= link_to '编辑群组', edit_group_path(@group) %> <!--|
-			<%= link_to 'Back', groups_path %>-->
+			<%= link_to '编辑群组', edit_group_path(@group) %> 
+			<%= link_to '返回', groups_path %>
 			</div>
 		</div>
 	</div>
