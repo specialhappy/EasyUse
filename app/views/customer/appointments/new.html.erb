@@ -389,8 +389,11 @@
 	}
 
 	
-	var i=1;
 	function add_input(){
+		var j = document.getElementById("counter").getAttribute("value");
+		
+		i=parseInt(j)+1;
+		
 		var com = document.createElement("div");
 		//com.css({'class':'form-group field'});
 		com.setAttribute("class",'form-group field');
@@ -431,9 +434,7 @@
 		area_div.appendChild(area);
 		com2.appendChild(area_div);
 		document.getElementById("test").appendChild(com2);
-		i++;
 		
-		var j = document.getElementById("counter").getAttribute("value");
 		j++;
 		document.getElementById("counter").setAttribute("value",j);
 	}
