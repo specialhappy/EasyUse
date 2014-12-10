@@ -60,6 +60,9 @@
 					<tr>
 						<td>单位</td><td> <%= @manager_user.institution_id %></td>
 					</tr>
+					<tr>
+						<td>角色</td><td> <%= Role.find(@manager_user.role_id).name %></td>
+					</tr>
 
 				</tbody>
 			</table>
