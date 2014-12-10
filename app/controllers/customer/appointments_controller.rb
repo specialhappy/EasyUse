@@ -5,29 +5,21 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments
   # GET /appointments.json
   def index
-    #@appointments = Appointment.all
-    time_group = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"]
-    @appointments = User.find(session[:user_id]).appointments.order("created_at desc")
-    @appointments.each do |appointment|
-      time = appointment.time
-      start_index = time[6,2].to_i
-      end_index = time[-4,2].to_i
-      start_time = time_group[start_index-1]
-      end_time = time_group[end_index]
-      appointment.time = start_time+" -- "+end_time
-    #appointment.time = start_index.to_s + end_index.to_s
-    end
+    @appointment = Appointment.new
+    @appointments = @appointment.get_appointments_by_user_id(session[:user_id])
   end
 
   # GET /appointments/1
   # GET /appointments/1.json
   def show
-    @appointment=Appointment.find(params[:id])
+    @appointment = Appointment.new
+    @appointment = @appointment.get_appointment_by_id(params[:id])
+
     @instrument=Instrument.find(@appointment[:instrument_id])
     @application_form=@appointment.application_form
     group=Group.find(@appointment[:group_id])
     @payer=User.find(group.create_user_id)
-@metas=@application_form.application_form_metas
+    @metas=@application_form.application_form_metas
 
   end
 
@@ -43,9 +35,9 @@ class Customer::AppointmentsController < ApplicationController
       else
         defaultGroup=Group.find(@user.default_group_id)
         @name=User.find(defaultGroup.create_user_id).name
-      end     
+      end
     rescue Exception => e
-    redirect_to '/welcome/login'
+      redirect_to '/welcome/login'
     end
 
   end
@@ -87,9 +79,9 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.user_id=@user.id
     @appointment.instrument_id=instrument_id_params[:instrument_id]
     if group_id_params[:group_id]==""
-      @appointment.group_id=@user.default_group_id
+    @appointment.group_id=@user.default_group_id
     else
-    @appointment.group_id=group_id_params[:group_id]      
+      @appointment.group_id=group_id_params[:group_id]
     end
 
     @appointment.fee=params[:fee]
@@ -97,18 +89,18 @@ class Customer::AppointmentsController < ApplicationController
       @appointment.status='审核通过'
       @appointment.status='未开始'
     end
-    @appointment.save 
-    
+    @appointment.save
+
     @application_form = @appointment.create_application_form(application_form_params)
-    
-        number=params[:number].to_i
-      number.times do |i|
-        j=i+1
-        string_key="key"+j.to_s
-        string_value="content"+j.to_s
-        @meta=ApplicationFormMeta.new(:key=>params[string_key],:value=>params[string_value])
-        @application_form.application_form_metas << @meta
-      end
+
+    number=params[:number].to_i
+    number.times do |i|
+      j=i+1
+      string_key="key"+j.to_s
+      string_value="content"+j.to_s
+      @meta=ApplicationFormMeta.new(:key=>params[string_key],:value=>params[string_value])
+      @application_form.application_form_metas << @meta
+    end
 
     redirect_to '/customer/appointments/appointment_success?appointment_id='+@appointment.id.to_s
 
@@ -147,7 +139,7 @@ class Customer::AppointmentsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def get_price
     time=params[:time].to_i
     instrument=Instrument.find(params[:instrument_id])
@@ -185,7 +177,6 @@ class Customer::AppointmentsController < ApplicationController
   def group_id_params
     params.require(:Group).permit(:group_id)
   end
-
 
   def verify(user_id)
     return true
