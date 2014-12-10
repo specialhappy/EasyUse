@@ -31,28 +31,13 @@
 					</tr>
 				</thead>
 
-      
-
 				<tbody>
 					<% @appointments.each do |appointment| %>
-					<% time_group = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"]
-							time = appointment.time
-   							 start_index = time[6,2].to_i
-      						end_index = time[-4,2].to_i
-                         	start_time = time_group[start_index-1]
-                            end_time = time_group[end_index]
-                            appointment.time = start_time+" -- "+end_time
-                            now_time = Time.now
-                            format_time=now_time.strftime("hh:mm")
-                            if end_time<format_time then
-                            %>
 					<tr>
 						<td><%= appointment.date %></td>
-						
-						<td>
-							<%= appointment.time %>	
-						</td>
-						
+
+						<td> <%= appointment.time %> </td>
+
 						<td><%= appointment.price_paid %></td>
 						<td><%= appointment.fee %></td>
 						<td><%= appointment.submit_time %></td>
@@ -62,7 +47,6 @@
 						<td><%= link_to '删除', appointment, method: :delete, data: { confirm: '确定删除?' } %></td>
 					</tr>
 					<% end %>
-					<%end %>
 				</tbody>
 
 			</table>
