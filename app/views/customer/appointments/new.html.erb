@@ -214,7 +214,7 @@
 		</div>
 		<div class="form-group field">
 			<div class="alert alert-info pull-right col-md-5">
-				<h3><small>总费用:</small><label id='fee' style='color:red'>0 元 </label></h3>
+				<h3><small>总费用: &nbsp;&nbsp;</small><label id='fee' style='color:red'>0 元 </label></h3>
 			</div>
 		</div>
 		<div class="form-group actions">
@@ -389,8 +389,11 @@
 	}
 
 	
-	var i=1;
 	function add_input(){
+		var j = document.getElementById("counter").getAttribute("value");
+		
+		i=parseInt(j)+1;
+		
 		var com = document.createElement("div");
 		//com.css({'class':'form-group field'});
 		com.setAttribute("class",'form-group field');
@@ -431,9 +434,7 @@
 		area_div.appendChild(area);
 		com2.appendChild(area_div);
 		document.getElementById("test").appendChild(com2);
-		i++;
 		
-		var j = document.getElementById("counter").getAttribute("value");
 		j++;
 		document.getElementById("counter").setAttribute("value",j);
 	}
