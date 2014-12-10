@@ -125,6 +125,14 @@
 				</div>
 			</div>
 			<% end %>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">附件</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">
+						<a href="/files/<%=@file.url%>"><%=@file.name%></a>
+					</p>
+				</div>
+			</div>
 		</form>
 			<div class="row pull-right">
 				<%= link_to '编辑', edit_appointment_path(@appointment) %> |

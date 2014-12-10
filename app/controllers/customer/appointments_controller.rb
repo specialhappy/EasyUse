@@ -21,6 +21,7 @@ class Customer::AppointmentsController < ApplicationController
     group=Group.find(@appointment[:group_id])
     @payer=User.find(group.create_user_id)
     @metas=@application_form.application_form_metas
+    @file=@application_form.application_file
 
   end
 
@@ -100,17 +101,17 @@ class Customer::AppointmentsController < ApplicationController
       string_key="key"+j.to_s
       string_value="content"+j.to_s
       @meta=ApplicationFormMeta.new(:key=>params[string_key],:value=>params[string_value])
-      @application_form.application_form_metas << @meta
+      @application_form.application_form_meta << @meta
     end
     #保存application_files
     uploaded_io = url_param[:url]
     if uploaded_io !=nil
       save_name=getFileName(uploaded_io)
-      File.open(Rails.root.join('app','assets', 'files', save_name), 'wb') do |file|
+      File.open(Rails.root.join('public', 'files', save_name), 'wb') do |file|
         file.write(uploaded_io.read)
       end
       @file=ApplicationFile.new(:name=>uploaded_io.original_filename, :url=>save_name)
-    @application_form.application_files <<@file
+    @application_form.application_file=@file
     end
 
     redirect_to '/customer/appointments/appointment_success?appointment_id='+@appointment.id.to_s
