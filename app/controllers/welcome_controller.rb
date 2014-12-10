@@ -7,57 +7,41 @@ class WelcomeController < ApplicationController
   end
 
   def login
+  end
 
-  end
-  
   def register_form
-    
   end
-  
+
   def register
-    register = params[:register]
     @user = User.new
-    @user.name = register[:name]
-    @user.email = register[:email]
-    @user.password = register[:password]
-    @user.role_id = 1
-    @user.save
-    session[:user_id]=@user.id
-    session[:user_name]=@user.name
-    redirect_to welcome_index_url
+    if @user.register(params[:register])
+      session[:user_id]=@user.id
+      session[:user_name]=@user.name
+      session[:role_id]=@user.role_id
+      redirect_to welcome_index_url
+    end
   end
-  
+
   def logout
     reset_session
     redirect_to welcome_index_url
   end
 
-def validates
-    login=params[:login]
-
-    #render  :text =>login[:email]
-if   login[:email]==''
-    #先查询users里是否有与提交的validates的email的值。如果没有的话，则报错用户名不存在；如果有的话，则对它的password值进行比对。
-    redirect_to login_welcome_index_url
- else
-    @user=User.where( email: login[:email] ).take
-
-    if @user ==nil  
-      redirect_to login_welcome_index_url
-    else if @user.password == login[:password]
-        session[:user_id]=@user.id
+  def validates
+    @user = User.new
+    if @user.validates(params[:login])
+      session[:user_id]=@user.id
       session[:user_name]=@user.name
-      redirect_to welcome_index_url 
-   else
-    redirect_to login_welcome_index_url
-    end
-   end
-end
+      session[:role_id]=@user.role_id
+      redirect_to welcome_index_url
+    else
+      redirect_to login_welcome_index_url
+    end      
   end
 
-  #搜索的功能
   def search
-    @instruments=Instrument.where("name LIKE '%#{params[:search]}%'")
+    @instrument = Instrument.new
+    @instruments = @instrument.search(params[:search])
   end
   
 end

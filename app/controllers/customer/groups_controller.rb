@@ -1,5 +1,5 @@
 class Customer::GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :joinIn, :out]
     layout 'customerlayout'
   # GET /groups
   # GET /groups.json
@@ -29,8 +29,11 @@ class Customer::GroupsController < ApplicationController
   def create
     #@group = Group.new(group_params)
     @user = User.find(session[:user_id])
-    
-    @group = @user.groups.create(group_params)
+    @group=Group.new(group_params)
+    @group.create_user_id=@user.id
+    @group.create_time=Time.now
+    @group.status="在用"
+    @user.groups << @group
 
     respond_to do |format|
       if true
@@ -75,6 +78,24 @@ class Customer::GroupsController < ApplicationController
     redirect_to groups_url
   end
 
+  def join
+    @user=User.find(session[:user_id])
+    @user_group_ids=@user.group_ids
+@groups = Group.all
+  end
+  
+    def joinIn
+      @user=User.find(session[:user_id])
+@group.users << @user
+redirect_to  join_customer_groups_url
+  end
+  
+      def out
+      @user=User.find(session[:user_id])
+      @user.groups.destroy(@group)
+redirect_to  groups_url
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group

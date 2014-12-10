@@ -1,6 +1,7 @@
 class Customer::AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
   layout 'customerlayout'
+  protect_from_forgery :only => :index
   # GET /appointments
   # GET /appointments.json
   def index
@@ -14,7 +15,7 @@ class Customer::AppointmentsController < ApplicationController
       start_time = time_group[start_index-1]
       end_time = time_group[end_index]
       appointment.time = start_time+" -- "+end_time
-      #appointment.time = start_index.to_s + end_index.to_s
+    #appointment.time = start_index.to_s + end_index.to_s
     end
   end
 
@@ -39,9 +40,16 @@ class Customer::AppointmentsController < ApplicationController
     begin
       @user = User.find(session[:user_id])
       @groups = @user.groups
+      if @user.default_group_id ==nil
+        @name=""
+      else
+        defaultGroup=Group.find(@user.default_group_id)
+        @name=User.find(defaultGroup.create_user_id).name
+      end     
     rescue Exception => e
-      redirect_to '/welcome/login'
+    redirect_to '/welcome/login'
     end
+
   end
 
   # GET /appointments/1/edit
@@ -82,16 +90,30 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.status='待审核'
     @appointment.user_id=@user.id
     @appointment.instrument_id=instrument_id_params[:instrument_id]
-    @appointment.group_id=group_id_params[:group_id]
+    if group_id_params[:group_id]==""
+      @appointment.group_id=@user.default_group_id
+    else
+    @appointment.group_id=group_id_params[:group_id]      
+    end
+
     @appointment.fee=fee_interface(@appointment)
     if verify(session[:user_id])
       @appointment.status='审核通过'
       @appointment.status='未开始'
     end
-    info= @appointment.save ? 'success':'fail'
-    @application_form = @appointment.create_application_form(experiment_description_params)
+    @appointment.save 
+    
+    @application_form = @appointment.create_application_form(application_form_params)
+    
+        number=params[:number].to_i
+      number.times do |i|
+        j=i+1
+        string_key="key"+j.to_s
+        string_value="content"+j.to_s
+        @meta=ApplicationFormMeta.new(:key=>params[string_key],:value=>params[string_value])
+        @application_form.application_form_metas << @meta
+      end
 
-    #redirect_to '/customer/appointments/appointment_success'
     redirect_to '/customer/appointments/appointment_success?appointment_id='+@appointment.id.to_s
 
   #respond_to do |format|
@@ -151,13 +173,17 @@ class Customer::AppointmentsController < ApplicationController
     params.require(:appointment).permit(:instrument_id)
   end
 
-  def experiment_description_params
-    params.require(:appointment).permit(:experiment_description)
+  def application_form_params
+    params.require(:appointment).permit(:experiment_description, :experiment_name, :experiment_purpose, :related_project, :experiment_sample, :experiment_operator)
   end
 
   def group_id_params
     params.require(:Group).permit(:group_id)
   end
+  
+    def more_params
+
+    end
 
   def verify(user_id)
     return true
