@@ -92,7 +92,7 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.group_id=group_id_params[:group_id]      
     end
 
-    @appointment.fee=fee_interface(@appointment)
+    @appointment.fee=params[:fee]
     if verify(session[:user_id])
       @appointment.status='审核通过'
       @appointment.status='未开始'
@@ -147,6 +147,15 @@ class Customer::AppointmentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def get_price
+    time=params[:time].to_i
+    instrument=Instrument.find(params[:instrument_id])
+    fee_per_hour=instrument.fee_per_hour
+    price = fee_per_hour*time/2
+    #str="{'price':'"+price.to_s+"'}"
+    render :text => price.to_s
+  end
 
   private
 
@@ -182,7 +191,4 @@ class Customer::AppointmentsController < ApplicationController
     return true
   end
 
-  def fee_interface(appointment)
-    return 2;
-  end
 end

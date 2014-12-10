@@ -62,6 +62,7 @@ end
       collection do
         get 'appointment_success'
         get 'get_time'
+        get 'get_price'
       end
 
     end
