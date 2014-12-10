@@ -25,6 +25,10 @@ layout 'customerlayout'
   # POST /maintainer/instruments.json
   def create
     @maintainer_instrument = Instrument.new(maintainer_instrument_params)
+    @user=User.find(session[:user_id])
+    @maintainer_instrument.user_id=@user.id
+#    @miantainer_instrument.institution_id=@user.institution_id
+    
 
     respond_to do |format|
       if @maintainer_instrument.save
