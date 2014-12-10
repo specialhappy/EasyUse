@@ -97,58 +97,58 @@
 			<%= f.label :时间,:class=>'col-sm-2 control-label' %>
 			<div class="col-sm-10">
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox01" value="01" name="time01">
+					<input type="checkbox" id="Checkbox01" value="01" name="time01" onclick="check()">
 					08:00-08:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox02" value="02" name="time02">
+					<input type="checkbox" id="Checkbox02" value="02" name="time02" onclick="check()">
 					08:30-09:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox03" value="03" name="time03">
+					<input type="checkbox" id="Checkbox03" value="03" name="time03" onclick="check()">
 					09:00-09:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox04" value="04" name="time04">
+					<input type="checkbox" id="Checkbox04" value="04" name="time04" onclick="check()">
 					09:30-10:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox05" value="05" name="time05">
+					<input type="checkbox" id="Checkbox05" value="05" name="time05" onclick="check()">
 					10:00-10:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox06" value="06" name="time06">
+					<input type="checkbox" id="Checkbox06" value="06" name="time06" onclick="check()">
 					10:30-11:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox07" value="07" name="time07">
+					<input type="checkbox" id="Checkbox07" value="07" name="time07" onclick="check()">
 					11:00-11:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox08" value="08" name="time08">
+					<input type="checkbox" id="Checkbox08" value="08" name="time08" onclick="check()">
 					11:30-12:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox09" value="09" name="time09">
+					<input type="checkbox" id="Checkbox09" value="09" name="time09" onclick="check()">
 					12:00-12:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox10" value="10" name="time10">
+					<input type="checkbox" id="Checkbox10" value="10" name="time10" onclick="check()">
 					12:30-13:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox11" value="11" name="time11">
+					<input type="checkbox" id="Checkbox11" value="11" name="time11" onclick="check()">
 					13:00-13:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox12" value="12" name="time12">
+					<input type="checkbox" id="Checkbox12" value="12" name="time12" onclick="check()">
 					13:30-14:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox13" value="13" name="time13">
+					<input type="checkbox" id="Checkbox13" value="13" name="time13" onclick="check()">
 					14:00-14:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox14" value="14" name="time14">
+					<input type="checkbox" id="Checkbox14" value="14" name="time14" onclick="check()">
 					14:30-15:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox15" value="15" name="time15">
+					<input type="checkbox" id="Checkbox15" value="15" name="time15" onclick="check()">
 					15:00-15:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox16" value="16" name="time16">
+					<input type="checkbox" id="Checkbox16" value="16" name="time16" onclick="check()">
 					15:30-16:00 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox17" value="17" name="time17">
+					<input type="checkbox" id="Checkbox17" value="17" name="time17" onclick="check()">
 					16:00-16:30 </label>
 				<label class="checkbox-inline ">
-					<input type="checkbox" id="Checkbox18" value="18" name="time18">
+					<input type="checkbox" id="Checkbox18" value="18" name="time18" onclick="check()">
 					16:30-17:00 </label>
 			</div>
 		</div>
@@ -429,6 +429,81 @@
 		var j = document.getElementById("counter").getAttribute("value");
 		j++;
 		document.getElementById("counter").setAttribute("value",j);
+	}
+	
+	function check(){
+		//alert(id);
+		var num = getNumOfChecked();
+		var instrument_id = document.getElementById("appointment_instrument_id").getAttribute("value");
+		var totalPrice = getTotalPrice(num,instrument_id);
+	}
+
+		
+	function getNumOfChecked(){
+		i=0;
+		if(document.getElementById("Checkbox01").checked)
+		    i++;
+		if(document.getElementById("Checkbox02").checked)
+		    i++;
+		if(document.getElementById("Checkbox03").checked)
+		    i++;
+		if(document.getElementById("Checkbox04").checked)
+		    i++;
+		if(document.getElementById("Checkbox05").checked)
+		    i++;
+		if(document.getElementById("Checkbox06").checked)
+		    i++;
+		if(document.getElementById("Checkbox07").checked)
+		    i++;
+		if(document.getElementById("Checkbox08").checked)
+		    i++;
+		if(document.getElementById("Checkbox09").checked)
+		    i++;
+		if(document.getElementById("Checkbox10").checked)
+		    i++;
+		if(document.getElementById("Checkbox11").checked)
+		    i++;
+		if(document.getElementById("Checkbox12").checked)
+		    i++;
+		if(document.getElementById("Checkbox13").checked)
+		    i++;
+		if(document.getElementById("Checkbox14").checked)
+		    i++;
+		if(document.getElementById("Checkbox15").checked)
+		    i++;
+		if(document.getElementById("Checkbox16").checked)
+		    i++;
+		if(document.getElementById("Checkbox17").checked)
+		    i++;
+		if(document.getElementById("Checkbox18").checked)
+		    i++;
+		return i;
+	}
+	
+	function getTotalPrice(num,instrument_id){
+
+		$.ajax({
+
+			type : "GET",
+
+			url : "/customer/appointments/get_price",
+
+			data : {
+				time : num,
+				instrument_id : instrument_id
+			},
+
+			dataType : "text",
+
+			success : function(data) {
+				changePrice(data);
+			}
+
+		});		
+	}
+	
+	function changePrice(price){
+		alert(price);
 	}
 	
 </script>

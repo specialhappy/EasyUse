@@ -147,6 +147,15 @@ class Customer::AppointmentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def get_price
+    time=params[:time].to_i
+    instrument=Instrument.find(params[:instrument_id])
+    fee_per_hour=instrument.fee_per_hour
+    price = fee_per_hour*time/2
+    #str="{'price':'"+price.to_s+"'}"
+    render :text => price.to_s
+  end
 
   private
 
@@ -182,7 +191,7 @@ class Customer::AppointmentsController < ApplicationController
     return true
   end
 
-  def fee_interface(appointment)
+  def fee_interface(appointment,num)
     return 2;
   end
 end
