@@ -1,6 +1,7 @@
 class Maintainer::InstrumentsController < ApplicationController
   before_action :set_maintainer_instrument, only: [:show, :edit, :update, :destroy]
-layout 'customerlayout'
+  layout 'customerlayout'
+
   # GET /maintainer/instruments
   # GET /maintainer/instruments.json
   def index
@@ -27,12 +28,20 @@ layout 'customerlayout'
     @maintainer_instrument = Instrument.new(maintainer_instrument_params)
     @user=User.find(session[:user_id])
     @maintainer_instrument.user_id=@user.id
-#    @miantainer_instrument.institution_id=@user.institution_id
+    #    @miantainer_instrument.institution_id=@user.institution_id
     
-
+    uploaded_io = img_url_param[:img_url]
+    if uploaded_io.nil? == false
+      name=getFileName(uploaded_io)
+      File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+    @maintainer_instrument.img_url = name
+    end
+    
     respond_to do |format|
       if @maintainer_instrument.save
-        format.html { redirect_to [:maintainer, @maintainer_instrument], notice: 'Instrument was successfully created.' }
+        format.html { redirect_to [:maintainer, @maintainer_instrument], notice: '发布仪器成功！' }
         format.json { render :show, status: :created, location: @maintainer_instrument }
       else
         format.html { render :new }
@@ -44,9 +53,19 @@ layout 'customerlayout'
   # PATCH/PUT /maintainer/instruments/1
   # PATCH/PUT /maintainer/instruments/1.json
   def update
+
+    uploaded_io = img_url_param[:img_url]
+    if uploaded_io.nil? == false
+      name=getFileName(uploaded_io)
+      File.open(Rails.root.join('app','assets', 'images', name), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+    @maintainer_instrument.img_url = name
+    end
+    
     respond_to do |format|
       if @maintainer_instrument.update(maintainer_instrument_params)
-        format.html { redirect_to [:maintainer, @maintainer_instrument], notice: 'Instrument was successfully updated.' }
+        format.html { redirect_to [:maintainer, @maintainer_instrument], notice: '修改仪器成功！' }
         format.json { render :show, status: :ok, location: @maintainer_instrument }
       else
         format.html { render :edit }
@@ -66,13 +85,27 @@ layout 'customerlayout'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_maintainer_instrument
-      @maintainer_instrument = Instrument.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def maintainer_instrument_params
-      params.require(:instrument).permit(:name, :model, :price, :fee_per_hour, :img_url, :description, :status, :user_id, :institution_id)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_maintainer_instrument
+    @maintainer_instrument = Instrument.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def maintainer_instrument_params
+    params.require(:instrument).permit(:name, :model, :price, :fee_per_hour, :description, :status, :user_id, :institution_id)
+  end
+
+  def img_url_param
+    params.require(:instrument).permit(:img_url)
+  end
+
+  def getFileName(uploaded_io)
+    if uploaded_io.nil? == false
+      strs=uploaded_io.content_type.to_s.split("/")
+      time=Time.new.to_s
+      fileName=time+'.'+strs[1]
+    return fileName
     end
+  end
 end

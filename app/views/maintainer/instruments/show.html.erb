@@ -19,6 +19,13 @@
 
 		<div class="col-md-10" style="padding:20px">
 			<h1> <%= notice %> </h1>
+			<div class="row">
+				<div class="col-md-offset-1 col-md-3">
+					<center>
+						<%= image_tag(@maintainer_instrument.img_url)%>
+					</center>
+				</div>
+			</div>
 
 			<table class="table table-striped">
 				<thead>
@@ -39,9 +46,6 @@
 					</tr>
 					<tr>
 						<td>使用计费（元/小时）</td><td> <%= @maintainer_instrument.fee_per_hour %></td>
-					</tr>
-					<tr>
-						<td>图片地址</td><td> <%= @maintainer_instrument.img_url %></td>
 					</tr>
 					<tr>
 						<td>描述</td><td> <%= @maintainer_instrument.description %></td>
