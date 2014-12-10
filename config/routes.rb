@@ -44,7 +44,6 @@ Rails.application.routes.draw do
     member do
         get 'set_default_group'
         get 'joinIn'
-        get 'out'
       end
 end
     resources :priviliges

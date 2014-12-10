@@ -92,7 +92,7 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.group_id=group_id_params[:group_id]      
     end
 
-    @appointment.fee=fee_interface(@appointment)
+    @appointment.fee=params[:fee]
     if verify(session[:user_id])
       @appointment.status='审核通过'
       @appointment.status='未开始'
@@ -191,7 +191,4 @@ class Customer::AppointmentsController < ApplicationController
     return true
   end
 
-  def fee_interface(appointment,num)
-    return 2;
-  end
 end
