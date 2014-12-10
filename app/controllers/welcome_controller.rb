@@ -17,6 +17,7 @@ class WelcomeController < ApplicationController
     if @user.register(params[:register])
       session[:user_id]=@user.id
       session[:user_name]=@user.name
+      session[:role_id]=@user.role_id
       redirect_to welcome_index_url
     end
   end
@@ -31,6 +32,7 @@ class WelcomeController < ApplicationController
     if @user.validates(params[:login])
       session[:user_id]=@user.id
       session[:user_name]=@user.name
+      session[:role_id]=@user.role_id
       redirect_to welcome_index_url
     else
       redirect_to login_welcome_index_url
