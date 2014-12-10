@@ -17,6 +17,7 @@ class Customer::AppointmentsController < ApplicationController
 
     @instrument=Instrument.find(@appointment[:instrument_id])
     @application_form=@appointment.application_form
+    group_id=@appointment[:group_id]
     group=Group.find(@appointment[:group_id])
     @payer=User.find(group.create_user_id)
     @metas=@application_form.application_form_metas
@@ -90,9 +91,9 @@ class Customer::AppointmentsController < ApplicationController
       @appointment.status='未开始'
     end
     @appointment.save
-
+    #保存application_form
     @application_form = @appointment.create_application_form(application_form_params)
-
+    #保存application_form_meta
     number=params[:number].to_i
     number.times do |i|
       j=i+1
@@ -100,6 +101,16 @@ class Customer::AppointmentsController < ApplicationController
       string_value="content"+j.to_s
       @meta=ApplicationFormMeta.new(:key=>params[string_key],:value=>params[string_value])
       @application_form.application_form_metas << @meta
+    end
+    #保存application_files
+    uploaded_io = url_param[:url]
+    if uploaded_io !=nil
+      save_name=getFileName(uploaded_io)
+      File.open(Rails.root.join('app','assets', 'files', save_name), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      @file=ApplicationFile.new(:name=>uploaded_io.original_filename, :url=>save_name)
+    @application_form.application_files <<@file
     end
 
     redirect_to '/customer/appointments/appointment_success?appointment_id='+@appointment.id.to_s
@@ -178,8 +189,21 @@ class Customer::AppointmentsController < ApplicationController
     params.require(:Group).permit(:group_id)
   end
 
+  def url_param
+    params.require(:appointment).permit(:url)
+  end
+
   def verify(user_id)
     return true
+  end
+
+  def getFileName(uploaded_io)
+    if uploaded_io.nil? == false
+      strs=uploaded_io.original_filename.split(".")
+      time=Time.new.to_s
+      fileName=time+'.'+strs[1]
+    return fileName
+    end
   end
 
 end

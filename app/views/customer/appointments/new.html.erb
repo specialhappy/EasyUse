@@ -189,8 +189,7 @@
 				<%= f.text_area :experiment_description, :value => ' ',:class=>'form-control' %>
 			</div>
 		</div>
-		<div id="test">			
-		</div>
+		<div id="test"></div>
 		<div class="pull-right">
 			<input class="btn btn-default" type="button" value="添加自定义描述" onclick="add_input()" />
 		</div>
@@ -200,13 +199,19 @@
 		<div class="form-group field hidden">
 			<input name="fee" value="0" id="price" />
 		</div>
+		<div class="form-group field">
+			<%= f.label :上传附件 ,:class=>'col-sm-2 control-label'%>
+			<div class="col-sm-10">
+				<%= f.file_field :url %>
+			</div>
+		</div>
 		<div class="form-group field hidden">
 			<%= f.label :仪器编号,:class=>'col-sm-2 control-label'  %>
 			<div class="col-sm-10">
 				<%= f.text_field :instrument_id, :value => @instrument.id,:class=>'form-control' %>
 			</div>
 		</div>
-			<div class="form-group field">
+		<div class="form-group field">
 			<%= f.label :付款人,:class=>'col-sm-2 control-label'  %>
 			<div class="pull-left col-md-3">
 				<%= collection_select(:Group,:group_id, @groups, :id, :create_user_id, options ={:prompt => "默认:"+@name},:class=>'form-control')%>
@@ -388,107 +393,105 @@
 		document.getElementById(checkboxId).disabled = true;
 	}
 
-	
-	function add_input(){
+	function add_input() {
 		var j = document.getElementById("counter").getAttribute("value");
-		
-		i=parseInt(j)+1;
-		
+
+		i = parseInt(j) + 1;
+
 		var com = document.createElement("div");
 		//com.css({'class':'form-group field'});
-		com.setAttribute("class",'form-group field');
+		com.setAttribute("class", 'form-group field');
 		document.getElementById("test").appendChild(com);
 		var label1 = document.createElement("label");
-	    label1.innerHTML="标题";
-	   // label1.css({'class':'col-sm-2 control-label'});
-	   label1.setAttribute("class",'col-sm-2 control-label');
+		label1.innerHTML = "标题";
+		// label1.css({'class':'col-sm-2 control-label'});
+		label1.setAttribute("class", 'col-sm-2 control-label');
 		com.appendChild(label1);
 		var txt_div = document.createElement("div");
 		//com.css({'class':'form-group field'});
-		txt_div.setAttribute("class",'col-sm-10');
-		
+		txt_div.setAttribute("class", 'col-sm-10');
+
 		var txt = document.createElement("input");
-		txt.nodeType="text";
-		txt.setAttribute("name","key"+i);
-		txt.className='form-control';
+		txt.nodeType = "text";
+		txt.setAttribute("name", "key" + i);
+		txt.className = 'form-control';
 		//txt.css({'class':'form-control col-sm-10'});
 		txt_div.appendChild(txt);
 		com.appendChild(txt_div);
-		
+
 		var com2 = document.createElement("div");
 		//com.css({'class':'form-group field'});
-		com2.setAttribute("class",'form-group field');
+		com2.setAttribute("class", 'form-group field');
 		document.getElementById("test").appendChild(com2);
 		var label2 = document.createElement("label");
-	    label2.innerHTML="内容";
-	    label2.setAttribute("class",'col-sm-2 control-label');
+		label2.innerHTML = "内容";
+		label2.setAttribute("class", 'col-sm-2 control-label');
 		com2.appendChild(label2);
 		var area_div = document.createElement("div");
 		//com.css({'class':'form-group field'});
-		area_div.setAttribute("class",'col-sm-10');
+		area_div.setAttribute("class", 'col-sm-10');
 		var area = document.createElement("textarea");
-		area.nodeType="text"
-		area.setAttribute("name","content"+i);
-		area.className='form-control';
+		area.nodeType = "text"
+		area.setAttribute("name", "content" + i);
+		area.className = 'form-control';
 		//txt.css({'class':'form-control col-sm-10'});
 		area_div.appendChild(area);
 		com2.appendChild(area_div);
 		document.getElementById("test").appendChild(com2);
-		
+
 		j++;
-		document.getElementById("counter").setAttribute("value",j);
+		document.getElementById("counter").setAttribute("value", j);
 	}
-	
-	function check(){
+
+	function check() {
 		//alert(id);
 		var num = getNumOfChecked();
 		var instrument_id = document.getElementById("appointment_instrument_id").getAttribute("value");
-		var totalPrice = getTotalPrice(num,instrument_id);
+		var totalPrice = getTotalPrice(num, instrument_id);
 	}
 
-		
-	function getNumOfChecked(){
-		i=0;
-		if(document.getElementById("Checkbox01").checked)
-		    i++;
-		if(document.getElementById("Checkbox02").checked)
-		    i++;
-		if(document.getElementById("Checkbox03").checked)
-		    i++;
-		if(document.getElementById("Checkbox04").checked)
-		    i++;
-		if(document.getElementById("Checkbox05").checked)
-		    i++;
-		if(document.getElementById("Checkbox06").checked)
-		    i++;
-		if(document.getElementById("Checkbox07").checked)
-		    i++;
-		if(document.getElementById("Checkbox08").checked)
-		    i++;
-		if(document.getElementById("Checkbox09").checked)
-		    i++;
-		if(document.getElementById("Checkbox10").checked)
-		    i++;
-		if(document.getElementById("Checkbox11").checked)
-		    i++;
-		if(document.getElementById("Checkbox12").checked)
-		    i++;
-		if(document.getElementById("Checkbox13").checked)
-		    i++;
-		if(document.getElementById("Checkbox14").checked)
-		    i++;
-		if(document.getElementById("Checkbox15").checked)
-		    i++;
-		if(document.getElementById("Checkbox16").checked)
-		    i++;
-		if(document.getElementById("Checkbox17").checked)
-		    i++;
-		if(document.getElementById("Checkbox18").checked)
-		    i++;
+	function getNumOfChecked() {
+		i = 0;
+		if (document.getElementById("Checkbox01").checked)
+			i++;
+		if (document.getElementById("Checkbox02").checked)
+			i++;
+		if (document.getElementById("Checkbox03").checked)
+			i++;
+		if (document.getElementById("Checkbox04").checked)
+			i++;
+		if (document.getElementById("Checkbox05").checked)
+			i++;
+		if (document.getElementById("Checkbox06").checked)
+			i++;
+		if (document.getElementById("Checkbox07").checked)
+			i++;
+		if (document.getElementById("Checkbox08").checked)
+			i++;
+		if (document.getElementById("Checkbox09").checked)
+			i++;
+		if (document.getElementById("Checkbox10").checked)
+			i++;
+		if (document.getElementById("Checkbox11").checked)
+			i++;
+		if (document.getElementById("Checkbox12").checked)
+			i++;
+		if (document.getElementById("Checkbox13").checked)
+			i++;
+		if (document.getElementById("Checkbox14").checked)
+			i++;
+		if (document.getElementById("Checkbox15").checked)
+			i++;
+		if (document.getElementById("Checkbox16").checked)
+			i++;
+		if (document.getElementById("Checkbox17").checked)
+			i++;
+		if (document.getElementById("Checkbox18").checked)
+			i++;
 		return i;
 	}
-	
-	function getTotalPrice(num,instrument_id){
+
+	function getTotalPrice(num, instrument_id) {
 
 		$.ajax({
 
@@ -506,14 +509,13 @@
 			success : function(data) {
 				changePrice(data);
 			}
+		});
+	}
 
-		});		
-	}
-	
-	function changePrice(price){
+	function changePrice(price) {
 		//alert(price);
-		document.getElementById("fee").innerHTML=price+"元";
-		document.getElementById("price").setAttribute("value",price);
+		document.getElementById("fee").innerHTML = price + "元";
+		document.getElementById("price").setAttribute("value", price);
 	}
-	
+
 </script>
