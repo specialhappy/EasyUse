@@ -22,15 +22,13 @@ class Customer::AppointmentsController < ApplicationController
   # GET /appointments/1
   # GET /appointments/1.json
   def show
-    instrument_id=Appointment.find(params[:id])
-    @instrument=Instrument.find(instrument_id[:instrument_id])
-    group_id=Appointment.find(params[:id])
-    if group_id[:group_id]==nil
-      @group_name=''
-    else
-      @group = Group.find(group_id[:group_id])
-      @group_name=@group.name
-    end
+    @appointment=Appointment.find(params[:id])
+    @instrument=Instrument.find(@appointment[:instrument_id])
+    @application_form=@appointment.application_form
+    group=Group.find(@appointment[:group_id])
+    @payer=User.find(group.create_user_id)
+@metas=@application_form.application_form_metas
+
   end
 
   # GET /appointments/new
@@ -69,8 +67,6 @@ class Customer::AppointmentsController < ApplicationController
     end
     time = "{"+time.chop+"}"
     render :json => time
-  #data = {"haha"=>"1"}
-  #render :json => data
   end
 
   def appointment_success
@@ -180,10 +176,7 @@ class Customer::AppointmentsController < ApplicationController
   def group_id_params
     params.require(:Group).permit(:group_id)
   end
-  
-    def more_params
 
-    end
 
   def verify(user_id)
     return true
