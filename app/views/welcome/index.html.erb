@@ -53,7 +53,7 @@
 				<% @instruments.each do |instrument| %>
 				<div class="col-xs-6 col-sm-3">
 					<div class="thumbnail">
-						<a href="/instruments/<%= instrument.id %>"> <%= image_tag(instrument.img_url)%> </a>
+						<a href="/instruments/<%= instrument.id %>"> <%= image_tag(instrument.img_url,{width:'200',height:'200'})%> </a>
 						<div class="caption">
 							<small>仪器名:<%= instrument.name %>
 								<br/>
