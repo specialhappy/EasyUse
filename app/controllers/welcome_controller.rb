@@ -33,7 +33,15 @@ class WelcomeController < ApplicationController
       session[:user_id]=@user.id
       session[:user_name]=@user.name
       session[:role_id]=@user.role_id
-      redirect_to welcome_index_url
+      if @user.role_id==1
+         redirect_to welcome_index_url
+      end
+      if @user.role_id==2
+        redirect_to maintainer_appointments_url 
+      end
+      if @user.role_id==3
+        redirect_to manager_a_level_tags_url
+      end
     else
       redirect_to login_welcome_index_url
     end      
