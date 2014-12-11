@@ -29,9 +29,15 @@ class Customer::AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     @instrument = Instrument.find(params[:id])
+    @users = User.all
     begin
       @user = User.find(session[:user_id])
       @groups = @user.groups
+      
+      @groups.each do |group|
+        group.description = User.find(group.create_user_id).name
+      end
+      
       if @user.default_group_id ==nil
         @name=""
       else
@@ -207,7 +213,7 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   def group_id_params
-    params.require(:Group).permit(:group_id)
+    params.require(:group).permit(:group_id)
   end
 
   def url_param
@@ -222,7 +228,11 @@ class Customer::AppointmentsController < ApplicationController
     if uploaded_io.nil? == false
       strs=uploaded_io.original_filename.split(".")
       time=Time.new.to_s
-      fileName=time+'.'+strs[1]
+      if strs.length==1
+        fileName=time
+      else
+        fileName=time+'.'+strs[1]
+      end
     return fileName
     end
   end

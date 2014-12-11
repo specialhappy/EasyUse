@@ -214,7 +214,7 @@
 		<div class="form-group field">
 			<%= f.label :付款人,:class=>'col-sm-2 control-label'  %>
 			<div class="pull-left col-md-3">
-				<%= collection_select(:Group,:group_id, @groups, :id, :create_user_id, options ={:prompt => "默认:"+@name},:class=>'form-control')%>
+				<%= collection_select(:group,:group_id, @groups, :id, :description, options ={:prompt => "默认:"+@name},:class=>'form-control')%>
 			</div>
 		</div>
 		<div class="form-group field">
