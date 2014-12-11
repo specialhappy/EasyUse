@@ -44,7 +44,7 @@
 						<td><%= maintainer_appointment.time %></td>
 						<td><%= maintainer_appointment.price_paid %></td>
 						<td><%= maintainer_appointment.fee %></td>
-						<td><%= maintainer_appointment.submit_time %></td>
+						<td><%= maintainer_appointment.submit_time.to_s[0,10] %></td>
 						<td><%= maintainer_appointment.status %></td>
 						<td><%= maintainer_appointment.user_id %></td>
 						<td><%= maintainer_appointment.instrument_id %></td>

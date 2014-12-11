@@ -215,7 +215,7 @@ class Customer::AppointmentsController < ApplicationController
   end
 
   def verify(user_id)
-    return true
+    return false
   end
 
   def getFileName(uploaded_io)

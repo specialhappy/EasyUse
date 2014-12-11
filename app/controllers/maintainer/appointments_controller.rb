@@ -10,11 +10,17 @@ layout 'customerlayout'
       @instruments=@user.instruments
      #@instruments=Instrument.connection.select_all("select * from instruments where user_id= 1")
      @maintainer_appointments =[]
+     @maintainer_appointment = Appointment.new
      @instruments.each do |instrument|
        @appointments=instrument.appointments
        @appointments.each do |appointment|
-          #@appointments = Appointment.connection.select_all("select *  from appointments where instrument_id='2'")
+         if appointment.status=='待审核'
+           appointment = @maintainer_appointment.get_appointment_by_id(appointment.id)
            @maintainer_appointments  << appointment
+         else
+           next
+         end
+   
          end
      end
     #render :json =>@maintainer_appointments 
