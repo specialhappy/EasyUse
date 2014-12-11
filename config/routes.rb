@@ -44,7 +44,6 @@ Rails.application.routes.draw do
     member do
         get 'set_default_group'
         get 'joinIn'
-        get 'out'
       end
 end
     resources :priviliges
@@ -62,8 +61,11 @@ end
     resources :appointments do
       collection do
         get 'appointment_success'
+        get 'appointment_finish'
+        get 'appointment_start'
         get 'get_time'
         get 'get_price'
+        get 'payments'
       end
 
     end
