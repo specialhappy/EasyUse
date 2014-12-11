@@ -7,7 +7,7 @@
 
 			<div class="col-md-9" style="margin-top:40px">
 				<center>
-					<h3>我的待付款预约</h3>
+					<h3>我来付款</h3>
 				</center>
 			</div>
 
@@ -42,10 +42,10 @@
 						<td><%= appointment.time %></td>
 						<td><%= appointment.price_paid %></td>
 						<td><%= appointment.fee %></td>
-						<td><%= appointment.submit_time %></td>
-						<td><%= appointment.status %></td>
+						<td><%= appointment.submit_time.to_s[0,10] %></td>
+						<td> <%= appointment.status %> </td>
 						<td><%= link_to '详情', appointment %></td>
-						<td><a href="/payment/pay?appointment_id=<%= appointment.id%>">付款</a></td>
+						<td><%if appointment.price_paid!="已付款"%><a href="/payment/pay?appointment_id=<%= appointment.id%>">付款</a> <%end%> </td>
 					</tr>
 					<% end %>
 				</tbody>

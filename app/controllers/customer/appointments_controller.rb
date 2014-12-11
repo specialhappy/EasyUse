@@ -182,9 +182,7 @@ class Customer::AppointmentsController < ApplicationController
   
   def payments
     @appointment = Appointment.new
-  #  .where("date = ?", params[:date])
-    #mygroup=Group.where("create_user_id = ?", params[:date])
-    @appointments = @appointment.get_appointments_by_user_id(session[:user_id])
+    @appointments = @appointment.get_appointments_not_pay_by_user_id(session[:user_id])
   end
 
   private

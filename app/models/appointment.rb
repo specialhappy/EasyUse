@@ -60,4 +60,24 @@ class Appointment < ActiveRecord::Base
     @appointment.time = start_time+" -- "+end_time
     return @appointment
   end
+  
+  def get_appointments_not_pay_by_user_id(id)
+    time_group = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"]
+    @groups = Group.where("create_user_id=?",id)
+    @appointments = []
+    @groups.each do |group|
+      @appointments2 = Appointment.where("group_id=?",group.id)
+      @appointments2.each do |appointment2|
+        time = appointment2.time
+        start_index = time[6,2].to_i
+        end_index = time[-4,2].to_i
+        start_time = time_group[start_index-1]
+        end_time = time_group[end_index]
+        appointment2.time = start_time+" -- "+end_time
+        @appointments << appointment2
+      end
+    end
+    return @appointments
+  end
+  
 end
