@@ -101,7 +101,7 @@ class Customer::AppointmentsController < ApplicationController
       string_key="key"+j.to_s
       string_value="content"+j.to_s
       @meta=ApplicationFormMeta.new(:key=>params[string_key],:value=>params[string_value])
-      @application_form.application_form_meta << @meta
+      @application_form.application_form_metas << @meta
     end
     #保存application_files
     uploaded_io = url_param[:url]
@@ -159,6 +159,13 @@ class Customer::AppointmentsController < ApplicationController
     price = fee_per_hour*time/2
     #str="{'price':'"+price.to_s+"'}"
     render :text => price.to_s
+  end
+  
+  def payments
+    @appointment = Appointment.new
+  #  .where("date = ?", params[:date])
+    #mygroup=Group.where("create_user_id = ?", params[:date])
+    @appointments = @appointment.get_appointments_by_user_id(session[:user_id])
   end
 
   private

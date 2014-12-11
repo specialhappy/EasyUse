@@ -63,6 +63,7 @@ end
         get 'appointment_success'
         get 'get_time'
         get 'get_price'
+        get 'payments'
       end
 
     end
