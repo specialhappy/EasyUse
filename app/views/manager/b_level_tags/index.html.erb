@@ -37,7 +37,13 @@
 					<tr>
 						<td><%= manager_b_level_tag.name %></td>
 						<td><%= manager_b_level_tag.description %></td>
-						<td><%= manager_b_level_tag.a_level_tag_id %></td>
+						<td>
+						<% @manager_a_level_tags.each do |manager_a_level_tag| %>
+						<% if manager_a_level_tag.id==manager_b_level_tag.a_level_tag_id%>
+						<%= manager_a_level_tag.name%>
+						<%end%>
+						<% end %>
+						</td>
 						<td><%= link_to '详情', manager_b_level_tag_path(manager_b_level_tag) %></td>
 						<td><%= link_to '编辑', edit_manager_b_level_tag_path(manager_b_level_tag) %></td>
 						<td><%= link_to '删除', manager_b_level_tag_path(manager_b_level_tag), method: :delete, data: { confirm: 'Are you sure?' } %></td>

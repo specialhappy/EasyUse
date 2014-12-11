@@ -5,6 +5,7 @@ layout 'customerlayout'
   # GET /manager/institutions.json
   def index
     @manager_institutions = Institution.all
+    @region_centers = RegionCenter.all
   end
 
   # GET /manager/institutions/1
@@ -15,6 +16,7 @@ layout 'customerlayout'
   # GET /manager/institutions/new
   def new
     @manager_institution = Institution.new
+    @region_centers = RegionCenter.all
   end
 
   # GET /manager/institutions/1/edit
@@ -25,6 +27,8 @@ layout 'customerlayout'
   # POST /manager/institutions.json
   def create
     @manager_institution = Institution.new(manager_institution_params)
+    region_center = params[:region_center]
+    @manager_institution.region_center_id = region_center[:region_center_id]
 
     respond_to do |format|
       if @manager_institution.save

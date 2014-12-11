@@ -37,7 +37,13 @@
 					<tr>
 						<td><%= manager_institution.name %></td>
 						<td><%= manager_institution.url %></td>
-						<td><%= manager_institution.region_center_id %></td>
+						<td>
+						<% @region_centers.each do |region_center| %>
+						<% if region_center.id==manager_institution.region_center_id%>
+						<%= region_center.name%>
+						<%end%>
+						<% end %>
+						</td>
 						<td><%= link_to '详情', manager_institution_path(manager_institution) %></td>
 						<td><%= link_to '编辑', edit_manager_institution_path(manager_institution) %></td>
 						<td><%= link_to '删除', manager_institution_path(manager_institution), method: :delete, data: { confirm: 'Are you sure?' } %></td>
