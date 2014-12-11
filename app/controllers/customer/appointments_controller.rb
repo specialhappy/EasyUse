@@ -73,6 +73,13 @@ class Customer::AppointmentsController < ApplicationController
     @appointment.save
     redirect_to '/terminal/index'
   end
+  
+  def appointment_start
+    @appointment = Appointment.find(params[:appointment_id])
+    @appointment.status="进行中"
+    @appointment.save
+    redirect_to '/terminal/index'
+  end
   # POST /appointments
   # POST /appointments.json
   def create
