@@ -4,7 +4,26 @@ layout 'customerlayout'
   # GET /maintainer/appointments
   # GET /maintainer/appointments.json
   def index
-    @maintainer_appointments = Appointment.all
+    #仪器的所有人是当前用户->instrument->显示对应的预约。。。。。。。。。。。。。。。。。。。
+      @user = User.find(session[:user_id])
+     # userid=@user.id
+      @instruments=@user.instruments
+     #@instruments=Instrument.connection.select_all("select * from instruments where user_id= 1")
+     @maintainer_appointments =[]
+     @maintainer_appointment = Appointment.new
+     @instruments.each do |instrument|
+       @appointments=instrument.appointments
+       @appointments.each do |appointment|
+         if appointment.status=='待审核'
+           appointment = @maintainer_appointment.get_appointment_by_id(appointment.id)
+           @maintainer_appointments  << appointment
+         else
+           next
+         end
+   
+         end
+     end
+    #render :json =>@maintainer_appointments 
   end
 
   # GET /maintainer/appointments/1

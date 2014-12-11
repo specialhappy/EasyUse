@@ -19,6 +19,7 @@ class TerminalController < ApplicationController
     if @user.email != ''
       session[:user_id]=@user.id
       session[:user_name]=@user.name
+      session[:role_id]= @user.role_id
       redirect_to terminal_index_url
     else
       redirect_to terminal_login_url

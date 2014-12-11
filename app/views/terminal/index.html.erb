@@ -42,9 +42,16 @@
 						<td><%= appointment.fee %></td>
 						<td><%= appointment.submit_time %></td>
 						<td><%= appointment.status %></td>
-						<td><%= link_to '详情', appointment %></td>
-						<td><%= link_to '编辑', edit_appointment_path(appointment) %></td>
-						<td><%= link_to '删除', appointment, method: :delete, data: { confirm: '确定删除?' } %></td>
+						<td>
+						<%if appointment.user_id==session[:user_id] && appointment.status=="未开始"%>
+						<a href="/customer/appointments/appointment_start?appointment_id=<%= appointment.id%>">开始实验</a>
+						<%end%>
+						</td>
+						<td>
+						<%if appointment.user_id==session[:user_id] && appointment.status!="已结束"%>
+						<a href="/customer/appointments/appointment_finish?appointment_id=<%= appointment.id%>">结束实验</a>
+						<%end%>
+						</td>
 					</tr>
 					<% end %>
 				</tbody>

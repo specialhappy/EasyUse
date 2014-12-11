@@ -5,7 +5,8 @@ class Maintainer::InstrumentsController < ApplicationController
   # GET /maintainer/instruments
   # GET /maintainer/instruments.json
   def index
-    @maintainer_instruments = Instrument.all
+    @user=User.find(session[:user_id])
+    @maintainer_instruments = @user.instruments
   end
 
   # GET /maintainer/instruments/1

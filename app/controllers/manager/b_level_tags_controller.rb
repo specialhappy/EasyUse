@@ -5,6 +5,7 @@ layout 'customerlayout'
   # GET /manager/b_level_tags.json
   def index
     @manager_b_level_tags = BLevelTag.all
+    @manager_a_level_tags = ALevelTag.all
   end
 
   # GET /manager/b_level_tags/1
@@ -15,6 +16,7 @@ layout 'customerlayout'
   # GET /manager/b_level_tags/new
   def new
     @manager_b_level_tag = BLevelTag.new
+    @a_level_tags = ALevelTag.all
   end
 
   # GET /manager/b_level_tags/1/edit
@@ -24,7 +26,9 @@ layout 'customerlayout'
   # POST /manager/b_level_tags
   # POST /manager/b_level_tags.json
   def create
+    a_level_tag = params[:a_level_tag]
     @manager_b_level_tag = BLevelTag.new(manager_b_level_tag_params)
+    @manager_b_level_tag.a_level_tag_id = a_level_tag[:a_level_tag_id]
 
     respond_to do |format|
       if @manager_b_level_tag.save
@@ -71,4 +75,5 @@ layout 'customerlayout'
     def manager_b_level_tag_params
       params.require(:b_level_tag).permit(:name, :description, :a_level_tag_id)
     end
+    
 end
