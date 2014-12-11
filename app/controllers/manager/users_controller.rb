@@ -69,6 +69,6 @@ layout 'customerlayout'
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manager_user_params
-      params.require(:user).permit(:card_number, :name, :password, :sex, :id_number, :phone, :picture, :email, :address, :status, :default_group_id, :institution_id)
+      params.require(:user).permit(:card_number, :name, :password, :sex, :id_number, :phone, :picture, :email, :address, :status, :default_group_id, :institution_id, :role_id)
     end
 end
