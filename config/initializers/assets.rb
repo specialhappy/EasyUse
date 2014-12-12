@@ -17,6 +17,7 @@ Rails.application.config.assets.precompile += %w( css/bootstrap-datetimepicker.m
 Rails.application.config.assets.precompile += %w( js/jquery-2.1.1.min.js )
 Rails.application.config.assets.precompile += %w( js/bootstrap.min.js)
 Rails.application.config.assets.precompile += %w( js/bootstrap-datetimepicker.js)
+Rails.application.config.assets.precompile += %w( js/bootstrap-filestyle.min.js)
 
 
 Rails.application.config.assets.precompile += %w( adminpage/index.js )
